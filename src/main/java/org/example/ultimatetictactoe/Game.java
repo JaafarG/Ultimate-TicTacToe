@@ -10,13 +10,15 @@ public class Game {
         board = new Board();
     }
 
-    public void chooseFirstPlayer() {
-        // Randomly choose the first player
+    public Player chooseFirstPlayer(Player[] players) {
+        if (Math.random() < 0.5){
+            return players[0];
+        }
+        return players[1];
     }
 
 
     public void checkGameEnd() {
-        // Implement game end check
     }
 
     public void init(Player p1, Player p2) {

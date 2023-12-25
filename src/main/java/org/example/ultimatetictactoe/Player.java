@@ -4,7 +4,7 @@ public class Player {
     private String name;
     private int ipAddress;
     private int score;
-    private Symbol symbol;
+    public Symbol symbol;
 
     public Player(String name, Symbol symbol) {
         this.name = name;
