@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="313.0" prefWidth="492.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ultimatetictactoe.HelloController">
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ultimatetictactoe.Controller">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -16,7 +16,7 @@
          <Font size="42.0" />
       </font>
    </Text>
-   <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="129.0" text="Play Game" wrapText="true">
+   <Button mnemonicParsing="false"  onAction="#onPlayGameButtonClick" prefHeight="45.0" prefWidth="129.0" text="Play Game" wrapText="true">
       <font>
          <Font size="20.0" />
       </font>

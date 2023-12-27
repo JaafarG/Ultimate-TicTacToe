@@ -13,10 +13,9 @@ public class Player {
     }
 
     public void chooseMove() {
-        // Implement move choosing logic
+
     }
 
     public void quit() {
-        // Implement quit logic
     }
 }

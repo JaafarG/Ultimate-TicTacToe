@@ -13,6 +13,4 @@ public class Singleton {
         }
         return instance;
     }
-
-    // Additional singleton methods
 }
