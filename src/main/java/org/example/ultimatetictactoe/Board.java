@@ -4,7 +4,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 public class Board {
-    public static Smallgrid[][] grid = new Smallgrid[3][3];
+    public  Smallgrid[][] grid = new Smallgrid[3][3];
     boolean[][] CurrentGrid = new boolean[3][3];
     public Smallgrid BigGrid = new Smallgrid();
     public Player currentPlayer;
@@ -17,15 +17,9 @@ public class Board {
                 CurrentGrid[i][j] = true;
             }
         }
+        System.out.println("Board was initialized");
     }
 
-   /* public void displayBoard() {
-        // Implement display logic
-    }*/
-
-    public void boardInitialisation() {
-        // Implement board initialization logic
-    }
 
     boolean validateMove(int BigGrid1, int BigGrid2, int SmallGrid1, int SmallGrid2) {
 

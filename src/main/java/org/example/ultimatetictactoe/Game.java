@@ -5,21 +5,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 public class Game {
-    static Board board;
-    public static Player[] players = new Player[2];
+    public Board board;
+    public  Player[] players = new Player[2];
 
     public Game(Player p1, Player p2) {
         players[0] = p1;
         players[1] = p2;
         board = new Board();
+        board.currentPlayer = chooseFirstPlayer(players);
     }
 
     public Player chooseFirstPlayer(Player[] players) {
         if (Math.random() < 0.5){
+            System.out.println("p1 is the player");
             return players[0];
         }
+        System.out.println("p2 is the player");
         return players[1];
+
     }
 
 
@@ -51,25 +56,24 @@ public class Game {
         return false;
     }
 
-    public static void playMove(int BigGrid1, int BigGrid2, int SmallGrid1, int SmallGrid2) {
+    public  void playMove(int BigGrid1, int BigGrid2, int SmallGrid1, int SmallGrid2) {
 
         if (board.validateMove(BigGrid1, BigGrid2, SmallGrid1, SmallGrid2)){
 
             board.grid[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, board.currentPlayer.symbol);
 
-            board.CurrentGrid[SmallGrid1][SmallGrid2] = true;
 
             for (int i = 0; i < board.grid.length; i++) {
 
                 for (int j = 0; j < board.grid[i].length; j++) {
 
-                    if (SmallGrid1 != i && SmallGrid2 != j ){
-
-                        board.CurrentGrid[i][j] = false;
-                    }
-
+                    board.CurrentGrid[i][j] = false;
                 }
             }
+
+            board.CurrentGrid[SmallGrid1][SmallGrid2] = true;
+
+
             if (board.currentPlayer == players[1]){
                 board.currentPlayer = players[0];
             }
@@ -78,8 +82,11 @@ public class Game {
             }
         }
 
+
     }
 
 
-
+    public Board getBoard() {
+        return board;
+    }
 }

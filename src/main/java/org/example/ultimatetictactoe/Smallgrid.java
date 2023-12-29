@@ -4,8 +4,8 @@ public class Smallgrid {
     public Symbol[][] cells = new Symbol[3][3];
 
     public Smallgrid() {
-        for (int i = 0; true; i++) {
-            for (int j = 0; true; i++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                  cells[i][j] = null;
             }
         }

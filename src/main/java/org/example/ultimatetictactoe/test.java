@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 
 public class test {
 
-    @FXML
+    /*@FXML
     public void onButton0000clicked() { Game.playMove(0,0,0,0); }
     @FXML
     public void onButton0001clicked() { Game.playMove(0,0,0,1); }
@@ -165,6 +165,6 @@ public class test {
     @FXML
     public void onButton2221clicked() { Game.playMove(2,2,2,1); }
     @FXML
-    public void onButton2222clicked() { Game.playMove(2,2,2,2); }
+    public void onButton2222clicked() { Game.playMove(2,2,2,2); }*/
 
 }

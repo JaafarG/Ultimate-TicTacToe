@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -15,14 +16,24 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
-import static org.example.ultimatetictactoe.Board.grid;
-import static org.example.ultimatetictactoe.Game.board;
 
 public class Controller {
 
 
     public Label turnLabel;
     public Label playingLabel;
+    public ImageView imageViewX;
+    public ImageView imageViewX2;
+    private Game currentGame;
+    private Board board;
+
+    public void setCurrentGame(Game game) {
+        this.currentGame = game;
+    }
+
+    public void setGameBoard(Board board) {
+        this.board = board;
+    }
 
     @FXML
     protected void onRulesButtonClick() {
@@ -53,9 +64,21 @@ public class Controller {
     }
     @FXML
     protected void onPlayGameButtonClick(ActionEvent event) throws IOException {
+
+        Player player1 = new Player("p1", Symbol.X);
+        Player player2 = new Player("p2", Symbol.O);
+
+        // Create a new Game instance
+        Game currentGame = new Game(player1, player2);
+        board = currentGame.getBoard();
+
         // Load the game-view FXML file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game-view.fxml"));
         Parent gameViewRoot = loader.load();
+
+        Controller gameViewController = loader.getController();
+        gameViewController.setCurrentGame(currentGame);
+        gameViewController.setGameBoard(currentGame.getBoard());
 
         // Get the current stage using the event source
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -80,7 +103,7 @@ public class Controller {
     }
 
     @FXML
-    public void onButton0000clicked() {
+    public void changeText() {
 
         if (turnLabel.getText().equals("It's Xs TURN")) {
             turnLabel.setText("It's Os TURN");
@@ -96,6 +119,32 @@ public class Controller {
             playingLabel.setText("You're playing X");
             playingLabel.setTextFill(Color.RED); // Set text color to red
         }
+    }
+    @FXML
+    public void onButton0000clicked() {
+
+       if (board != null && board.validateMove(0,0,0,0)) {
+           changeText();
+           imageViewX.setOpacity(1.0);
+           currentGame.playMove(0,0,0,0);
+           System.out.println("Board isn't  null");
+       }
+       if (board == null) {
+            System.out.println("Board is  null");
+       }
+
+
+    }
+
+    @FXML
+    public void onButton0010clicked() {
+
+        if (board != null && board.validateMove(0,2,1,0)) {
+            changeText();
+            imageViewX2.setOpacity(1.0);
+            currentGame.playMove(0,2,1,0);
+        }
+
 
     }
 
@@ -178,7 +227,7 @@ public class Controller {
 
 
 
-    @FXML
+    /*@FXML
     public void onButton0001clicked() { Game.playMove(0,0,0,1); }
     @FXML
     public void onButton0002clicked() { Game.playMove(0,0,0,2); }
@@ -337,7 +386,7 @@ public class Controller {
     @FXML
     public void onButton2221clicked() { Game.playMove(2,2,2,1); }
     @FXML
-    public void onButton2222clicked() { Game.playMove(2,2,2,2); }
+    public void onButton2222clicked() { Game.playMove(2,2,2,2); }*/
 
 
 }
