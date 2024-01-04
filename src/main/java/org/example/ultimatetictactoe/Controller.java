@@ -1,5 +1,6 @@
 package org.example.ultimatetictactoe;
 
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -8,13 +9,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
 
 
 public class Controller {
@@ -24,8 +28,12 @@ public class Controller {
     public Label playingLabel;
     public ImageView imageViewX;
     public ImageView imageViewX2;
+    public Button button0202;
+    public Button button0002;
+    public Text NotAllowedText;
     private Game currentGame;
     private Board board;
+    public Button button2222;
 
     public void setCurrentGame(Game game) {
         this.currentGame = game;
@@ -86,6 +94,10 @@ public class Controller {
         // Set the new scene
         stage.setScene(new Scene(gameViewRoot));
         stage.show();
+
+        /*if (currentGame.getBoard().currentPlayer == player2){
+            changeText();
+        }*/
     }
 
     @FXML
@@ -120,6 +132,46 @@ public class Controller {
             playingLabel.setTextFill(Color.RED); // Set text color to red
         }
     }
+
+    @FXML
+    public void onButton2020clicked() {
+        if (board != null && board.validateMove(2,0,2,0)) {
+            currentGame.playMove(2,0,2,0);
+            button0202.setOpacity(1.0);
+            changeText();
+            NotAllowedText.setOpacity(0.0);
+        }else{
+            NotAllowedText.setOpacity(1.0);
+        }
+
+    }
+
+
+
+    public void onButton2222clicked() {
+        ChangeImage(button2222);
+        if (board != null && board.validateMove(2,2,2,2)) {
+            currentGame.playMove(2,2,2,2);
+            changeText();
+            NotAllowedText.setOpacity(0.0);
+        }else{
+            NotAllowedText.setOpacity(1.0);
+        }
+    }
+
+
+    @FXML
+    public void onButton2000clicked() {
+        if (board != null && board.validateMove(2,0,0,0)) {
+            currentGame.playMove(2,0,0,0);
+            button0002.setOpacity(1.0);
+            changeText();
+            NotAllowedText.setOpacity(0.0);
+        }else{
+            NotAllowedText.setOpacity(1.0);
+        }
+
+    }
     @FXML
     public void onButton0000clicked() {
 
@@ -128,6 +180,9 @@ public class Controller {
            imageViewX.setOpacity(1.0);
            currentGame.playMove(0,0,0,0);
            System.out.println("Board isn't  null");
+           NotAllowedText.setOpacity(0.0);
+       }else{
+           NotAllowedText.setOpacity(1.0);
        }
        if (board == null) {
             System.out.println("Board is  null");
@@ -139,20 +194,46 @@ public class Controller {
     @FXML
     public void onButton0010clicked() {
 
-        if (board != null && board.validateMove(0,2,1,0)) {
+        if (board != null && board.validateMove(0,0,1,0)) {
             changeText();
             imageViewX2.setOpacity(1.0);
-            currentGame.playMove(0,2,1,0);
+            currentGame.playMove(0,0,1,0);
+            NotAllowedText.setOpacity(0.0);
+        }else{
+            NotAllowedText.setOpacity(1.0);
         }
 
 
     }
 
+    @FXML
+    public void ChangeImage(Button button) {
+        // Load the image using getResource
+        URL imageUrl = getClass().getResource("/X_icon.png");
+        if (imageUrl != null) {
+            Image image = new Image(((URL) imageUrl).toString());
+            ImageView imageView = new ImageView(image);
 
+            // Set the properties of the ImageView
+            imageView.setFitHeight(20); // Set the height of the image
+            imageView.setFitWidth(15);  // Set the width of the image
 
+            // Set the ImageView as the graphic of the button
+            button2222.setGraphic(imageView);
+        } else {
+            System.out.println("Image file not found");
+        }
+    }
+    public void handleButtonclicked(int a, int b , int c , int d) {
 
-
-
+        if (board != null && board.validateMove(a,b,c,d)) {
+            changeText();
+            currentGame.playMove(a,b,c,d);
+            NotAllowedText.setOpacity(0.0);
+        }else{
+            NotAllowedText.setOpacity(1.0);
+        }
+    }
 
 
 

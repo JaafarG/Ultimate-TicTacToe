@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class menu {
-
-    // Method to show the rules
     public static void displayRules() {
 
     }
