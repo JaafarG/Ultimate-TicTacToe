@@ -12,8 +12,8 @@ public class Player {
         this.score = 0;
     }
 
-    public void chooseMove() {
-
+    public String getName() {
+        return(this.name);
     }
 
     public void quit() {

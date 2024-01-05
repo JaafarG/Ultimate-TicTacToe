@@ -58,31 +58,24 @@ public class Game {
 
     public  void playMove(int BigGrid1, int BigGrid2, int SmallGrid1, int SmallGrid2) {
 
-        if (board.validateMove(BigGrid1, BigGrid2, SmallGrid1, SmallGrid2)){
 
-            board.grid[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, board.currentPlayer.symbol);
-
-
-            for (int i = 0; i < board.grid.length; i++) {
-
-                for (int j = 0; j < board.grid[i].length; j++) {
-
-                    board.CurrentGrid[i][j] = false;
-                }
-            }
-
-            board.CurrentGrid[SmallGrid1][SmallGrid2] = true;
+        board.grid[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, board.currentPlayer.symbol);
 
 
-            if (board.currentPlayer == players[1]){
-                board.currentPlayer = players[0];
-            }
-            if (board.currentPlayer == players[0]){
-                board.currentPlayer = players[1];
+        for (int i = 0; i < board.grid.length; i++) {
+
+            for (int j = 0; j < board.grid[i].length; j++) {
+
+                board.CurrentGrid[i][j] = false;
             }
         }
+        board.CurrentGrid[SmallGrid1][SmallGrid2] = true;
 
-
+        if (board.currentPlayer == players[1]){
+            board.currentPlayer = players[0];
+        }else{
+            board.currentPlayer = players[1];
+        }
     }
 
 

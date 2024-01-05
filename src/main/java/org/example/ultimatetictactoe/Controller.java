@@ -28,12 +28,101 @@ public class Controller {
     public Label playingLabel;
     public ImageView imageViewX;
     public ImageView imageViewX2;
-    public Button button0202;
-    public Button button0002;
     public Text NotAllowedText;
     private Game currentGame;
     private Board board;
+
+    public Button button0000;
+    public Button button0001;
+    public Button button0002;
+    public Button button0010;
+    public Button button0011;
+    public Button button0012;
+    public Button button0020;
+    public Button button0021;
+    public Button button0022;
+
+    public Button button0100;
+    public Button button0101;
+    public Button button0102;
+    public Button button0110;
+    public Button button0111;
+    public Button button0112;
+    public Button button0120;
+    public Button button0121;
+    public Button button0122;
+
+    public Button button0200;
+    public Button button0201;
+    public Button button0202;
+    public Button button0210;
+    public Button button0211;
+    public Button button0212;
+    public Button button0220;
+    public Button button0221;
+    public Button button0222;
+
+    public Button button1000;
+    public Button button1001;
+    public Button button1002;
+    public Button button1010;
+    public Button button1011;
+    public Button button1012;
+    public Button button1020;
+    public Button button1021;
+    public Button button1022;
+
+    public Button button1100;
+    public Button button1101;
+    public Button button1102;
+    public Button button1110;
+    public Button button1111;
+    public Button button1112;
+    public Button button1120;
+    public Button button1121;
+    public Button button1122;
+
+    public Button button1200;
+    public Button button1201;
+    public Button button1202;
+    public Button button1210;
+    public Button button1211;
+    public Button button1212;
+    public Button button1220;
+    public Button button1221;
+    public Button button1222;
+
+    public Button button2000;
+    public Button button2001;
+    public Button button2002;
+    public Button button2010;
+    public Button button2011;
+    public Button button2012;
+    public Button button2020;
+    public Button button2021;
+    public Button button2022;
+
+    public Button button2100;
+    public Button button2101;
+    public Button button2102;
+    public Button button2110;
+    public Button button2111;
+    public Button button2112;
+    public Button button2120;
+    public Button button2121;
+    public Button button2122;
+
+    public Button button2200;
+    public Button button2201;
+    public Button button2202;
+    public Button button2210;
+    public Button button2211;
+    public Button button2212;
+    public Button button2220;
+    public Button button2221;
     public Button button2222;
+    private Player player1;
+    private Player player2;
 
     public void setCurrentGame(Game game) {
         this.currentGame = game;
@@ -73,8 +162,8 @@ public class Controller {
     @FXML
     protected void onPlayGameButtonClick(ActionEvent event) throws IOException {
 
-        Player player1 = new Player("p1", Symbol.X);
-        Player player2 = new Player("p2", Symbol.O);
+        player1 = new Player("p1", Symbol.X);
+        player2 = new Player("p2", Symbol.O);
 
         // Create a new Game instance
         Game currentGame = new Game(player1, player2);
@@ -122,7 +211,6 @@ public class Controller {
         } else {
             turnLabel.setText("It's Xs TURN");
         }
-
         // Change the playing label text and color
         if (playingLabel.getText().equals("You're playing X")) {
             playingLabel.setText("You're playing O");
@@ -133,341 +221,207 @@ public class Controller {
         }
     }
 
-    @FXML
-    public void onButton2020clicked() {
-        if (board != null && board.validateMove(2,0,2,0)) {
-            currentGame.playMove(2,0,2,0);
-            button0202.setOpacity(1.0);
-            changeText();
-            NotAllowedText.setOpacity(0.0);
-        }else{
-            NotAllowedText.setOpacity(1.0);
-        }
 
-    }
-
-
-
-    public void onButton2222clicked() {
-        ChangeImage(button2222);
-        if (board != null && board.validateMove(2,2,2,2)) {
-            currentGame.playMove(2,2,2,2);
-            changeText();
-            NotAllowedText.setOpacity(0.0);
-        }else{
-            NotAllowedText.setOpacity(1.0);
-        }
-    }
-
-
-    @FXML
-    public void onButton2000clicked() {
-        if (board != null && board.validateMove(2,0,0,0)) {
-            currentGame.playMove(2,0,0,0);
-            button0002.setOpacity(1.0);
-            changeText();
-            NotAllowedText.setOpacity(0.0);
-        }else{
-            NotAllowedText.setOpacity(1.0);
-        }
-
-    }
-    @FXML
-    public void onButton0000clicked() {
-
-       if (board != null && board.validateMove(0,0,0,0)) {
-           changeText();
-           imageViewX.setOpacity(1.0);
-           currentGame.playMove(0,0,0,0);
-           System.out.println("Board isn't  null");
-           NotAllowedText.setOpacity(0.0);
-       }else{
-           NotAllowedText.setOpacity(1.0);
-       }
-       if (board == null) {
-            System.out.println("Board is  null");
-       }
-
-
-    }
-
-    @FXML
-    public void onButton0010clicked() {
-
-        if (board != null && board.validateMove(0,0,1,0)) {
-            changeText();
-            imageViewX2.setOpacity(1.0);
-            currentGame.playMove(0,0,1,0);
-            NotAllowedText.setOpacity(0.0);
-        }else{
-            NotAllowedText.setOpacity(1.0);
-        }
-
-
-    }
 
     @FXML
     public void ChangeImage(Button button) {
         // Load the image using getResource
         URL imageUrl = getClass().getResource("/X_icon.png");
-        if (imageUrl != null) {
-            Image image = new Image(((URL) imageUrl).toString());
-            ImageView imageView = new ImageView(image);
-
-            // Set the properties of the ImageView
-            imageView.setFitHeight(20); // Set the height of the image
-            imageView.setFitWidth(15);  // Set the width of the image
-
-            // Set the ImageView as the graphic of the button
-            button2222.setGraphic(imageView);
-        } else {
-            System.out.println("Image file not found");
+        if(board.currentPlayer.getName() == "p2" ){
+            imageUrl = getClass().getResource("/O_icon.png");
         }
+        Image image = new Image(((URL) imageUrl).toString());
+        ImageView imageView = new ImageView(image);
+
+        // Set the properties of the ImageView
+        imageView.setFitHeight(20); // Set the height of the image
+        imageView.setFitWidth(15);  // Set the width of the image
+
+        // Set the ImageView as the graphic of the button
+        button.setGraphic(imageView);
     }
-    public void handleButtonclicked(int a, int b , int c , int d) {
+    public void handleButtonClicked(int a, int b , int c , int d , Button button) {
 
         if (board != null && board.validateMove(a,b,c,d)) {
             changeText();
+            ChangeImage(button);
             currentGame.playMove(a,b,c,d);
             NotAllowedText.setOpacity(0.0);
+
         }else{
             NotAllowedText.setOpacity(1.0);
         }
+        System.out.println("Current Player will be : " + board.currentPlayer.getName());
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*@FXML
-    public void onButton0001clicked() { Game.playMove(0,0,0,1); }
-    @FXML
-    public void onButton0002clicked() { Game.playMove(0,0,0,2); }
-    @FXML
-    public void onButton0010clicked() { Game.playMove(0,0,1,0); }
-    @FXML
-    public void onButton0011clicked() { Game.playMove(0,0,1,1); }
-    @FXML
-    public void onButton0012clicked() { Game.playMove(0,0,1,2); }
-    @FXML
-    public void onButton0020clicked() { Game.playMove(0,0,2,0); }
-    @FXML
-    public void onButton0021clicked() { Game.playMove(0,0,2,1); }
-    @FXML
-    public void onButton0022clicked() { Game.playMove(0,0,2,2); }
-    @FXML
-    public void onButton0100clicked() { Game.playMove(0,1,0,0); }
-    @FXML
-    public void onButton0101clicked() { Game.playMove(0,1,0,1); }
-    @FXML
-    public void onButton0102clicked() { Game.playMove(0,1,0,2); }
-    @FXML
-    public void onButton0110clicked() { Game.playMove(0,1,1,0); }
-    @FXML
-    public void onButton0111clicked() { Game.playMove(0,1,1,1); }
-    @FXML
-    public void onButton0112clicked() { Game.playMove(0,1,1,2); }
-    @FXML
-    public void onButton0120clicked() { Game.playMove(0,1,2,0); }
-    @FXML
-    public void onButton0121clicked() { Game.playMove(0,1,2,1); }
-    @FXML
-    public void onButton0122clicked() { Game.playMove(0,1,2,2); }
-    @FXML
-    public void onButton0200clicked() { Game.playMove(0,2,0,0); }
-    @FXML
-    public void onButton0201clicked() { Game.playMove(0,2,0,1); }
-    @FXML
-    public void onButton0202clicked() { Game.playMove(0,2,0,2); }
-    @FXML
-    public void onButton0210clicked() { Game.playMove(0,2,1,0); }
-    @FXML
-    public void onButton0211clicked() { Game.playMove(0,2,1,1); }
-    @FXML
-    public void onButton0212clicked() { Game.playMove(0,2,1,2); }
-    @FXML
-    public void onButton0220clicked() { Game.playMove(0,2,2,0); }
-    @FXML
-    public void onButton0221clicked() { Game.playMove(0,2,2,1); }
-    @FXML
-    public void onButton0222clicked() { Game.playMove(0,2,2,2); }
-    @FXML
-    public void onButton1000clicked() { Game.playMove(1,0,0,0); }
-    @FXML
-    public void onButton1001clicked() { Game.playMove(1,0,0,1); }
-    @FXML
-    public void onButton1002clicked() { Game.playMove(1,0,0,2); }
-    @FXML
-    public void onButton1010clicked() { Game.playMove(1,0,1,0); }
-    @FXML
-    public void onButton1011clicked() { Game.playMove(1,0,1,1); }
-    @FXML
-    public void onButton1012clicked() { Game.playMove(1,0,1,2); }
-    @FXML
-    public void onButton1020clicked() { Game.playMove(1,0,2,0); }
-    @FXML
-    public void onButton1021clicked() { Game.playMove(1,0,2,1); }
-    @FXML
-    public void onButton1022clicked() { Game.playMove(1,0,2,2); }
-    @FXML
-    public void onButton1100clicked() { Game.playMove(1,1,0,0); }
-    @FXML
-    public void onButton1101clicked() { Game.playMove(1,1,0,1); }
-    @FXML
-    public void onButton1102clicked() { Game.playMove(1,1,0,2); }
-    @FXML
-    public void onButton1110clicked() { Game.playMove(1,1,1,0); }
-    @FXML
-    public void onButton1111clicked() { Game.playMove(1,1,1,1); }
-    @FXML
-    public void onButton1112clicked() { Game.playMove(1,1,1,2); }
-    @FXML
-    public void onButton1120clicked() { Game.playMove(1,1,2,0); }
-    @FXML
-    public void onButton1121clicked() { Game.playMove(1,1,2,1); }
-    @FXML
-    public void onButton1122clicked() { Game.playMove(1,1,2,2); }
-    @FXML
-    public void onButton1200clicked() { Game.playMove(1,2,0,0); }
-    @FXML
-    public void onButton1201clicked() { Game.playMove(1,2,0,1); }
-    @FXML
-    public void onButton1202clicked() { Game.playMove(1,2,0,2); }
-    @FXML
-    public void onButton1210clicked() { Game.playMove(1,2,1,0); }
-    @FXML
-    public void onButton1211clicked() { Game.playMove(1,2,1,1); }
-    @FXML
-    public void onButton1212clicked() { Game.playMove(1,2,1,2); }
-    @FXML
-    public void onButton1220clicked() { Game.playMove(1,2,2,0); }
-    @FXML
-    public void onButton1221clicked() { Game.playMove(1,2,2,1); }
-    @FXML
-    public void onButton1222clicked() { Game.playMove(1,2,2,2); }
-    @FXML
-    public void onButton2000clicked() { Game.playMove(2,0,0,0); }
-    @FXML
-    public void onButton2001clicked() { Game.playMove(2,0,0,1); }
-    @FXML
-    public void onButton2002clicked() { Game.playMove(2,0,0,2); }
-    @FXML
-    public void onButton2010clicked() { Game.playMove(2,0,1,0); }
-    @FXML
-    public void onButton2011clicked() { Game.playMove(2,0,1,1); }
-    @FXML
-    public void onButton2012clicked() { Game.playMove(2,0,1,2); }
-    @FXML
-    public void onButton2020clicked() { Game.playMove(2,0,2,0); }
-    @FXML
-    public void onButton2021clicked() { Game.playMove(2,0,2,1); }
-    @FXML
-    public void onButton2022clicked() { Game.playMove(2,0,2,2); }
-    @FXML
-    public void onButton2100clicked() { Game.playMove(2,1,0,0); }
-    @FXML
-    public void onButton2101clicked() { Game.playMove(2,1,0,1); }
-    @FXML
-    public void onButton2102clicked() { Game.playMove(2,1,0,2); }
-    @FXML
-    public void onButton2110clicked() { Game.playMove(2,1,1,0); }
-    @FXML
-    public void onButton2111clicked() { Game.playMove(2,1,1,1); }
-    @FXML
-    public void onButton2112clicked() { Game.playMove(2,1,1,2); }
-    @FXML
-    public void onButton2120clicked() { Game.playMove(2,1,2,0); }
-    @FXML
-    public void onButton2121clicked() { Game.playMove(2,1,2,1); }
-    @FXML
-    public void onButton2122clicked() { Game.playMove(2,1,2,2); }
-    @FXML
-    public void onButton2200clicked() { Game.playMove(2,2,0,0); }
-    @FXML
-    public void onButton2201clicked() { Game.playMove(2,2,0,1); }
-    @FXML
-    public void onButton2202clicked() { Game.playMove(2,2,0,2); }
-    @FXML
-    public void onButton2210clicked() { Game.playMove(2,2,1,0); }
-    @FXML
-    public void onButton2211clicked() { Game.playMove(2,2,1,1); }
-    @FXML
-    public void onButton2212clicked() { Game.playMove(2,2,1,2); }
-    @FXML
-    public void onButton2220clicked() { Game.playMove(2,2,2,0); }
-    @FXML
-    public void onButton2221clicked() { Game.playMove(2,2,2,1); }
     @FXML
-    public void onButton2222clicked() { Game.playMove(2,2,2,2); }*/
+    public void onButtonClicked(ActionEvent event) {
+        Button clickedButton = (Button) event.getSource();
+
+        if (clickedButton == button0000) {
+            handleButtonClicked(0, 0, 0, 0, button0000);
+        } else if (clickedButton == button0001) {
+            handleButtonClicked(0, 0, 0, 1, button0001);
+        } else if (clickedButton == button0002) {
+            handleButtonClicked(0, 0, 0, 2, button0002);
+        } else if (clickedButton == button0010) {
+            handleButtonClicked(0, 0, 1, 0, button0010);
+        } else if (clickedButton == button0011) {
+            handleButtonClicked(0, 0, 1, 1, button0011);
+        } else if (clickedButton == button0012) {
+            handleButtonClicked(0, 0, 1, 2, button0012);
+        } else if (clickedButton == button0020) {
+            handleButtonClicked(0, 0, 2, 0, button0020);
+        } else if (clickedButton == button0021) {
+            handleButtonClicked(0, 0, 2, 1, button0021);
+        } else if (clickedButton == button0022) {
+            handleButtonClicked(0, 0, 2, 2, button0022);
+        } else if (clickedButton == button0100) {
+            handleButtonClicked(0, 1, 0, 0, button0100);
+        } else if (clickedButton == button0101) {
+            handleButtonClicked(0, 1, 0, 1, button0101);
+        } else if (clickedButton == button0102) {
+            handleButtonClicked(0, 1, 0, 2, button0102);
+        } else if (clickedButton == button0110) {
+            handleButtonClicked(0, 1, 1, 0, button0110);
+        } else if (clickedButton == button0111) {
+            handleButtonClicked(0, 1, 1, 1, button0111);
+        } else if (clickedButton == button0112) {
+            handleButtonClicked(0, 1, 1, 2, button0112);
+        } else if (clickedButton == button0120) {
+            handleButtonClicked(0, 1, 2, 0, button0120);
+        } else if (clickedButton == button0121) {
+            handleButtonClicked(0, 1, 2, 1, button0121);
+        } else if (clickedButton == button0122) {
+            handleButtonClicked(0, 1, 2, 2, button0122);
+        } else if (clickedButton == button0200) {
+            handleButtonClicked(0, 2, 0, 0, button0200);
+        } else if (clickedButton == button0201) {
+            handleButtonClicked(0, 2, 0, 1, button0201);
+        } else if (clickedButton == button0202) {
+            handleButtonClicked(0, 2, 0, 2, button0202);
+        } else if (clickedButton == button0210) {
+            handleButtonClicked(0, 2, 1, 0, button0210);
+        } else if (clickedButton == button0211) {
+            handleButtonClicked(0, 2, 1, 1, button0211);
+        } else if (clickedButton == button0212) {
+            handleButtonClicked(0, 2, 1, 2, button0212);
+        } else if (clickedButton == button0220) {
+            handleButtonClicked(0, 2, 2, 0, button0220);
+        } else if (clickedButton == button0221) {
+            handleButtonClicked(0, 2, 2, 1, button0221);
+        } else if (clickedButton == button0222) {
+            handleButtonClicked(0, 2, 2, 2, button0222);
+        } else if (clickedButton == button1000) {
+            handleButtonClicked(1, 0, 0, 0, button1000);
+        } else if (clickedButton == button1001) {
+            handleButtonClicked(1, 0, 0, 1, button1001);
+        } else if (clickedButton == button1002) {
+            handleButtonClicked(1, 0, 0, 2, button1002);
+        } else if (clickedButton == button1010) {
+            handleButtonClicked(1, 0, 1, 0, button1010);
+        } else if (clickedButton == button1011) {
+            handleButtonClicked(1, 0, 1, 1, button1011);
+        } else if (clickedButton == button1012) {
+            handleButtonClicked(1, 0, 1, 2, button1012);
+        } else if (clickedButton == button1020) {
+            handleButtonClicked(1, 0, 2, 0, button1020);
+        } else if (clickedButton == button1021) {
+            handleButtonClicked(1, 0, 2, 1, button1021);
+        } else if (clickedButton == button1022) {
+            handleButtonClicked(1, 0, 2, 2, button1022);
+        } else if (clickedButton == button1100) {
+            handleButtonClicked(1, 1, 0, 0, button1100);
+        } else if (clickedButton == button1101) {
+            handleButtonClicked(1, 1, 0, 1, button1101);
+        } else if (clickedButton == button1102) {
+            handleButtonClicked(1, 1, 0, 2, button1102);
+        } else if (clickedButton == button1110) {
+            handleButtonClicked(1, 1, 1, 0, button1110);
+        } else if (clickedButton == button1111) {
+            handleButtonClicked(1, 1, 1, 1, button1111);
+        } else if (clickedButton == button1112) {
+            handleButtonClicked(1, 1, 1, 2, button1112);
+        } else if (clickedButton == button1120) {
+            handleButtonClicked(1, 1, 2, 0, button1120);
+        } else if (clickedButton == button1121) {
+            handleButtonClicked(1, 1, 2, 1, button1121);
+        } else if (clickedButton == button1122) {
+            handleButtonClicked(1, 1, 2, 2, button1122);
+        } else if (clickedButton == button1200) {
+            handleButtonClicked(1, 2, 0, 0, button1200);
+        } else if (clickedButton == button1201) {
+            handleButtonClicked(1, 2, 0, 1, button1201);
+        } else if (clickedButton == button1202) {
+            handleButtonClicked(1, 2, 0, 2, button1202);
+        } else if (clickedButton == button1210) {
+            handleButtonClicked(1, 2, 1, 0, button1210);
+        } else if (clickedButton == button1211) {
+            handleButtonClicked(1, 2, 1, 1, button1211);
+        } else if (clickedButton == button1212) {
+            handleButtonClicked(1, 2, 1, 2, button1212);
+        } else if (clickedButton == button1220) {
+            handleButtonClicked(1, 2, 2, 0, button1220);
+        } else if (clickedButton == button1221) {
+            handleButtonClicked(1, 2, 2, 1, button1221);
+        } else if (clickedButton == button1222) {
+            handleButtonClicked(1, 2, 2, 2, button1222);
+        } else if (clickedButton == button2000) {
+            handleButtonClicked(2, 0, 0, 0, button2000);
+        } else if (clickedButton == button2001) {
+            handleButtonClicked(2, 0, 0, 1, button2001);
+        } else if (clickedButton == button2002) {
+            handleButtonClicked(2, 0, 0, 2, button2002);
+        } else if (clickedButton == button2010) {
+            handleButtonClicked(2, 0, 1, 0, button2010);
+        } else if (clickedButton == button2011) {
+            handleButtonClicked(2, 0, 1, 1, button2011);
+        } else if (clickedButton == button2012) {
+            handleButtonClicked(2, 0, 1, 2, button2012);
+        } else if (clickedButton == button2020) {
+            handleButtonClicked(2, 0, 2, 0, button2020);
+        } else if (clickedButton == button2021) {
+            handleButtonClicked(2, 0, 2, 1, button2021);
+        } else if (clickedButton == button2022) {
+            handleButtonClicked(2, 0, 2, 2, button2022);
+        } else if (clickedButton == button2100) {
+            handleButtonClicked(2, 1, 0, 0, button2100);
+        } else if (clickedButton == button2101) {
+            handleButtonClicked(2, 1, 0, 1, button2101);
+        } else if (clickedButton == button2102) {
+            handleButtonClicked(2, 1, 0, 2, button2102);
+        } else if (clickedButton == button2110) {
+            handleButtonClicked(2, 1, 1, 0, button2110);
+        } else if (clickedButton == button2111) {
+            handleButtonClicked(2, 1, 1, 1, button2111);
+        } else if (clickedButton == button2112) {
+            handleButtonClicked(2, 1, 1, 2, button2112);
+        } else if (clickedButton == button2120) {
+            handleButtonClicked(2, 1, 2, 0, button2120);
+        } else if (clickedButton == button2121) {
+            handleButtonClicked(2, 1, 2, 1, button2121);
+        } else if (clickedButton == button2122) {
+            handleButtonClicked(2, 1, 2, 2, button2122);
+        } else if (clickedButton == button2200) {
+            handleButtonClicked(2, 2, 0, 0, button2200);
+        } else if (clickedButton == button2201) {
+            handleButtonClicked(2, 2, 0, 1, button2201);
+        } else if (clickedButton == button2202) {
+            handleButtonClicked(2, 2, 0, 2, button2202);
+        } else if (clickedButton == button2210) {
+            handleButtonClicked(2, 2, 1, 0, button2210);
+        } else if (clickedButton == button2211) {
+            handleButtonClicked(2, 2, 1, 1, button2211);
+        } else if (clickedButton == button2212) {
+            handleButtonClicked(2, 2, 1, 2, button2212);
+        } else if (clickedButton == button2220) {
+            handleButtonClicked(2, 2, 2, 0, button2220);
+        } else if (clickedButton == button2221) {
+            handleButtonClicked(2, 2, 2, 1, button2221);
+        } else if (clickedButton == button2222) {
+            handleButtonClicked(2, 2, 2, 2, button2222);
+        }
+    }
 
 
 }
