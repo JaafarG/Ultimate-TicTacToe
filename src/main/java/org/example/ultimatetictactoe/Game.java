@@ -61,15 +61,30 @@ public class Game {
 
         board.grid[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, board.currentPlayer.symbol);
 
+        if (!board.grid[SmallGrid1][SmallGrid2].win) {
 
-        for (int i = 0; i < board.grid.length; i++) {
+            for (int i = 0; i < board.grid.length; i++) {
 
-            for (int j = 0; j < board.grid[i].length; j++) {
+                for (int j = 0; j < board.grid[i].length; j++) {
 
-                board.CurrentGrid[i][j] = false;
+                    board.CurrentGrid[i][j] = false;
+                }
             }
+            board.CurrentGrid[SmallGrid1][SmallGrid2] = true;
+        }else{
+            for (int i = 0; i < board.grid.length; i++) {
+
+                for (int j = 0; j < board.grid[i].length; j++) {
+
+                    if(!board.grid[SmallGrid1][SmallGrid2].win){
+
+                        board.CurrentGrid[i][j] = true;
+                    }
+                }
+            }
+
         }
-        board.CurrentGrid[SmallGrid1][SmallGrid2] = true;
+        board.grid[BigGrid1][BigGrid2].win = board.grid[BigGrid1][BigGrid2].checkSmallGridWin();
 
         if (board.currentPlayer == players[1]){
             board.currentPlayer = players[0];

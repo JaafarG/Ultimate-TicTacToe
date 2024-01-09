@@ -3,16 +3,18 @@ package org.example.ultimatetictactoe;
 public class Smallgrid {
     public Symbol[][] cells = new Symbol[3][3];
 
+    public boolean win;
+
     public Smallgrid() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                  cells[i][j] = null;
             }
         }
+        win = false;
     }
 
-
-    public boolean checkSmallGridWin(Symbol[][] cells) {
+    public boolean checkSmallGridWin() {
         // Check all rows
         for (int i = 0; i < 3; i++) {
             if (cells[i][0] != null && cells[i][0] == cells[i][1] && cells[i][0] == cells[i][2]) {
@@ -38,6 +40,7 @@ public class Smallgrid {
         // If no win condition met, return false
         return false;
     }
+
     public boolean validateMove(int SmallGrid1,int SmallGrid2) {
 
         return(cells[SmallGrid1][SmallGrid2] == null);
