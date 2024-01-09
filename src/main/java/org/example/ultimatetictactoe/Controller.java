@@ -172,6 +172,25 @@ public class Controller {
     @FXML
     protected void onPlayGameButtonClick(ActionEvent event) throws IOException {
 
+        // Load the game-view FXML file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("test.fxml"));
+        Parent gameViewRoot = loader.load();
+
+        // Get the current stage using the event source
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the new scene
+        stage.setScene(new Scene(gameViewRoot));
+        stage.show();
+
+        /*if (currentGame.getBoard().currentPlayer == player2){
+            changeText();
+        }*/
+    }
+
+    @FXML
+    protected void onPlayGameButtonClickDebug(ActionEvent event) throws IOException {
+
         player1 = new Player("p1", Symbol.X);
         player2 = new Player("p2", Symbol.O);
 

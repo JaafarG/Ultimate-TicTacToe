@@ -5,6 +5,8 @@ public class Smallgrid {
 
     public boolean win;
 
+    public boolean full;
+
     public Smallgrid() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -12,6 +14,21 @@ public class Smallgrid {
             }
         }
         win = false;
+        full = false;
+    }
+
+    public void CheckFull(){
+        int fullCells = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if(cells[i][j] != null){
+                    fullCells++;
+                }
+            }
+        }
+        if (fullCells == 9) {
+            full = true;
+        }
     }
 
     public boolean checkSmallGridWin() {

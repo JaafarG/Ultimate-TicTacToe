@@ -61,7 +61,7 @@ public class Game {
 
         board.grid[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, board.currentPlayer.symbol);
 
-        if (!board.grid[SmallGrid1][SmallGrid2].win) {
+        if (!board.grid[SmallGrid1][SmallGrid2].win && !board.grid[SmallGrid1][SmallGrid2].full ) {
 
             for (int i = 0; i < board.grid.length; i++) {
 
