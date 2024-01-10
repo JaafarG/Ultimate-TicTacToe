@@ -1,5 +1,6 @@
 package org.example.ultimatetictactoe;
 
+import network.*;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 
 
-public class Controller {
-
+public class Controller implements Listener {
 
     public Label turnLabel;
     public Label playingLabel;
@@ -152,28 +152,50 @@ public class Controller {
         rulesStage.setTitle("Game Rules");
 
         // Create a label that contains the rules text
-        Label rulesLabel = new Label("This is a test for the rules");
+        Label rulesLabel = new Label("""
+                Règles du morpion classique :
+                Le joueur qui commence le jeu est choisi aléatoirement et il doit remplir la grille avec des croix “X”.
+                L’autre joueur, quant à lui, remplira la grille à l’aide de ronds “O”.
+                Le but pour chacun des joueurs est de créer une ligne de trois signes consécutifs (croix ou ronds).
+                Cette ligne peut être verticale, horizontale ou diagonale.
+                            
+                Règles de l’ultimate morpion :         
+                L’Ultimate Morpion est un jeu bien plus complexe que le morpion classique.
+                Il oppose toujours deux joueurs mais le plateau est cette fois-ci une grille de neuf cases
+                comportant chacune une grille de morpion.
+                Le premier joueur commence dans n’importe quelle case de n’importe lequel des petits morpions.
+                Il a donc le choix entre 81 cases. Ensuite, les joueurs doivent répondre dans le petit morpion
+                correspondant aux coordonnées de la case précédemment jouée par l’adversaire.
+                Par exemple, si le joueur 1 joue dans le petit morpion en bas à droite et pose une croix dans la case
+                en haut à gauche de ce morpion alors le joueur 2 sera tenu de jouer dans le petit morpion en haut à gauche
+                mais il est libre de placer un rond dans n’importe quelle case libre de ce morpion.
+                Néanmoins, si un joueur se retrouve à devoir jouer dans un petit morpion dans lequel il est impossible de jouer
+                (soit par manque de case libre, soit parce que celui-ci a été remporté par un joueur)
+                alors ce joueur pourra jouer sur n’importe quelle case libre sur la grille.
+                Pour gagner un petit morpion, ce sont les mêmes règles que celles du morpion traditionnel expliquées plus haut.
+                Si un petit morpion n’a plus de cases libres alors il est considéré comme un match nul et ne donne aucun signe
+                sur le grand morpion aux deux joueurs.
+                La partie se termine si un joueur aligne trois victoires sur les petits morpions, il y a donc une victoire de ce joueur
+                Sinon, s'il n'y a plus de cases vides pour jouer et qu'il n'y a pas de gagnant alors la partie est se termine en égalité.                
+                """);
         rulesLabel.setWrapText(true);
-
-        // Create a 'Close' button to close the rules window
-        Button closeButton = new Button("X");
-        closeButton.setOnAction(e -> rulesStage.close());
 
         // Create a VBox layout and add the label and button to it
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(rulesLabel, closeButton);
+        //layout.getChildren().addAll(rulesLabel, closeButton);
+        layout.getChildren().addAll(rulesLabel);
         layout.setAlignment(Pos.CENTER);
 
         // Create a scene containing the layout, set the scene to the stage, and show the stage
-        Scene scene = new Scene(layout, 300, 250);
+        Scene scene = new Scene(layout, 800, 600);
         rulesStage.setScene(scene);
         rulesStage.showAndWait(); // Show and wait needs to be called for modal windows
     }
+
     @FXML
     protected void onPlayGameButtonClick(ActionEvent event) throws IOException {
-
-        // Load the game-view FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("test.fxml"));
+        // Load the configuration-view FXML file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("configuration-view.fxml"));
         Parent gameViewRoot = loader.load();
 
         // Get the current stage using the event source
@@ -182,40 +204,138 @@ public class Controller {
         // Set the new scene
         stage.setScene(new Scene(gameViewRoot));
         stage.show();
+    }
 
-        /*if (currentGame.getBoard().currentPlayer == player2){
-            changeText();
-        }*/
+    @FXML
+    protected void onCreateGameButtonClick(ActionEvent event) throws IOException {
+        String IPAddress = "localhost";
+        int port = 12345;
+        String myName = "Server";
+        String opponentsName = "Client";
+
+        try {
+            Server server = new Server(IPAddress, port, myName);
+            server.start(this);
+            server.startListeningForMove();
+
+            // Load the game-view FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("game-view.fxml"));
+            Parent gameViewRoot = loader.load();
+
+            // Get the current stage using the event source
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the new scene
+            stage.setScene(new Scene(gameViewRoot));
+            stage.show();
+        } catch (Exception e) {
+            Stage serverError = new Stage();
+            serverError.initModality(Modality.APPLICATION_MODAL);
+            serverError.setTitle("Problm with your connection");
+            Label rulesLabel = new Label(e.getMessage());
+            rulesLabel.setWrapText(true);
+            VBox layout = new VBox(10);
+            layout.getChildren().addAll(rulesLabel);
+            layout.setAlignment(Pos.CENTER);
+            Scene scene = new Scene(layout, 800, 600);
+            serverError.setScene(scene);
+            serverError.showAndWait();
+        }
+    }
+
+    @FXML
+    protected void onJoinGameButtonClick(ActionEvent event) throws IOException {
+        String IPAddress = "localhost";
+        int port = 12345;
+        String myName = "Client";
+        String opponentsName = "Server";
+
+        try {
+            Client client = new Client(IPAddress, port, myName);
+            client.connectToServer(this);
+            client.startListeningForMove();
+
+            player1 = new Player(opponentsName, Symbol.X);
+            player2 = new Player(myName, Symbol.O);
+
+            // Create a new Game instance
+            Game currentGame = new Game(player1, player2);
+            board = currentGame.getBoard();
+
+            //board.currentPlayer = currentGame.getFirstPlayer();
+
+            // Load the game-view FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("game-view.fxml"));
+            Parent gameViewRoot = loader.load();
+
+            Controller gameViewController = loader.getController();
+            gameViewController.setCurrentGame(currentGame);
+            gameViewController.setGameBoard(currentGame.getBoard());
+
+            // Get the current stage using the event source
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the new scene
+            stage.setScene(new Scene(gameViewRoot));
+            stage.show();
+        } catch (Exception e) {
+            Stage serverError = new Stage();
+            serverError.initModality(Modality.APPLICATION_MODAL);
+            serverError.setTitle("Problem with the connection with the server");
+            Label rulesLabel = new Label(e.getMessage());
+            rulesLabel.setWrapText(true);
+            VBox layout = new VBox(10);
+            layout.getChildren().addAll(rulesLabel);
+            layout.setAlignment(Pos.CENTER);
+            Scene scene = new Scene(layout, 800, 600);
+            serverError.setScene(scene);
+            serverError.showAndWait();
+        }
     }
 
     @FXML
     protected void onPlayGameButtonClickDebug(ActionEvent event) throws IOException {
+        String IPAddress = "localhost";
+        int port = 12345;
+        String myName = "Server";
+        String opponentsName = "Client";
 
-        player1 = new Player("p1", Symbol.X);
-        player2 = new Player("p2", Symbol.O);
+        try {
+            player1 = new Player(myName, Symbol.X);
+            player2 = new Player(opponentsName, Symbol.O);
 
-        // Create a new Game instance
-        Game currentGame = new Game(player1, player2);
-        board = currentGame.getBoard();
+            // Create a new Game instance
+            Game currentGame = new Game(player1, player2);
+            board = currentGame.getBoard();
+            board.currentPlayer = currentGame.chooseFirstPlayer(player1, player2);
 
-        // Load the game-view FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("game-view.fxml"));
-        Parent gameViewRoot = loader.load();
+            // Load the game-view FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("game-view.fxml"));
+            Parent gameViewRoot = loader.load();
 
-        Controller gameViewController = loader.getController();
-        gameViewController.setCurrentGame(currentGame);
-        gameViewController.setGameBoard(currentGame.getBoard());
+            Controller gameViewController = loader.getController();
+            gameViewController.setCurrentGame(currentGame);
+            gameViewController.setGameBoard(currentGame.getBoard());
 
-        // Get the current stage using the event source
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            // Get the current stage using the event source
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        // Set the new scene
-        stage.setScene(new Scene(gameViewRoot));
-        stage.show();
-
-        /*if (currentGame.getBoard().currentPlayer == player2){
-            changeText();
-        }*/
+            // Set the new scene
+            stage.setScene(new Scene(gameViewRoot));
+            stage.show();
+        } catch (Exception e) {
+            Stage serverError = new Stage();
+            serverError.initModality(Modality.APPLICATION_MODAL);
+            serverError.setTitle("Problème avec votre connexion");
+            Label rulesLabel = new Label(e.getMessage());
+            rulesLabel.setWrapText(true);
+            VBox layout = new VBox(10);
+            layout.getChildren().addAll(rulesLabel);
+            layout.setAlignment(Pos.CENTER);
+            Scene scene = new Scene(layout, 800, 600);
+            serverError.setScene(scene);
+            serverError.showAndWait();
+        }
     }
 
     @FXML
@@ -234,12 +354,12 @@ public class Controller {
 
     @FXML
     public void changeText() {
-
         if (turnLabel.getText().equals("It's Xs TURN")) {
             turnLabel.setText("It's Os TURN");
         } else {
             turnLabel.setText("It's Xs TURN");
         }
+
         // Change the playing label text and color
         if (playingLabel.getText().equals("You're playing X")) {
             playingLabel.setText("You're playing O");
@@ -249,8 +369,6 @@ public class Controller {
             playingLabel.setTextFill(Color.RED); // Set text color to red
         }
     }
-
-
 
     @FXML
     public void ChangeImage(Button button) {
@@ -269,6 +387,7 @@ public class Controller {
         // Set the ImageView as the graphic of the button
         button.setGraphic(imageView);
     }
+
     public void handleButtonClicked(int a, int b , int c , int d , Button button, GridPane gridpane) {
 
         if (board != null && board.validateMove(a,b,c,d)) {
@@ -455,5 +574,8 @@ public class Controller {
         }
     }
 
-
+    @Override
+    public void onMoveReceived(int move) {
+        System.out.println("Message reçu : " + move);
+    }
 }

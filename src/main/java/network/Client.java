@@ -1,5 +1,7 @@
 package network;
 
+import org.example.ultimatetictactoe.Controller;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,34 +22,10 @@ public class Client implements Listener {
     public Client(String IPAddress, int port, String name) {
         this.IPAddress = IPAddress;
         this.port = port;
-        this.name = "Client";
+        this.name = (name==null)? "Client" : name;
     }
 
-    public String getIPAddress() {
-        return IPAddress;
-    }
-
-    public void setIPAddress(String IPAddress) {
-        this.IPAddress = IPAddress;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void connectToServer() throws IOException {
+    public void connectToServer(Controller controller) throws IOException {
         try {
             socket = new Socket(IPAddress, port);
             System.out.println("Connected to the server.");
@@ -55,7 +33,7 @@ public class Client implements Listener {
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
 
-            connection = new Connection(socket, this);
+            connection = new Connection(socket, controller);
         } catch (IOException e) {
             System.err.println("Error connecting to server: " + e.getMessage());
             System.err.println("Try connecting to the server again.");
@@ -87,14 +65,14 @@ public class Client implements Listener {
             try (Scanner scanner = new Scanner(System.in)) {
                 while (true) {
                     String input = scanner.nextLine();
-                    connection.sendMove(input);
+                    connection.sendMove(Integer.parseInt(input));
                 }
             }
         }).start();
     }
 
     @Override
-    public void onMoveReceived(String move) {
-
+    public void onMoveReceived(int move) {
+        output.println(move);
     }
 }

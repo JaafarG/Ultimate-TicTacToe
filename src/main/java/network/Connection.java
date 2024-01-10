@@ -48,7 +48,7 @@ public class Connection {
             while ((move = input.readLine()) != null) {
                 // Notifier le listener lorsqu'un move est reçu
                 if (listener != null) {
-                    listener.onMoveReceived(move);
+                    listener.onMoveReceived(Integer.parseInt(move));
                 }
             }
         } catch (IOException e) {
@@ -56,13 +56,11 @@ public class Connection {
         }
     }
 
-    public void sendMove(String move) {
-        String movePattern = "^[a-i][1-9]$";
+    public void sendMove(int move) {
+        System.out.println("Message envoyé : " + move);
+    }
 
-        if (move.matches(movePattern)) {
-            output.println(move);
-        } else {
-            System.out.println("Invalid move format. Move must be in the format 'xy' where x=a-i and y=1-9.");
-        }
+    public String receiveMove() throws IOException {
+        return input.readLine();
     }
 }

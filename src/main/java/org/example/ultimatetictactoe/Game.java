@@ -14,19 +14,19 @@ public class Game {
         players[0] = p1;
         players[1] = p2;
         board = new Board();
-        board.currentPlayer = chooseFirstPlayer(players);
     }
 
-    public Player chooseFirstPlayer(Player[] players) {
+    public Board getBoard() {
+        return board;
+    }
+
+    public Player chooseFirstPlayer(Player p1, Player p2) {
         if (Math.random() < 0.5){
-            System.out.println("p1 is the player");
-            return players[0];
+            return p1;
         }
-        System.out.println("p2 is the player");
-        return players[1];
+        return p2;
 
     }
-
 
     public boolean checkGameWin(Player p1) {
         // Check all rows
@@ -93,8 +93,7 @@ public class Game {
         }
     }
 
-
-    public Board getBoard() {
-        return board;
+    public boolean isPlayerStarting(Player player) {
+        return board.currentPlayer.equals(player);
     }
 }

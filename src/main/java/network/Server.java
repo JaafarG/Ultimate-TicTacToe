@@ -1,5 +1,7 @@
 package network;
 
+import org.example.ultimatetictactoe.Controller;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,34 +23,10 @@ public class Server implements Listener {
     public Server(String IPAddress, int port, String name) {
         this.IPAddress = IPAddress;
         this.port = port;
-        this.name = "Server";
+        this.name = (name==null)? "Server" : name;
     }
 
-    public String getIPAddress() {
-        return IPAddress;
-    }
-
-    public void setIPAddress(String IPAddress) {
-        this.IPAddress = IPAddress;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void start() {
+    public void start(Controller controller) {
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Server started on port " + port);
@@ -61,7 +39,7 @@ public class Server implements Listener {
             output = new PrintWriter(clientSocket.getOutputStream(), true);
             input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            connection = new Connection(clientSocket, this);
+            connection = new Connection(clientSocket, controller);
         } catch (IOException e) {
             System.err.println("An error occurred while starting the server: " + e.getMessage());
         }
@@ -92,14 +70,14 @@ public class Server implements Listener {
             try (Scanner scanner = new Scanner(System.in)) {
                 while (true) {
                     String input = scanner.nextLine();
-                    connection.sendMove(input);
+                    connection.sendMove(Integer.parseInt(input));
                 }
             }
         }).start();
     }
 
     @Override
-    public void onMoveReceived(String move) {
-
+    public void onMoveReceived(int move) {
+        System.out.println("Message reçu : " + move);
     }
 }
