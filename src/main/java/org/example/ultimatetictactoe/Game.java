@@ -7,8 +7,12 @@ import javafx.stage.Stage;
 
 
 public class Game {
-    public Board board;
-    public  Player[] players = new Player[2];
+    private Board board;
+    private Player[] players = new Player[2];
+    private Player currentPlayer;
+    private Player starter;
+    private Player winner;
+    private boolean gameOver;
 
     public Board getBoard() {
         return board;
@@ -26,17 +30,51 @@ public class Game {
         this.players = players;
     }
 
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public Player getStarter() {
+        return starter;
+    }
+
+    public void setStarter(Player starter) {
+        this.starter = starter;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameState(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
+
     public Game(Player p1, Player p2) {
         players[0] = p1;
         players[1] = p2;
         board = new Board();
+        gameOver = false;
+        winner = null;
     }
 
     public void chooseFirstPlayer() {
         if (Math.random() < 0.5){
-            board.setCurrentPlayer(players[0]);
+            currentPlayer = players[0];
         } else {
-            board.setCurrentPlayer(players[1]);
+            currentPlayer = players[1];
         }
     }
 
@@ -68,7 +106,7 @@ public class Game {
     }
 
     public void playMove(int BigGrid1, int BigGrid2, int SmallGrid1, int SmallGrid2) {
-        board.getGrid()[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, board.getCurrentPlayer().symbol);
+        board.getGrid()[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, currentPlayer.symbol);
 
         if (!board.getGrid()[SmallGrid1][SmallGrid2].win && !board.getGrid()[SmallGrid1][SmallGrid2].full ) {
             for (int i = 0; i < board.getGrid().length; i++) {
@@ -92,10 +130,10 @@ public class Game {
         }
         board.getGrid()[BigGrid1][BigGrid2].win = board.getGrid()[BigGrid1][BigGrid2].checkSmallGridWin();
 
-        if (board.getCurrentPlayer() == players[1]){
-            board.setCurrentPlayer(players[0]);
+        if (currentPlayer == players[1]){
+            currentPlayer = players[0];
         }else{
-            board.setCurrentPlayer(players[1]);
+            currentPlayer = players[1];
         }
     }
 }

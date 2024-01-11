@@ -84,14 +84,46 @@ public class Client implements Listener {
 
     public void receiveMessage(String message) throws IOException {
         switch (message) {
-            case "X":
+            // Client will play "X"
+            case "X" -> {
                 controller.getCurrentGame().getPlayers()[0].setSymbol(Symbol.O);
                 controller.getCurrentGame().getPlayers()[1].setSymbol(Symbol.X);
-                break;
-            case "O":
+
+                controller.setPlayingLabel("You're playing X");
+            }
+            // Client will play "O"
+            case "O" -> {
                 controller.getCurrentGame().getPlayers()[0].setSymbol(Symbol.X);
                 controller.getCurrentGame().getPlayers()[1].setSymbol(Symbol.O);
-                break;
+
+                controller.setPlayingLabel("You're playing O");
+            }
+            // Server won
+            case "OK" -> {
+                controller.getCurrentGame().setGameState(true);
+                controller.getCurrentGame().setWinner(controller.getCurrentGame().getPlayers()[0]);
+            }
+            // Server forfeited
+            case "KO" -> {
+                controller.getCurrentGame().setGameState(true);
+                controller.getCurrentGame().setWinner(controller.getCurrentGame().getPlayers()[1]);
+            }
+            // Game is a tie
+            case "XO" -> {
+                controller.getCurrentGame().setGameState(true);
+                controller.getCurrentGame().setWinner(null);
+            }
+            // Server played A1
+            case "A1" -> {
+                if (controller.getCurrentGame().getCurrentPlayer() == controller.getCurrentGame().getPlayers()[0]) {
+                    controller.getCurrentGame().playMove(0,0,0,0);
+                } else {
+                    System.out.println("L'adversaire a envoyé un coup alors que ce n'est pas à son tour");
+                }
+            }
+            default -> {
+
+            }
         }
     }
 }

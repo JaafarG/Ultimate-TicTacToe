@@ -24,115 +24,114 @@ import java.net.URL;
 
 
 public class Controller implements Listener {
-
-    public Label turnLabel;
-    public Label playingLabel;
-    public ImageView imageViewX;
-    public ImageView imageViewX2;
-    public Text NotAllowedText;
-    public GridPane gridpane00;
-    public GridPane gridpane01;
-    public GridPane gridpane02;
-    public GridPane gridpane10;
-    public GridPane gridpane11;
-    public GridPane gridpane12;
-    public GridPane gridpane20;
-    public GridPane gridpane21;
-    public GridPane gridpane22;
     private Game currentGame;
     private Board board;
+    private Player player1, player2;
 
-    public Button button0000;
-    public Button button0001;
-    public Button button0002;
-    public Button button0010;
-    public Button button0011;
-    public Button button0012;
-    public Button button0020;
-    public Button button0021;
-    public Button button0022;
+    private URL imagePlayerX, imagePlayerO;
+    @FXML private Label turnLabel;
+    @FXML private String playingLabel;
+    @FXML private Text NotAllowedText;
 
-    public Button button0100;
-    public Button button0101;
-    public Button button0102;
-    public Button button0110;
-    public Button button0111;
-    public Button button0112;
-    public Button button0120;
-    public Button button0121;
-    public Button button0122;
+    @FXML private GridPane gridpane00;
+    @FXML private GridPane gridpane01;
+    @FXML private GridPane gridpane02;
+    @FXML private GridPane gridpane10;
+    @FXML private GridPane gridpane11;
+    @FXML private GridPane gridpane12;
+    @FXML private GridPane gridpane20;
+    @FXML private GridPane gridpane21;
+    @FXML private GridPane gridpane22;
 
-    public Button button0200;
-    public Button button0201;
-    public Button button0202;
-    public Button button0210;
-    public Button button0211;
-    public Button button0212;
-    public Button button0220;
-    public Button button0221;
-    public Button button0222;
+    @FXML private Button button0000;
+    @FXML private Button button0001;
+    @FXML private Button button0002;
+    @FXML private Button button0010;
+    @FXML private Button button0011;
+    @FXML private Button button0012;
+    @FXML private Button button0020;
+    @FXML private Button button0021;
+    @FXML private Button button0022;
 
-    public Button button1000;
-    public Button button1001;
-    public Button button1002;
-    public Button button1010;
-    public Button button1011;
-    public Button button1012;
-    public Button button1020;
-    public Button button1021;
-    public Button button1022;
+    @FXML private Button button0100;
+    @FXML private Button button0101;
+    @FXML private Button button0102;
+    @FXML private Button button0110;
+    @FXML private Button button0111;
+    @FXML private Button button0112;
+    @FXML private Button button0120;
+    @FXML private Button button0121;
+    @FXML private Button button0122;
 
-    public Button button1100;
-    public Button button1101;
-    public Button button1102;
-    public Button button1110;
-    public Button button1111;
-    public Button button1112;
-    public Button button1120;
-    public Button button1121;
-    public Button button1122;
+    @FXML private Button button0200;
+    @FXML private Button button0201;
+    @FXML private Button button0202;
+    @FXML private Button button0210;
+    @FXML private Button button0211;
+    @FXML private Button button0212;
+    @FXML private Button button0220;
+    @FXML private Button button0221;
+    @FXML private Button button0222;
 
-    public Button button1200;
-    public Button button1201;
-    public Button button1202;
-    public Button button1210;
-    public Button button1211;
-    public Button button1212;
-    public Button button1220;
-    public Button button1221;
-    public Button button1222;
+    @FXML private Button button1000;
+    @FXML private Button button1001;
+    @FXML private Button button1002;
+    @FXML private Button button1010;
+    @FXML private Button button1011;
+    @FXML private Button button1012;
+    @FXML private Button button1020;
+    @FXML private Button button1021;
+    @FXML private Button button1022;
 
-    public Button button2000;
-    public Button button2001;
-    public Button button2002;
-    public Button button2010;
-    public Button button2011;
-    public Button button2012;
-    public Button button2020;
-    public Button button2021;
-    public Button button2022;
+    @FXML private Button button1100;
+    @FXML private Button button1101;
+    @FXML private Button button1102;
+    @FXML private Button button1110;
+    @FXML private Button button1111;
+    @FXML private Button button1112;
+    @FXML private Button button1120;
+    @FXML private Button button1121;
+    @FXML private Button button1122;
 
-    public Button button2100;
-    public Button button2101;
-    public Button button2102;
-    public Button button2110;
-    public Button button2111;
-    public Button button2112;
-    public Button button2120;
-    public Button button2121;
-    public Button button2122;
+    @FXML private Button button1200;
+    @FXML private Button button1201;
+    @FXML private Button button1202;
+    @FXML private Button button1210;
+    @FXML private Button button1211;
+    @FXML private Button button1212;
+    @FXML private Button button1220;
+    @FXML private Button button1221;
+    @FXML private Button button1222;
 
-    public Button button2200;
-    public Button button2201;
-    public Button button2202;
-    public Button button2210;
-    public Button button2211;
-    public Button button2212;
-    public Button button2220;
-    public Button button2221;
-    public Button button2222;
-    private Player player1;
-    private Player player2;
+    @FXML private Button button2000;
+    @FXML private Button button2001;
+    @FXML private Button button2002;
+    @FXML private Button button2010;
+    @FXML private Button button2011;
+    @FXML private Button button2012;
+    @FXML private Button button2020;
+    @FXML private Button button2021;
+    @FXML private Button button2022;
+
+    @FXML private Button button2100;
+    @FXML private Button button2101;
+    @FXML private Button button2102;
+    @FXML private Button button2110;
+    @FXML private Button button2111;
+    @FXML private Button button2112;
+    @FXML private Button button2120;
+    @FXML private Button button2121;
+    @FXML private Button button2122;
+
+    @FXML private Button button2200;
+    @FXML private Button button2201;
+    @FXML private Button button2202;
+    @FXML private Button button2210;
+    @FXML private Button button2211;
+    @FXML private Button button2212;
+    @FXML private Button button2220;
+    @FXML private Button button2221;
+    @FXML private Button button2222;
 
     public void setCurrentGame(Game game) {
         this.currentGame = game;
@@ -142,8 +141,68 @@ public class Controller implements Listener {
         return this.currentGame;
     }
 
-    public void setGameBoard(Board board) {
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
+    }
+
+    public URL getImagePlayerX() {
+        return imagePlayerX;
+    }
+
+    public void setImagePlayerX(URL imagePlayerX) {
+        this.imagePlayerX = imagePlayerX;
+    }
+
+    public URL getImagePlayerO() {
+        return imagePlayerO;
+    }
+
+    public void setImagePlayerO(URL imagePlayerO) {
+        this.imagePlayerO = imagePlayerO;
+    }
+
+    public Label getTurnLabel() {
+        return turnLabel;
+    }
+
+    public void setTurnLabel(Label turnLabel) {
+        this.turnLabel = turnLabel;
+    }
+
+    public String getPlayingLabel() {
+        return playingLabel;
+    }
+
+    public void setPlayingLabel(String playingLabel) {
+        this.playingLabel = playingLabel;
+    }
+
+    public Text getNotAllowedText() {
+        return NotAllowedText;
+    }
+
+    public void setNotAllowedText(Text notAllowedText) {
+        NotAllowedText = notAllowedText;
     }
 
     @FXML
@@ -229,14 +288,18 @@ public class Controller implements Listener {
             Game currentGame = new Game(player1, player2);
             currentGame.chooseFirstPlayer();
 
-            if (currentGame.getBoard().getCurrentPlayer() == player1) {
+            // If the server player is the player starting the game
+            if (currentGame.getCurrentPlayer() == player1) {
                 player1.setSymbol(Symbol.X);
                 player2.setSymbol(Symbol.O);
                 server.getConnection().sendMessage("O");
+                playingLabel = "You're playing X";
+            // If the server player is the second player
             } else {
                 player1.setSymbol(Symbol.O);
                 player2.setSymbol(Symbol.X);
                 server.getConnection().sendMessage("X");
+                playingLabel = "You're playing O";
             }
 
             // Load the game-view FXML file
@@ -249,6 +312,10 @@ public class Controller implements Listener {
             // Set the new scene
             stage.setScene(new Scene(gameViewRoot));
             stage.show();
+
+            turnLabel.setText("It's Xs TURN");
+            imagePlayerX = getClass().getResource("/X_icon.png");
+            imagePlayerO = getClass().getResource("/O_icon.png");
         } catch (Exception e) {
             Stage serverError = new Stage();
             serverError.initModality(Modality.APPLICATION_MODAL);
@@ -282,14 +349,13 @@ public class Controller implements Listener {
             // Create a new Game instance
             Game currentGame = new Game(player1, player2);
 
-
             // Load the game-view FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("game-view.fxml"));
             Parent gameViewRoot = loader.load();
 
             Controller gameViewController = loader.getController();
             gameViewController.setCurrentGame(currentGame);
-            gameViewController.setGameBoard(currentGame.getBoard());
+            gameViewController.setBoard(currentGame.getBoard());
 
             // Get the current stage using the event source
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -297,6 +363,8 @@ public class Controller implements Listener {
             // Set the new scene
             stage.setScene(new Scene(gameViewRoot));
             stage.show();
+
+            turnLabel.setText("It's Xs TURN");
         } catch (Exception e) {
             Stage serverError = new Stage();
             serverError.initModality(Modality.APPLICATION_MODAL);
@@ -326,57 +394,36 @@ public class Controller implements Listener {
         stage.show();
     }
 
-    @FXML
-    public void changeText() {
-        if (turnLabel.getText().equals("It's Xs TURN")) {
-            turnLabel.setText("It's Os TURN");
-        } else {
-            turnLabel.setText("It's Xs TURN");
-        }
-
-        // Change the playing label text and color
-        if (playingLabel.getText().equals("You're playing X")) {
-            playingLabel.setText("You're playing O");
-            playingLabel.setTextFill(Color.BLUE); // Set text color to blue
-        } else {
-            playingLabel.setText("You're playing X");
-            playingLabel.setTextFill(Color.RED); // Set text color to red
-        }
-    }
-
-    @FXML
-    public void ChangeImage(Button button) {
-        // Load the image using getResource
-        URL imageUrl = getClass().getResource("/X_icon.png");
-        if(board.getCurrentPlayer().getName() == "p2" ){
-            imageUrl = getClass().getResource("/O_icon.png");
-        }
-        Image image = new Image(((URL) imageUrl).toString());
-        ImageView imageView = new ImageView(image);
-
-        // Set the properties of the ImageView
-        imageView.setFitHeight(20); // Set the height of the image
-        imageView.setFitWidth(15);  // Set the width of the image
-
-        // Set the ImageView as the graphic of the button
-        button.setGraphic(imageView);
-    }
-
     public void handleButtonClicked(int a, int b , int c , int d , Button button, GridPane gridpane) {
-
+        // if the move is valid
         if (board != null && board.validateMove(a,b,c,d)) {
+            // Change the labels
             changeText();
-            ChangeImage(button);
-            currentGame.playMove(a,b,c,d);
-            NotAllowedText.setOpacity(0.0);
-            if (board.getGrid()[a][b].win){
-                gridpane.setOpacity(0.0);
+            // Change the image on the button
+            if (currentGame.getCurrentPlayer() == currentGame.getStarter()) {
+                ChangeImage(button, imagePlayerX);
+            } else {
+                ChangeImage(button, imagePlayerO);
             }
 
+            // Plays the move
+            currentGame.playMove(a,b,c,d);
+
+            // Not Allowed text becomes invisible
+            NotAllowedText.setOpacity(0.0);
+
+            // If the player won the small grid with them move
+            if (board.getGrid()[a][b].win) {
+                // The grid becomes invisible and it is replaced with the player's symbol
+                gridpane.setOpacity(0.0);
+                // Add an image on top of won grid
+            }
+        // if the move is not valid
         }else{
+            // The Not Allowed text appears
             NotAllowedText.setOpacity(1.0);
         }
-        System.out.println("Current Player will be : " + board.getCurrentPlayer().getName());
+        System.out.println("Current Player will be : " + currentGame.getCurrentPlayer().getName());
     }
 
     @FXML
@@ -550,4 +597,30 @@ public class Controller implements Listener {
 
     @Override
     public void onMessageReceived(String message) {}
+
+    @FXML
+    public void changeText() {
+        // Change the turn label text and color
+        if (turnLabel.getText().equals("It's Xs TURN")) {
+            turnLabel.setText("It's Os TURN");
+            turnLabel.setTextFill(Color.BLUE);
+        } else {
+            turnLabel.setText("It's Xs TURN");
+            turnLabel.setTextFill(Color.RED);
+        }
+    }
+
+    @FXML
+    public void ChangeImage(Button button, URL imageUrl) {
+
+        Image image = new Image(imageUrl.toString());
+        ImageView imageView = new ImageView(image);
+
+        // Set the properties of the ImageView
+        imageView.setFitHeight(20); // Set the height of the image
+        imageView.setFitWidth(15);  // Set the width of the image
+
+        // Set the ImageView as the graphic of the button
+        button.setGraphic(imageView);
+    }
 }

@@ -7,7 +7,6 @@ public class Board {
     private  Smallgrid[][] grid = new Smallgrid[3][3];
     private boolean[][] CurrentGrid = new boolean[3][3];
     private Smallgrid BigGrid = new Smallgrid();
-    private Player currentPlayer;
 
     public Smallgrid[][] getGrid() {
         return grid;
@@ -31,14 +30,6 @@ public class Board {
 
     public void setBigGrid(Smallgrid bigGrid) {
         BigGrid = bigGrid;
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
     }
 
     public Board() {
