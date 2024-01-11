@@ -138,6 +138,10 @@ public class Controller implements Listener {
         this.currentGame = game;
     }
 
+    public Game getCurrentGame() {
+        return this.currentGame;
+    }
+
     public void setGameBoard(Board board) {
         this.board = board;
     }
@@ -215,8 +219,25 @@ public class Controller implements Listener {
 
         try {
             Server server = new Server(IPAddress, port, myName);
-            server.start(this);
-            server.startListeningForMove();
+            server.start();
+            server.startListeningForMessage();
+
+            player1 = new Player(myName);
+            player2 = new Player(opponentsName);
+
+            // Create a new Game instance
+            Game currentGame = new Game(player1, player2);
+            currentGame.chooseFirstPlayer();
+
+            if (currentGame.getBoard().getCurrentPlayer() == player1) {
+                player1.setSymbol(Symbol.X);
+                player2.setSymbol(Symbol.O);
+                server.getConnection().sendMessage("O");
+            } else {
+                player1.setSymbol(Symbol.O);
+                player2.setSymbol(Symbol.X);
+                server.getConnection().sendMessage("X");
+            }
 
             // Load the game-view FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("game-view.fxml"));
@@ -231,7 +252,7 @@ public class Controller implements Listener {
         } catch (Exception e) {
             Stage serverError = new Stage();
             serverError.initModality(Modality.APPLICATION_MODAL);
-            serverError.setTitle("Problm with your connection");
+            serverError.setTitle("Problem with your connection");
             Label rulesLabel = new Label(e.getMessage());
             rulesLabel.setWrapText(true);
             VBox layout = new VBox(10);
@@ -252,17 +273,15 @@ public class Controller implements Listener {
 
         try {
             Client client = new Client(IPAddress, port, myName);
-            client.connectToServer(this);
-            client.startListeningForMove();
+            client.connectToServer();
+            client.startListeningForMessage();
 
-            player1 = new Player(opponentsName, Symbol.X);
-            player2 = new Player(myName, Symbol.O);
+            player1 = new Player(opponentsName);
+            player2 = new Player(myName);
 
             // Create a new Game instance
             Game currentGame = new Game(player1, player2);
-            board = currentGame.getBoard();
 
-            //board.currentPlayer = currentGame.getFirstPlayer();
 
             // Load the game-view FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("game-view.fxml"));
@@ -282,51 +301,6 @@ public class Controller implements Listener {
             Stage serverError = new Stage();
             serverError.initModality(Modality.APPLICATION_MODAL);
             serverError.setTitle("Problem with the connection with the server");
-            Label rulesLabel = new Label(e.getMessage());
-            rulesLabel.setWrapText(true);
-            VBox layout = new VBox(10);
-            layout.getChildren().addAll(rulesLabel);
-            layout.setAlignment(Pos.CENTER);
-            Scene scene = new Scene(layout, 800, 600);
-            serverError.setScene(scene);
-            serverError.showAndWait();
-        }
-    }
-
-    @FXML
-    protected void onPlayGameButtonClickDebug(ActionEvent event) throws IOException {
-        String IPAddress = "localhost";
-        int port = 12345;
-        String myName = "Server";
-        String opponentsName = "Client";
-
-        try {
-            player1 = new Player(myName, Symbol.X);
-            player2 = new Player(opponentsName, Symbol.O);
-
-            // Create a new Game instance
-            Game currentGame = new Game(player1, player2);
-            board = currentGame.getBoard();
-            board.currentPlayer = currentGame.chooseFirstPlayer(player1, player2);
-
-            // Load the game-view FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("game-view.fxml"));
-            Parent gameViewRoot = loader.load();
-
-            Controller gameViewController = loader.getController();
-            gameViewController.setCurrentGame(currentGame);
-            gameViewController.setGameBoard(currentGame.getBoard());
-
-            // Get the current stage using the event source
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the new scene
-            stage.setScene(new Scene(gameViewRoot));
-            stage.show();
-        } catch (Exception e) {
-            Stage serverError = new Stage();
-            serverError.initModality(Modality.APPLICATION_MODAL);
-            serverError.setTitle("Problème avec votre connexion");
             Label rulesLabel = new Label(e.getMessage());
             rulesLabel.setWrapText(true);
             VBox layout = new VBox(10);
@@ -374,7 +348,7 @@ public class Controller implements Listener {
     public void ChangeImage(Button button) {
         // Load the image using getResource
         URL imageUrl = getClass().getResource("/X_icon.png");
-        if(board.currentPlayer.getName() == "p2" ){
+        if(board.getCurrentPlayer().getName() == "p2" ){
             imageUrl = getClass().getResource("/O_icon.png");
         }
         Image image = new Image(((URL) imageUrl).toString());
@@ -395,14 +369,14 @@ public class Controller implements Listener {
             ChangeImage(button);
             currentGame.playMove(a,b,c,d);
             NotAllowedText.setOpacity(0.0);
-            if (board.grid[a][b].win){
+            if (board.getGrid()[a][b].win){
                 gridpane.setOpacity(0.0);
             }
 
         }else{
             NotAllowedText.setOpacity(1.0);
         }
-        System.out.println("Current Player will be : " + board.currentPlayer.getName());
+        System.out.println("Current Player will be : " + board.getCurrentPlayer().getName());
     }
 
     @FXML
@@ -575,7 +549,5 @@ public class Controller implements Listener {
     }
 
     @Override
-    public void onMoveReceived(int move) {
-        System.out.println("Message reçu : " + move);
-    }
+    public void onMessageReceived(String message) {}
 }

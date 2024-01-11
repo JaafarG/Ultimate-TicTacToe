@@ -1,5 +1,5 @@
 package network;
 
 public interface Listener {
-    void onMoveReceived(int move);
+    void onMessageReceived(String message);
 }

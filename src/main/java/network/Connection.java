@@ -19,7 +19,7 @@ public class Connection {
         output = new PrintWriter(socket.getOutputStream(), true);
         input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-        new Thread(this::listenMove).start();
+        new Thread(this::listenMessage).start();
     }
 
     public void close() {
@@ -41,14 +41,14 @@ public class Connection {
         }
     }
 
-    private void listenMove() {
+    private void listenMessage() {
         try {
-            String move;
+            String message;
 
-            while ((move = input.readLine()) != null) {
-                // Notifier le listener lorsqu'un move est reçu
+            while ((message = input.readLine()) != null) {
+                // Notifier le listener lorsqu'un message est reçu
                 if (listener != null) {
-                    listener.onMoveReceived(Integer.parseInt(move));
+                    listener.onMessageReceived(message);
                 }
             }
         } catch (IOException e) {
@@ -56,11 +56,7 @@ public class Connection {
         }
     }
 
-    public void sendMove(int move) {
-        System.out.println("Message envoyé : " + move);
-    }
-
-    public String receiveMove() throws IOException {
-        return input.readLine();
+    public void sendMessage(String message) {
+        output.println(message);
     }
 }

@@ -1,6 +1,7 @@
 package network;
 
 import org.example.ultimatetictactoe.Controller;
+import org.example.ultimatetictactoe.Symbol;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Client implements Listener {
@@ -15,6 +17,7 @@ public class Client implements Listener {
     private BufferedReader input;
     private PrintWriter output;
     private Connection connection;
+    private Controller controller;
     private String IPAddress;
     private int port;
     private String name;
@@ -22,10 +25,10 @@ public class Client implements Listener {
     public Client(String IPAddress, int port, String name) {
         this.IPAddress = IPAddress;
         this.port = port;
-        this.name = (name==null)? "Client" : name;
+        this.name = (name==null) ? "Client" : name;
     }
 
-    public void connectToServer(Controller controller) throws IOException {
+    public void connectToServer() throws IOException {
         try {
             socket = new Socket(IPAddress, port);
             System.out.println("Connected to the server.");
@@ -33,7 +36,7 @@ public class Client implements Listener {
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
 
-            connection = new Connection(socket, controller);
+            connection = new Connection(socket, this);
         } catch (IOException e) {
             System.err.println("Error connecting to server: " + e.getMessage());
             System.err.println("Try connecting to the server again.");
@@ -60,19 +63,35 @@ public class Client implements Listener {
         }
     }
 
-    public void startListeningForMove() {
+    public void startListeningForMessage() {
         new Thread(() -> {
             try (Scanner scanner = new Scanner(System.in)) {
                 while (true) {
                     String input = scanner.nextLine();
-                    connection.sendMove(Integer.parseInt(input));
+                    connection.sendMessage(name + ": " + input);
+                    receiveMessage(input);
                 }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }).start();
     }
 
     @Override
-    public void onMoveReceived(int move) {
-        output.println(move);
+    public void onMessageReceived(String message) {
+        System.out.println(message);
+    }
+
+    public void receiveMessage(String message) throws IOException {
+        switch (message) {
+            case "X":
+                controller.getCurrentGame().getPlayers()[0].setSymbol(Symbol.O);
+                controller.getCurrentGame().getPlayers()[1].setSymbol(Symbol.X);
+                break;
+            case "O":
+                controller.getCurrentGame().getPlayers()[0].setSymbol(Symbol.X);
+                controller.getCurrentGame().getPlayers()[1].setSymbol(Symbol.O);
+                break;
+        }
     }
 }

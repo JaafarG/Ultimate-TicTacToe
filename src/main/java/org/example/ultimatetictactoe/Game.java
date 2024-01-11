@@ -10,45 +10,56 @@ public class Game {
     public Board board;
     public  Player[] players = new Player[2];
 
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Player[] players) {
+        this.players = players;
+    }
+
     public Game(Player p1, Player p2) {
         players[0] = p1;
         players[1] = p2;
         board = new Board();
     }
 
-    public Board getBoard() {
-        return board;
-    }
-
-    public Player chooseFirstPlayer(Player p1, Player p2) {
+    public void chooseFirstPlayer() {
         if (Math.random() < 0.5){
-            return p1;
+            board.setCurrentPlayer(players[0]);
+        } else {
+            board.setCurrentPlayer(players[1]);
         }
-        return p2;
-
     }
 
     public boolean checkGameWin(Player p1) {
         // Check all rows
         for (int i = 0; i < 3; i++) {
-            if ((board.BigGrid.cells[i][0] != p1.symbol) && (board.BigGrid.cells[i][0] == board.BigGrid.cells[i][1]) && (board.BigGrid.cells[i][0] == board.BigGrid.cells[i][2])) {
+            if ((board.getBigGrid().cells[i][0] != p1.symbol) && (board.getBigGrid().cells[i][0] == board.getBigGrid().cells[i][1]) && (board.getBigGrid().cells[i][0] == board.getBigGrid().cells[i][2])) {
                 return true;
-
             }
         }
 
         // Check all columns
         for (int j = 0; j < 3; j++) {
-            if (board.BigGrid.cells[0][j] != p1.symbol && board.BigGrid.cells[0][j] == board.BigGrid.cells[1][j] && board.BigGrid.cells[0][j] == board.BigGrid.cells[2][j]) {
+            if (board.getBigGrid().cells[0][j] != p1.symbol && board.getBigGrid().cells[0][j] == board.getBigGrid().cells[1][j] && board.getBigGrid().cells[0][j] == board.getBigGrid().cells[2][j]) {
                 return true;
             }
         }
 
         // Check diagonals
-        if (board.BigGrid.cells[0][0] != p1.symbol && board.BigGrid.cells[0][0] == board.BigGrid.cells[1][1] && board.BigGrid.cells[0][0] == board.BigGrid.cells[2][2]) {
+        if (board.getBigGrid().cells[0][0] != p1.symbol && board.getBigGrid().cells[0][0] == board.getBigGrid().cells[1][1] && board.getBigGrid().cells[0][0] == board.getBigGrid().cells[2][2]) {
             return true;
         }
-        if (board.BigGrid.cells[0][2] != p1.symbol && board.BigGrid.cells[0][2] == board.BigGrid.cells[1][1] && board.BigGrid.cells[0][2] == board.BigGrid.cells[2][0]) {
+        if (board.getBigGrid().cells[0][2] != p1.symbol && board.getBigGrid().cells[0][2] == board.getBigGrid().cells[1][1] && board.getBigGrid().cells[0][2] == board.getBigGrid().cells[2][0]) {
             return true;
         }
 
@@ -56,44 +67,35 @@ public class Game {
         return false;
     }
 
-    public  void playMove(int BigGrid1, int BigGrid2, int SmallGrid1, int SmallGrid2) {
+    public void playMove(int BigGrid1, int BigGrid2, int SmallGrid1, int SmallGrid2) {
+        board.getGrid()[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, board.getCurrentPlayer().symbol);
 
-
-        board.grid[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, board.currentPlayer.symbol);
-
-        if (!board.grid[SmallGrid1][SmallGrid2].win && !board.grid[SmallGrid1][SmallGrid2].full ) {
-
-            for (int i = 0; i < board.grid.length; i++) {
-
-                for (int j = 0; j < board.grid[i].length; j++) {
-
-                    board.CurrentGrid[i][j] = false;
+        if (!board.getGrid()[SmallGrid1][SmallGrid2].win && !board.getGrid()[SmallGrid1][SmallGrid2].full ) {
+            for (int i = 0; i < board.getGrid().length; i++) {
+                for (int j = 0; j < board.getGrid()[i].length; j++) {
+                    board.getCurrentGrid()[i][j] = false;
                 }
             }
-            board.CurrentGrid[SmallGrid1][SmallGrid2] = true;
+            board.getCurrentGrid()[SmallGrid1][SmallGrid2] = true;
         }else{
-            for (int i = 0; i < board.grid.length; i++) {
+            for (int i = 0; i < board.getGrid().length; i++) {
 
-                for (int j = 0; j < board.grid[i].length; j++) {
+                for (int j = 0; j < board.getGrid()[i].length; j++) {
 
-                    if(!board.grid[SmallGrid1][SmallGrid2].win){
+                    if(!board.getGrid()[SmallGrid1][SmallGrid2].win){
 
-                        board.CurrentGrid[i][j] = true;
+                        board.getCurrentGrid()[i][j] = true;
                     }
                 }
             }
 
         }
-        board.grid[BigGrid1][BigGrid2].win = board.grid[BigGrid1][BigGrid2].checkSmallGridWin();
+        board.getGrid()[BigGrid1][BigGrid2].win = board.getGrid()[BigGrid1][BigGrid2].checkSmallGridWin();
 
-        if (board.currentPlayer == players[1]){
-            board.currentPlayer = players[0];
+        if (board.getCurrentPlayer() == players[1]){
+            board.setCurrentPlayer(players[0]);
         }else{
-            board.currentPlayer = players[1];
+            board.setCurrentPlayer(players[1]);
         }
-    }
-
-    public boolean isPlayerStarting(Player player) {
-        return board.currentPlayer.equals(player);
     }
 }
