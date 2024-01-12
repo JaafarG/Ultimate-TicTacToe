@@ -23,11 +23,11 @@
          <Font size="40.0"/>
       </font>
    </Text>
-   <Text fx:id="IDtext" layoutX="24.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your IP address : "
+   <Text layoutX="24.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your IP adress : "
          wrappingWidth="229.13671875"/>
-   <Text fx:id="PortText" layoutX="24.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your connection port : "
+   <Text layoutX="24.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your connection port : "
          wrappingWidth="229.13671875"/>
-   <Text layoutX="332.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IP address :"
+   <Text layoutX="332.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IP adress :"
          wrappingWidth="229.13671875">
       <font>
          <Font size="18.0"/>

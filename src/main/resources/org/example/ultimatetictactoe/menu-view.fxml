@@ -21,11 +21,9 @@
          <Font size="20.0" />
       </font>
    </Button>
-   <Button mnemonicParsing="false" onMouseClicked="#onRulesButtonClick" prefHeight="41.0" prefWidth="127.0" text="Rules">
+   <Button mnemonicParsing="false" onAction="#onRulesButtonClick" prefHeight="41.0" prefWidth="127.0" text="Rules">
       <font>
          <Font size="20.0" />
       </font>
    </Button>
-
-    <Label fx:id="welcomeText" />
 </VBox>

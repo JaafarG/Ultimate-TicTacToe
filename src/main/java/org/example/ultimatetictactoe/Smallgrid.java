@@ -1,11 +1,33 @@
 package org.example.ultimatetictactoe;
 
 public class Smallgrid {
-    public Symbol[][] cells = new Symbol[3][3];
+    private Symbol[][] cells = new Symbol[3][3];
+    private boolean win;
+    private boolean full;
 
-    public boolean win;
+    public Symbol[][] getCells() {
+        return cells;
+    }
 
-    public boolean full;
+    public void setCells(Symbol[][] cells) {
+        this.cells = cells;
+    }
+
+    public boolean isWin() {
+        return win;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
+    }
+
+    public boolean isFull() {
+        return full;
+    }
+
+    public void setFull(boolean full) {
+        this.full = full;
+    }
 
     public Smallgrid() {
         for (int i = 0; i < 3; i++) {
@@ -59,12 +81,10 @@ public class Smallgrid {
     }
 
     public boolean validateMove(int SmallGrid1,int SmallGrid2) {
-
         return(cells[SmallGrid1][SmallGrid2] == null);
     }
 
     public void updateCell(int SmallGrid1,int SmallGrid2,Symbol symbol) {
-
         cells[SmallGrid1][SmallGrid2] = symbol;
     }
 

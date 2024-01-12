@@ -1,5 +1,7 @@
 package network;
 
+import org.example.ultimatetictactoe.Controller;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,6 +16,7 @@ public class Server implements Listener {
     private PrintWriter output;
     private BufferedReader input;
     private Connection connection;
+    private Controller controller;
     private String IPAddress;
     private int port;
     private String name;
@@ -21,32 +24,10 @@ public class Server implements Listener {
     public Server(String IPAddress, int port, String name) {
         this.IPAddress = IPAddress;
         this.port = port;
-        this.name = "Server";
+        this.name = (name==null) ? "Server" : name;
     }
 
-    public String getIPAddress() {
-        return IPAddress;
-    }
-
-    public void setIPAddress(String IPAddress) {
-        this.IPAddress = IPAddress;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public Connection getConnection() { return this.connection; }
 
     public void start() {
         try {
@@ -87,19 +68,19 @@ public class Server implements Listener {
         }
     }
 
-    public void startListeningForMove() {
+    public void startListeningForMessage() {
         new Thread(() -> {
             try (Scanner scanner = new Scanner(System.in)) {
                 while (true) {
                     String input = scanner.nextLine();
-                    connection.sendMove(input);
+                    connection.sendMessage(name + ": " + input);
                 }
             }
         }).start();
     }
 
     @Override
-    public void onMoveReceived(String move) {
-
+    public void onMessageReceived(String message) {
+        System.out.println(message);
     }
 }

@@ -1,11 +1,15 @@
 package network;
 
+import org.example.ultimatetictactoe.Controller;
+import org.example.ultimatetictactoe.Symbol;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Client implements Listener {
@@ -13,6 +17,7 @@ public class Client implements Listener {
     private BufferedReader input;
     private PrintWriter output;
     private Connection connection;
+    private Controller controller;
     private String IPAddress;
     private int port;
     private String name;
@@ -20,31 +25,7 @@ public class Client implements Listener {
     public Client(String IPAddress, int port, String name) {
         this.IPAddress = IPAddress;
         this.port = port;
-        this.name = "Client";
-    }
-
-    public String getIPAddress() {
-        return IPAddress;
-    }
-
-    public void setIPAddress(String IPAddress) {
-        this.IPAddress = IPAddress;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.name = (name==null) ? "Client" : name;
     }
 
     public void connectToServer() throws IOException {
@@ -82,19 +63,68 @@ public class Client implements Listener {
         }
     }
 
-    public void startListeningForMove() {
+    public void startListeningForMessage() {
         new Thread(() -> {
             try (Scanner scanner = new Scanner(System.in)) {
                 while (true) {
                     String input = scanner.nextLine();
-                    connection.sendMove(input);
+                    connection.sendMessage(name + ": " + input);
+                    receiveMessage(input);
                 }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }).start();
     }
 
     @Override
-    public void onMoveReceived(String move) {
+    public void onMessageReceived(String message) {
+        System.out.println(message);
+    }
 
+    public void receiveMessage(String message) throws IOException {
+        switch (message) {
+            // Client will play "X"
+            case "X" -> {
+                controller.getCurrentGame().getPlayers()[0].setSymbol(Symbol.O);
+                controller.getCurrentGame().getPlayers()[1].setSymbol(Symbol.X);
+
+                controller.setPlayingLabel("You're playing X");
+            }
+            // Client will play "O"
+            case "O" -> {
+                controller.getCurrentGame().getPlayers()[0].setSymbol(Symbol.X);
+                controller.getCurrentGame().getPlayers()[1].setSymbol(Symbol.O);
+
+                controller.setPlayingLabel("You're playing O");
+            }
+            // Server won
+            case "OK" -> {
+                controller.getCurrentGame().setGameState(true);
+                controller.getCurrentGame().getPlayers()[0].setWinner(true);
+            }
+            // Server forfeited
+            case "KO" -> {
+                controller.getCurrentGame().setGameState(true);
+                controller.getCurrentGame().getPlayers()[1].setWinner(true);
+            }
+            // Game is a tie
+            case "XO" -> {
+                controller.getCurrentGame().setGameState(true);
+                controller.getCurrentGame().getPlayers()[0].setWinner(false);
+                controller.getCurrentGame().getPlayers()[1].setWinner(false);
+            }
+            // Server played A1
+            case "A1" -> {
+                if (controller.getCurrentGame().getCurrentPlayer() == controller.getCurrentGame().getPlayers()[0]) {
+                    controller.getCurrentGame().playMove(0,0,0,0);
+                } else {
+                    System.out.println("L'adversaire a envoyé un coup alors que ce n'est pas à son tour");
+                }
+            }
+            default -> {
+
+            }
+        }
     }
 }
