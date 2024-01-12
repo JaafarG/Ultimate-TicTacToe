@@ -2,7 +2,9 @@ package org.example.ultimatetictactoe;
 
 public class Player {
     private String name;
-    private int score;
+    private boolean winner;
+    private boolean starter;
+    private boolean serverPlayer;
     public Symbol symbol;
 
     public String getName() {
@@ -13,6 +15,30 @@ public class Player {
         this.name = name;
     }
 
+    public boolean isWinner() {
+        return winner;
+    }
+
+    public void setWinner(boolean winner) {
+        this.winner = winner;
+    }
+
+    public boolean isStarter() {
+        return starter;
+    }
+
+    public void setStarter(boolean starter) {
+        this.starter = starter;
+    }
+
+    public boolean isServerPlayer() {
+        return serverPlayer;
+    }
+
+    public void setServerPlayer(boolean serverPlayer) {
+        this.serverPlayer = serverPlayer;
+    }
+
     public Symbol getSymbol() {
         return symbol;
     }
@@ -21,14 +47,15 @@ public class Player {
         this.symbol = symbol;
     }
 
-    public Player(String name, Symbol symbol) {
+    public Player(String name, boolean serverPlayer) {
         this.name = name;
-        this.symbol = symbol;
-        this.score = 0;
+        this.winner = false;
+        this.serverPlayer = serverPlayer;
+        this.starter = true;
+        this.symbol = (serverPlayer) ? Symbol.X : Symbol.O;
     }
 
     public Player(String name) {
-        this.name = name;
-        this.score = 0;
+        new Player(name, true);
     }
 }

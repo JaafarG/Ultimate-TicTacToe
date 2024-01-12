@@ -101,17 +101,18 @@ public class Client implements Listener {
             // Server won
             case "OK" -> {
                 controller.getCurrentGame().setGameState(true);
-                controller.getCurrentGame().setWinner(controller.getCurrentGame().getPlayers()[0]);
+                controller.getCurrentGame().getPlayers()[0].setWinner(true);
             }
             // Server forfeited
             case "KO" -> {
                 controller.getCurrentGame().setGameState(true);
-                controller.getCurrentGame().setWinner(controller.getCurrentGame().getPlayers()[1]);
+                controller.getCurrentGame().getPlayers()[1].setWinner(true);
             }
             // Game is a tie
             case "XO" -> {
                 controller.getCurrentGame().setGameState(true);
-                controller.getCurrentGame().setWinner(null);
+                controller.getCurrentGame().getPlayers()[0].setWinner(false);
+                controller.getCurrentGame().getPlayers()[1].setWinner(false);
             }
             // Server played A1
             case "A1" -> {

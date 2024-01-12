@@ -1,9 +1,9 @@
 package org.example.ultimatetictactoe;
 
 public class Smallgrid {
-    public Symbol[][] cells = new Symbol[3][3];
-    public boolean win;
-    public boolean full;
+    private Symbol[][] cells = new Symbol[3][3];
+    private boolean win;
+    private boolean full;
 
     public Symbol[][] getCells() {
         return cells;

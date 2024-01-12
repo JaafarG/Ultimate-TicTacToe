@@ -1,12 +1,9 @@
 package org.example.ultimatetictactoe;
 
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-
 public class Board {
     private  Smallgrid[][] grid = new Smallgrid[3][3];
-    private boolean[][] CurrentGrid = new boolean[3][3];
-    private Smallgrid BigGrid = new Smallgrid();
+    private boolean[][] currentGrid = new boolean[3][3];
+    private Smallgrid gridView = new Smallgrid();
 
     public Smallgrid[][] getGrid() {
         return grid;
@@ -17,19 +14,19 @@ public class Board {
     }
 
     public boolean[][] getCurrentGrid() {
-        return CurrentGrid;
+        return currentGrid;
     }
 
     public void setCurrentGrid(boolean[][] currentGrid) {
-        CurrentGrid = currentGrid;
+        this.currentGrid = currentGrid;
     }
 
-    public Smallgrid getBigGrid() {
-        return BigGrid;
+    public Smallgrid getGridView() {
+        return gridView;
     }
 
-    public void setBigGrid(Smallgrid bigGrid) {
-        BigGrid = bigGrid;
+    public void setGridView(Smallgrid gridView) {
+        this.gridView = gridView;
     }
 
     public Board() {
@@ -37,13 +34,13 @@ public class Board {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 grid[i][j] = new Smallgrid();
-                CurrentGrid[i][j] = true;
+                currentGrid[i][j] = true;
             }
         }
         System.out.println("Board was initialized");
     }
 
     boolean validateMove(int BigGrid1, int BigGrid2, int SmallGrid1, int SmallGrid2) {
-        return (CurrentGrid[BigGrid1][BigGrid2] && grid[BigGrid1][BigGrid2].validateMove(SmallGrid1,SmallGrid2));
+        return (currentGrid[BigGrid1][BigGrid2] && grid[BigGrid1][BigGrid2].validateMove(SmallGrid1,SmallGrid2));
     }
 }

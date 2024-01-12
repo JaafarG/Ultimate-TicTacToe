@@ -25,8 +25,6 @@ import java.net.URL;
 
 public class Controller implements Listener {
     private Game currentGame;
-    private Board board;
-    private Player player1, player2;
 
     private URL imagePlayerX, imagePlayerO;
     @FXML private Label turnLabel;
@@ -139,30 +137,6 @@ public class Controller implements Listener {
 
     public Game getCurrentGame() {
         return this.currentGame;
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public Player getPlayer1() {
-        return player1;
-    }
-
-    public void setPlayer1(Player player1) {
-        this.player1 = player1;
-    }
-
-    public Player getPlayer2() {
-        return player2;
-    }
-
-    public void setPlayer2(Player player2) {
-        this.player2 = player2;
     }
 
     public URL getImagePlayerX() {
@@ -281,23 +255,20 @@ public class Controller implements Listener {
             server.start();
             server.startListeningForMessage();
 
-            player1 = new Player(myName);
-            player2 = new Player(opponentsName);
-
             // Create a new Game instance
-            Game currentGame = new Game(player1, player2);
+            Game currentGame = new Game(new Player(myName, true), new Player(opponentsName, false));
             currentGame.chooseFirstPlayer();
 
             // If the server player is the player starting the game
-            if (currentGame.getCurrentPlayer() == player1) {
-                player1.setSymbol(Symbol.X);
-                player2.setSymbol(Symbol.O);
+            if (currentGame.getPlayers()[0].isStarter()) {
+                currentGame.getPlayers()[0].setSymbol(Symbol.X);
+                currentGame.getPlayers()[1].setSymbol(Symbol.O);
                 server.getConnection().sendMessage("O");
                 playingLabel = "You're playing X";
             // If the server player is the second player
             } else {
-                player1.setSymbol(Symbol.O);
-                player2.setSymbol(Symbol.X);
+                currentGame.getPlayers()[0].setSymbol(Symbol.O);
+                currentGame.getPlayers()[1].setSymbol(Symbol.X);
                 server.getConnection().sendMessage("X");
                 playingLabel = "You're playing O";
             }
@@ -343,11 +314,8 @@ public class Controller implements Listener {
             client.connectToServer();
             client.startListeningForMessage();
 
-            player1 = new Player(opponentsName);
-            player2 = new Player(myName);
-
             // Create a new Game instance
-            Game currentGame = new Game(player1, player2);
+            Game currentGame = new Game(new Player(opponentsName, true), new Player(myName, false));
 
             // Load the game-view FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("game-view.fxml"));
@@ -355,7 +323,6 @@ public class Controller implements Listener {
 
             Controller gameViewController = loader.getController();
             gameViewController.setCurrentGame(currentGame);
-            gameViewController.setBoard(currentGame.getBoard());
 
             // Get the current stage using the event source
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -396,15 +363,18 @@ public class Controller implements Listener {
 
     public void handleButtonClicked(int a, int b , int c , int d , Button button, GridPane gridpane) {
         // if the move is valid
-        if (board != null && board.validateMove(a,b,c,d)) {
+        if (currentGame.getBoard() != null && currentGame.getBoard().validateMove(a,b,c,d)) {
             // Change the labels
             changeText();
+
             // Change the image on the button
-            if (currentGame.getCurrentPlayer() == currentGame.getStarter()) {
+            if (currentGame.getCurrentPlayer().isStarter()) {
                 ChangeImage(button, imagePlayerX);
             } else {
                 ChangeImage(button, imagePlayerO);
             }
+
+            // Send the move to the other player
 
             // Plays the move
             currentGame.playMove(a,b,c,d);
@@ -413,7 +383,7 @@ public class Controller implements Listener {
             NotAllowedText.setOpacity(0.0);
 
             // If the player won the small grid with them move
-            if (board.getGrid()[a][b].win) {
+            if (currentGame.getBoard().getGrid()[a][b].isWin()) {
                 // The grid becomes invisible and it is replaced with the player's symbol
                 gridpane.setOpacity(0.0);
                 // Add an image on top of won grid
