@@ -81,10 +81,12 @@ public class Smallgrid {
     }
 
     public boolean validateMove(int SmallGrid1,int SmallGrid2) {
+
         return(cells[SmallGrid1][SmallGrid2] == null);
     }
 
     public void updateCell(int SmallGrid1,int SmallGrid2,Symbol symbol) {
+
         cells[SmallGrid1][SmallGrid2] = symbol;
     }
 
