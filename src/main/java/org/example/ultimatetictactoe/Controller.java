@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 
 public class Controller {
@@ -27,18 +28,30 @@ public class Controller {
 
     public Label turnLabel;
     public Label playingLabel;
-    public ImageView imageViewX;
-    public ImageView imageViewX2;
     public Text NotAllowedText;
-    public GridPane gridpane00;
-    public GridPane gridpane01;
-    public GridPane gridpane02;
-    public GridPane gridpane10;
-    public GridPane gridpane11;
-    public GridPane gridpane12;
-    public GridPane gridpane20;
-    public GridPane gridpane21;
-    public GridPane gridpane22;
+    public GridPane gridPane00;
+    public GridPane gridPane01;
+    public GridPane gridPane02;
+    public GridPane gridPane10;
+    public GridPane gridPane11;
+    public GridPane gridPane12;
+    public GridPane gridPane20;
+    public GridPane gridPane;
+    public GridPane gridPane22;
+
+    public ImageView image00;
+    public ImageView image01;
+    public ImageView image02;
+    public ImageView image10;
+    public ImageView image11;
+    public ImageView image12;
+    public ImageView image20;
+    public ImageView image21;
+    public ImageView image22;
+    public Text IDtext;
+    public Text PortText;
+
+
     private Game currentGame;
     private Board board;
 
@@ -196,7 +209,7 @@ public class Controller {
 
         // Create a new Game instance
         Game currentGame = new Game(player1, player2);
-        board = currentGame.getBoard();
+        Board board = currentGame.getBoard();
 
         // Load the game-view FXML file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game-view.fxml"));
@@ -256,9 +269,11 @@ public class Controller {
     public void ChangeImage(Button button) {
         // Load the image using getResource
         URL imageUrl = getClass().getResource("/X_icon.png");
-        if(board.currentPlayer.getName() == "p2" ){
+        if(Objects.equals(board.currentPlayer.getName(), "p2")){
             imageUrl = getClass().getResource("/O_icon.png");
         }
+
+        assert imageUrl != null;
         Image image = new Image(((URL) imageUrl).toString());
         ImageView imageView = new ImageView(image);
 
@@ -269,7 +284,7 @@ public class Controller {
         // Set the ImageView as the graphic of the button
         button.setGraphic(imageView);
     }
-    public void handleButtonClicked(int a, int b , int c , int d , Button button, GridPane gridpane) {
+    public void handleButtonClicked(int a, int b , int c , int d , Button button, GridPane gridpane, ImageView image) {
 
         if (board != null && board.validateMove(a,b,c,d)) {
             changeText();
@@ -278,8 +293,10 @@ public class Controller {
             NotAllowedText.setOpacity(0.0);
             if (board.grid[a][b].win){
                 gridpane.setOpacity(0.0);
+                String winningImageUrl;
+                if (currentGame.board.currentPlayer.symbol == Symbol.O){ winningImageUrl = "X_icon.png";}else{ winningImageUrl = "O_icon.png";}
+                image.setImage(new Image(winningImageUrl));
             }
-
         }else{
             NotAllowedText.setOpacity(1.0);
         }
@@ -291,169 +308,174 @@ public class Controller {
         Button clickedButton = (Button) event.getSource();
 
         if (clickedButton == button0000) {
-            handleButtonClicked(0, 0, 0, 0, button0000, gridpane00);
+            handleButtonClicked(0, 0, 0, 0, button0000, gridPane00, image00);
         } else if (clickedButton == button0001) {
-            handleButtonClicked(0, 0, 0, 1, button0001, gridpane00);
+            handleButtonClicked(0, 0, 0, 1, button0001, gridPane00, image00);
         } else if (clickedButton == button0002) {
-            handleButtonClicked(0, 0, 0, 2, button0002, gridpane00);
+            handleButtonClicked(0, 0, 0, 2, button0002, gridPane00, image00);
         } else if (clickedButton == button0010) {
-            handleButtonClicked(0, 0, 1, 0, button0010, gridpane00);
+            handleButtonClicked(0, 0, 1, 0, button0010, gridPane00, image00);
         } else if (clickedButton == button0011) {
-            handleButtonClicked(0, 0, 1, 1, button0011, gridpane00);
+            handleButtonClicked(0, 0, 1, 1, button0011, gridPane00, image00);
         } else if (clickedButton == button0012) {
-            handleButtonClicked(0, 0, 1, 2, button0012, gridpane00);
+            handleButtonClicked(0, 0, 1, 2, button0012, gridPane00, image00);
         } else if (clickedButton == button0020) {
-            handleButtonClicked(0, 0, 2, 0, button0020, gridpane00);
+            handleButtonClicked(0, 0, 2, 0, button0020, gridPane00, image00);
         } else if (clickedButton == button0021) {
-            handleButtonClicked(0, 0, 2, 1, button0021, gridpane00);
+            handleButtonClicked(0, 0, 2, 1, button0021, gridPane00, image00);
         } else if (clickedButton == button0022) {
-            handleButtonClicked(0, 0, 2, 2, button0022, gridpane00);
+            handleButtonClicked(0, 0, 2, 2, button0022, gridPane00, image00);
         } else if (clickedButton == button0100) {
-            handleButtonClicked(0, 1, 0, 0, button0100, gridpane01);
+            handleButtonClicked(0, 1, 0, 0, button0100, gridPane01, image01);
         } else if (clickedButton == button0101) {
-            handleButtonClicked(0, 1, 0, 1, button0101, gridpane01);
+            handleButtonClicked(0, 1, 0, 1, button0101, gridPane01, image01);
         } else if (clickedButton == button0102) {
-            handleButtonClicked(0, 1, 0, 2, button0102, gridpane01);
+            handleButtonClicked(0, 1, 0, 2, button0102, gridPane01, image01);
         } else if (clickedButton == button0110) {
-            handleButtonClicked(0, 1, 1, 0, button0110, gridpane01);
+            handleButtonClicked(0, 1, 1, 0, button0110, gridPane01, image01);
         } else if (clickedButton == button0111) {
-            handleButtonClicked(0, 1, 1, 1, button0111, gridpane01);
+            handleButtonClicked(0, 1, 1, 1, button0111, gridPane01, image01);
         } else if (clickedButton == button0112) {
-            handleButtonClicked(0, 1, 1, 2, button0112, gridpane01);
+            handleButtonClicked(0, 1, 1, 2, button0112, gridPane01, image01);
         } else if (clickedButton == button0120) {
-            handleButtonClicked(0, 1, 2, 0, button0120, gridpane01);
+            handleButtonClicked(0, 1, 2, 0, button0120, gridPane01, image01);
         } else if (clickedButton == button0121) {
-            handleButtonClicked(0, 1, 2, 1, button0121, gridpane01);
+            handleButtonClicked(0, 1, 2, 1, button0121, gridPane01, image01);
         } else if (clickedButton == button0122) {
-            handleButtonClicked(0, 1, 2, 2, button0122, gridpane01);
+            handleButtonClicked(0, 1, 2, 2, button0122, gridPane01, image01);
         } else if (clickedButton == button0200) {
-            handleButtonClicked(0, 2, 0, 0, button0200, gridpane01);
+            handleButtonClicked(0, 2, 0, 0, button0200, gridPane02, image02);
         } else if (clickedButton == button0201) {
-            handleButtonClicked(0, 2, 0, 1, button0201, gridpane01);
+            handleButtonClicked(0, 2, 0, 1, button0201, gridPane02, image02);
         } else if (clickedButton == button0202) {
-            handleButtonClicked(0, 2, 0, 2, button0202, gridpane02);
+            handleButtonClicked(0, 2, 0, 2, button0202, gridPane02, image02);
         } else if (clickedButton == button0210) {
-            handleButtonClicked(0, 2, 1, 0, button0210, gridpane02);
+            handleButtonClicked(0, 2, 1, 0, button0210, gridPane02, image02);
         } else if (clickedButton == button0211) {
-            handleButtonClicked(0, 2, 1, 1, button0211, gridpane02);
+            handleButtonClicked(0, 2, 1, 1, button0211, gridPane02, image02);
         } else if (clickedButton == button0212) {
-            handleButtonClicked(0, 2, 1, 2, button0212, gridpane02);
+            handleButtonClicked(0, 2, 1, 2, button0212, gridPane02, image02);
         } else if (clickedButton == button0220) {
-            handleButtonClicked(0, 2, 2, 0, button0220, gridpane02);
+            handleButtonClicked(0, 2, 2, 0, button0220, gridPane02, image02);
         } else if (clickedButton == button0221) {
-            handleButtonClicked(0, 2, 2, 1, button0221, gridpane02);
+            handleButtonClicked(0, 2, 2, 1, button0221, gridPane02, image02);
         } else if (clickedButton == button0222) {
-            handleButtonClicked(0, 2, 2, 2, button0222, gridpane02);
+            handleButtonClicked(0, 2, 2, 2, button0222, gridPane02, image02);
         } else if (clickedButton == button1000) {
-            handleButtonClicked(1, 0, 0, 0, button1000, gridpane10);
+            handleButtonClicked(1, 0, 0, 0, button1000, gridPane10, image10);
         } else if (clickedButton == button1001) {
-            handleButtonClicked(1, 0, 0, 1, button1001, gridpane10);
+            handleButtonClicked(1, 0, 0, 1, button1001, gridPane10, image10);
         } else if (clickedButton == button1002) {
-            handleButtonClicked(1, 0, 0, 2, button1002, gridpane10);
+            handleButtonClicked(1, 0, 0, 2, button1002, gridPane10, image10);
         } else if (clickedButton == button1010) {
-            handleButtonClicked(1, 0, 1, 0, button1010, gridpane10);
+            handleButtonClicked(1, 0, 1, 0, button1010, gridPane10, image10);
         } else if (clickedButton == button1011) {
-            handleButtonClicked(1, 0, 1, 1, button1011, gridpane10);
+            handleButtonClicked(1, 0, 1, 1, button1011, gridPane10, image10);
         } else if (clickedButton == button1012) {
-            handleButtonClicked(1, 0, 1, 2, button1012, gridpane10);
+            handleButtonClicked(1, 0, 1, 2, button1012, gridPane10, image10);
         } else if (clickedButton == button1020) {
-            handleButtonClicked(1, 0, 2, 0, button1020, gridpane10);
+            handleButtonClicked(1, 0, 2, 0, button1020, gridPane10, image10);
         } else if (clickedButton == button1021) {
-            handleButtonClicked(1, 0, 2, 1, button1021, gridpane10);
+            handleButtonClicked(1, 0, 2, 1, button1021, gridPane10, image10);
         } else if (clickedButton == button1022) {
-            handleButtonClicked(1, 0, 2, 2, button1022, gridpane10);
+            handleButtonClicked(1, 0, 2, 2, button1022, gridPane10, image10);
         } else if (clickedButton == button1100) {
-            handleButtonClicked(1, 1, 0, 0, button1100, gridpane11);
+            handleButtonClicked(1, 1, 0, 0, button1100, gridPane11, image11);
         } else if (clickedButton == button1101) {
-            handleButtonClicked(1, 1, 0, 1, button1101, gridpane11);
+            handleButtonClicked(1, 1, 0, 1, button1101, gridPane11, image11);
         } else if (clickedButton == button1102) {
-            handleButtonClicked(1, 1, 0, 2, button1102, gridpane11);
+            handleButtonClicked(1, 1, 0, 2, button1102, gridPane11, image11);
         } else if (clickedButton == button1110) {
-            handleButtonClicked(1, 1, 1, 0, button1110, gridpane11);
+            handleButtonClicked(1, 1, 1, 0, button1110, gridPane11, image11);
         } else if (clickedButton == button1111) {
-            handleButtonClicked(1, 1, 1, 1, button1111, gridpane11);
+            handleButtonClicked(1, 1, 1, 1, button1111, gridPane11, image11);
         } else if (clickedButton == button1112) {
-            handleButtonClicked(1, 1, 1, 2, button1112, gridpane11);
+            handleButtonClicked(1, 1, 1, 2, button1112, gridPane11, image11);
         } else if (clickedButton == button1120) {
-            handleButtonClicked(1, 1, 2, 0, button1120, gridpane11);
+            handleButtonClicked(1, 1, 2, 0, button1120, gridPane11, image11);
         } else if (clickedButton == button1121) {
-            handleButtonClicked(1, 1, 2, 1, button1121, gridpane11);
+            handleButtonClicked(1, 1, 2, 1, button1121, gridPane11, image11);
         } else if (clickedButton == button1122) {
-            handleButtonClicked(1, 1, 2, 2, button1122, gridpane11);
+            handleButtonClicked(1, 1, 2, 2, button1122, gridPane11, image11);
         } else if (clickedButton == button1200) {
-            handleButtonClicked(1, 2, 0, 0, button1200, gridpane12);
+            handleButtonClicked(1, 2, 0, 0, button1200, gridPane12, image12);
         } else if (clickedButton == button1201) {
-            handleButtonClicked(1, 2, 0, 1, button1201, gridpane12);
+            handleButtonClicked(1, 2, 0, 1, button1201, gridPane12, image12);
         } else if (clickedButton == button1202) {
-            handleButtonClicked(1, 2, 0, 2, button1202, gridpane12);
+            handleButtonClicked(1, 2, 0, 2, button1202, gridPane12, image12);
         } else if (clickedButton == button1210) {
-            handleButtonClicked(1, 2, 1, 0, button1210, gridpane12);
+            handleButtonClicked(1, 2, 1, 0, button1210, gridPane12, image12);
         } else if (clickedButton == button1211) {
-            handleButtonClicked(1, 2, 1, 1, button1211, gridpane12);
+            handleButtonClicked(1, 2, 1, 1, button1211, gridPane12, image12);
         } else if (clickedButton == button1212) {
-            handleButtonClicked(1, 2, 1, 2, button1212, gridpane12);
+            handleButtonClicked(1, 2, 1, 2, button1212, gridPane12, image12);
         } else if (clickedButton == button1220) {
-            handleButtonClicked(1, 2, 2, 0, button1220, gridpane12);
+            handleButtonClicked(1, 2, 2, 0, button1220, gridPane12, image12);
         } else if (clickedButton == button1221) {
-            handleButtonClicked(1, 2, 2, 1, button1221, gridpane12);
+            handleButtonClicked(1, 2, 2, 1, button1221, gridPane12, image12);
         } else if (clickedButton == button1222) {
-            handleButtonClicked(1, 2, 2, 2, button1222, gridpane12);
+            handleButtonClicked(1, 2, 2, 2, button1222, gridPane12, image12);
         } else if (clickedButton == button2000) {
-            handleButtonClicked(2, 0, 0, 0, button2000, gridpane20);
+            handleButtonClicked(2, 0, 0, 0, button2000, gridPane20, image20);
         } else if (clickedButton == button2001) {
-            handleButtonClicked(2, 0, 0, 1, button2001, gridpane20);
+            handleButtonClicked(2, 0, 0, 1, button2001, gridPane20, image20);
         } else if (clickedButton == button2002) {
-            handleButtonClicked(2, 0, 0, 2, button2002, gridpane20);
+            handleButtonClicked(2, 0, 0, 2, button2002, gridPane20, image20);
         } else if (clickedButton == button2010) {
-            handleButtonClicked(2, 0, 1, 0, button2010, gridpane20);
+            handleButtonClicked(2, 0, 1, 0, button2010, gridPane20, image20);
         } else if (clickedButton == button2011) {
-            handleButtonClicked(2, 0, 1, 1, button2011, gridpane20);
+            handleButtonClicked(2, 0, 1, 1, button2011, gridPane20, image20);
         } else if (clickedButton == button2012) {
-            handleButtonClicked(2, 0, 1, 2, button2012, gridpane20);
+            handleButtonClicked(2, 0, 1, 2, button2012, gridPane20, image20);
         } else if (clickedButton == button2020) {
-            handleButtonClicked(2, 0, 2, 0, button2020, gridpane20);
+            handleButtonClicked(2, 0, 2, 0, button2020, gridPane20, image20);
         } else if (clickedButton == button2021) {
-            handleButtonClicked(2, 0, 2, 1, button2021, gridpane20);
+            handleButtonClicked(2, 0, 2, 1, button2021, gridPane20, image20);
         } else if (clickedButton == button2022) {
-            handleButtonClicked(2, 0, 2, 2, button2022, gridpane20);
+            handleButtonClicked(2, 0, 2, 2, button2022, gridPane20, image20);
         } else if (clickedButton == button2100) {
-            handleButtonClicked(2, 1, 0, 0, button2100, gridpane21);
+            handleButtonClicked(2, 1, 0, 0, button2100, gridPane, image21);
         } else if (clickedButton == button2101) {
-            handleButtonClicked(2, 1, 0, 1, button2101, gridpane21);
+            handleButtonClicked(2, 1, 0, 1, button2101, gridPane, image21);
         } else if (clickedButton == button2102) {
-            handleButtonClicked(2, 1, 0, 2, button2102, gridpane21);
+            handleButtonClicked(2, 1, 0, 2, button2102, gridPane, image21);
         } else if (clickedButton == button2110) {
-            handleButtonClicked(2, 1, 1, 0, button2110, gridpane21);
+            handleButtonClicked(2, 1, 1, 0, button2110, gridPane, image21);
         } else if (clickedButton == button2111) {
-            handleButtonClicked(2, 1, 1, 1, button2111, gridpane21);
+            handleButtonClicked(2, 1, 1, 1, button2111, gridPane, image21);
         } else if (clickedButton == button2112) {
-            handleButtonClicked(2, 1, 1, 2, button2112, gridpane21);
+            handleButtonClicked(2, 1, 1, 2, button2112, gridPane, image21);
         } else if (clickedButton == button2120) {
-            handleButtonClicked(2, 1, 2, 0, button2120, gridpane21);
+            handleButtonClicked(2, 1, 2, 0, button2120, gridPane, image21);
         } else if (clickedButton == button2121) {
-            handleButtonClicked(2, 1, 2, 1, button2121, gridpane21);
+            handleButtonClicked(2, 1, 2, 1, button2121, gridPane, image21);
         } else if (clickedButton == button2122) {
-            handleButtonClicked(2, 1, 2, 2, button2122, gridpane21);
+            handleButtonClicked(2, 1, 2, 2, button2122, gridPane, image21);
         } else if (clickedButton == button2200) {
-            handleButtonClicked(2, 2, 0, 0, button2200, gridpane22);
+            handleButtonClicked(2, 2, 0, 0, button2200, gridPane22, image22);
         } else if (clickedButton == button2201) {
-            handleButtonClicked(2, 2, 0, 1, button2201, gridpane22);
+            handleButtonClicked(2, 2, 0, 1, button2201, gridPane22, image22);
         } else if (clickedButton == button2202) {
-            handleButtonClicked(2, 2, 0, 2, button2202, gridpane22);
+            handleButtonClicked(2, 2, 0, 2, button2202, gridPane22, image22);
         } else if (clickedButton == button2210) {
-            handleButtonClicked(2, 2, 1, 0, button2210, gridpane22);
+            handleButtonClicked(2, 2, 1, 0, button2210, gridPane22, image22);
         } else if (clickedButton == button2211) {
-            handleButtonClicked(2, 2, 1, 1, button2211, gridpane22);
+            handleButtonClicked(2, 2, 1, 1, button2211, gridPane22, image22);
         } else if (clickedButton == button2212) {
-            handleButtonClicked(2, 2, 1, 2, button2212, gridpane22);
+            handleButtonClicked(2, 2, 1, 2, button2212, gridPane22, image22);
         } else if (clickedButton == button2220) {
-            handleButtonClicked(2, 2, 2, 0, button2220, gridpane22);
+            handleButtonClicked(2, 2, 2, 0, button2220, gridPane22, image22);
         } else if (clickedButton == button2221) {
-            handleButtonClicked(2, 2, 2, 1, button2221, gridpane22);
+            handleButtonClicked(2, 2, 2, 1, button2221, gridPane22, image22);
         } else if (clickedButton == button2222) {
-            handleButtonClicked(2, 2, 2, 2, button2222, gridpane22);
+            handleButtonClicked(2, 2, 2, 2, button2222, gridPane22, image22);
         }
     }
 
 
+    public void onCreateGameButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void onJoinGameButtonClick(ActionEvent actionEvent) {
+    }
 }

@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -23,7 +24,16 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <GridPane fx:id="gridpane00" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0">
+            <ImageView fx:id="image00" fitHeight="93.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="image01" fitHeight="93.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <ImageView fx:id="image02" fitHeight="93.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+            <ImageView fx:id="image10" fitHeight="93.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+            <ImageView fx:id="image11" fitHeight="93.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ImageView fx:id="image12" fitHeight="93.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ImageView fx:id="image20" fitHeight="93.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+            <ImageView fx:id="image21" fitHeight="93.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ImageView fx:id="image22" fitHeight="93.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <GridPane fx:id="gridPane00" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -45,7 +55,7 @@
                <Button fx:id="button0021" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="38.0" prefWidth="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                <Button fx:id="button0012" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="38.0" prefWidth="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             </GridPane>
-            <GridPane fx:id="gridpane01" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="1">
+            <GridPane fx:id="gridPane01" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="1">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -68,7 +78,7 @@
                   <Button fx:id="button0112" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="38.0" prefWidth="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <GridPane fx:id="gridpane02" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="2">
+            <GridPane fx:id="gridPane02" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="2">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -91,7 +101,7 @@
                   <Button fx:id="button0211" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="38.0" prefWidth="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <GridPane fx:id="gridpane10" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.rowIndex="1">
+            <GridPane fx:id="gridPane10" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.rowIndex="1">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -114,7 +124,7 @@
                   <Button fx:id="button1012" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="38.0" prefWidth="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <GridPane fx:id="gridpane11" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane fx:id="gridPane11" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -137,7 +147,7 @@
                   <Button fx:id="button1112" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="38.0" prefWidth="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <GridPane fx:id="gridpane12" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <GridPane fx:id="gridPane12" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -160,7 +170,7 @@
                   <Button fx:id="button1212" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="38.0" prefWidth="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <GridPane fx:id="gridpane20" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.rowIndex="2">
+            <GridPane fx:id="gridPane20" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.rowIndex="2">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -183,7 +193,7 @@
                   <Button fx:id="button2012" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="38.0" prefWidth="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <GridPane fx:id="gridpane21" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane fx:id="gridPane" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -206,7 +216,7 @@
                   <Button fx:id="button2112" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="38.0" prefWidth="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <GridPane fx:id="gridpane22" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <GridPane fx:id="gridPane22" gridLinesVisible="true" prefHeight="324.0" prefWidth="324.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

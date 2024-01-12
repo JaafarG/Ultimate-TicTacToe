@@ -61,8 +61,19 @@ public class Game {
 
         board.grid[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, board.currentPlayer.symbol);
 
-        if (!board.grid[SmallGrid1][SmallGrid2].win && !board.grid[SmallGrid1][SmallGrid2].full ) {
+        if (board.grid[SmallGrid1][SmallGrid2].win || board.grid[SmallGrid1][SmallGrid2].full ) {
 
+            for (int i = 0; i < board.grid.length; i++) {
+
+                for (int j = 0; j < board.grid[i].length; j++) {
+                    System.out.println("Current grids will be : " + SmallGrid1 + SmallGrid2);
+                    if (!board.grid[i][j].win && !board.grid[i][j].full ) {
+                        board.CurrentGrid[i][j] = true;
+                        System.out.println("Current grids will be : " + i + j);
+                    }
+                }
+            }
+        }else{
             for (int i = 0; i < board.grid.length; i++) {
 
                 for (int j = 0; j < board.grid[i].length; j++) {
@@ -71,19 +82,15 @@ public class Game {
                 }
             }
             board.CurrentGrid[SmallGrid1][SmallGrid2] = true;
-        }else{
-            for (int i = 0; i < board.grid.length; i++) {
-
-                for (int j = 0; j < board.grid[i].length; j++) {
-
-                    if(!board.grid[SmallGrid1][SmallGrid2].win){
-
-                        board.CurrentGrid[i][j] = true;
-                    }
-                }
-            }
+            System.out.println("Current grids will be : " + SmallGrid1 + SmallGrid2);
 
         }
+
+
+
+
+
+
         board.grid[BigGrid1][BigGrid2].win = board.grid[BigGrid1][BigGrid2].checkSmallGridWin();
 
         if (board.currentPlayer == players[1]){
