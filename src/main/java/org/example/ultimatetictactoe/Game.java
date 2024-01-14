@@ -147,11 +147,11 @@ public class Game {
         if (board.getGrid()[BigGrid1][BigGrid2].checkSmallGridWin()){
             gridView.updateCell(BigGrid1, BigGrid2, currentPlayer.getSymbol());
         }
+
         // If the current big grid is not full or won by a player
-        if (board.getGrid()[SmallGrid1][SmallGrid2].isWin() || board.getGrid()[SmallGrid1][SmallGrid2].isFull() ) {
+        if ((board.getGrid()[SmallGrid1][SmallGrid2].isWin() || board.getGrid()[SmallGrid1][SmallGrid2].isFull()) ||(board.getGrid()[SmallGrid1][SmallGrid2].isWin() && SmallGrid2 == BigGrid2 && SmallGrid1 == BigGrid1) ) {
 
             for (int i = 0; i < board.getGrid().length; i++) {
-
                 for (int j = 0; j < board.getGrid()[i].length; j++) {
                     System.out.println("Current grids will be : " + SmallGrid1 + SmallGrid2);
                     if (!board.getGrid()[i][j].isWin() && !board.getGrid()[i][j].isFull() ) {

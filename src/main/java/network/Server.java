@@ -176,8 +176,8 @@ public class Server implements Listener {
 
                         gameController.changeImage(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2, false);
                         gameController.changeText();
-
                         gameController.getCurrentGame().playMove(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2);
+                        gameController.changeGridImage(bigGridIndex1,bigGridIndex2);
                     } else {
                         System.out.println("Server tried to play a move but it was not its time to shine");
                     }
