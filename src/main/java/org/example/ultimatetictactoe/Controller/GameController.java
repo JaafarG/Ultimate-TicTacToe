@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 
-
 public class GameController {
     private Game currentGame;
     private Server server;
@@ -148,6 +147,8 @@ public class GameController {
     @FXML private Button button2220;
     @FXML private Button button2221;
     @FXML private Button button2222;
+
+    public Text getAdviceText() { return adviceText; }
 
     public Game getCurrentGame() {
         return currentGame;
@@ -328,18 +329,21 @@ public class GameController {
             if (currentGame.getPlayers()[0].isMe()) {
                 server.getConnection().sendMessage("KO");
                 currentGame.getPlayers()[1].setWinner(true);
+
+                // Close the server
+                server.stop();
             }
             // If the player is the client
             if (currentGame.getPlayers()[1].isMe()) {
                 client.getConnection().sendMessage("KO");
                 currentGame.getPlayers()[0].setWinner(true);
+
+                // Close the client
+                client.close();
             }
 
             // Set the game state to finished
             currentGame.setGameState(true);
-
-            // Close the client
-            client.close();
 
             // Load the menu view
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));

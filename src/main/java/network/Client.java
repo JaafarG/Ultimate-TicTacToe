@@ -142,15 +142,75 @@ public class Client implements Listener {
             case "OK" -> {
                 gameController.getCurrentGame().setGameState(true);
                 gameController.getCurrentGame().getPlayers()[0].setWinner(true);
+                Platform.runLater(() -> {
+                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationAlert.setTitle("Your opponent won the game !");
+                    confirmationAlert.setHeaderText("Don't give up. But if you do, don't rate us 1 star on PlayStore. 🥹");
+                    confirmationAlert.setContentText("Click on OK to return to the menu.");
+
+                    Optional<ButtonType> result = confirmationAlert.showAndWait();
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                            Scene scene = new Scene(loader.load());
+                            Stage stage = (Stage) gameController.getAdviceText().getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
             }
             // Server forfeited
             case "KO" -> {
                 gameController.getCurrentGame().setGameState(true);
                 gameController.getCurrentGame().getPlayers()[1].setWinner(true);
+
+                Platform.runLater(() -> {
+                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationAlert.setTitle("Your opponent resigned !");
+                    confirmationAlert.setHeaderText("Lucky you ! Your opponent resigned, offering you victory.");
+                    confirmationAlert.setContentText("Click on OK to return to the menu.");
+
+                    Optional<ButtonType> result = confirmationAlert.showAndWait();
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                            Scene scene = new Scene(loader.load());
+                            Stage stage = (Stage) gameController.getAdviceText().getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
             // Game is a tie
             case "XO" -> {
                 gameController.getCurrentGame().setGameState(true);
+
+                Platform.runLater(() -> {
+                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationAlert.setTitle("It's a tie !");
+                    confirmationAlert.setHeaderText("Your opponent made the final possible move of the game and did not manage to win... What a loser !");
+                    confirmationAlert.setContentText("Click on OK to return to the menu.");
+
+                    Optional<ButtonType> result = confirmationAlert.showAndWait();
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                            Scene scene = new Scene(loader.load());
+                            Stage stage = (Stage) gameController.getAdviceText().getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
             default -> {
                 // If the message is 4 characters long

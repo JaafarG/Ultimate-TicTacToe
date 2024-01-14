@@ -1,13 +1,42 @@
 package org.example.ultimatetictactoe;
 
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public class Game {
+    private int IDGame;
+    private java.sql.Timestamp gameDate;
     private Board board;
     private Player[] players = new Player[2];
     private Player currentPlayer;
     private boolean gameOver;
     private Smallgrid gridView = new Smallgrid();
     private int SymbolSkin;
+
+    public int getIDGame() {
+        return IDGame;
+    }
+
+    public void setIDGame(int IDGame) {
+        this.IDGame = IDGame;
+    }
+
+    public java.sql.Timestamp getGameDate() {
+        return gameDate;
+    }
+
+    public void setGameDate(java.sql.Timestamp gameDate) {
+        this.gameDate = gameDate;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
 
     public Board getBoard() {
         return board;
@@ -31,10 +60,6 @@ public class Game {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
-    }
-
-    public boolean isGameOver() {
-        return gameOver;
     }
 
     public void setGameState(boolean gameOver) {
@@ -63,6 +88,12 @@ public class Game {
         board = new Board();
         gameOver = false;
         SymbolSkin = symbolSkin;
+    }
+
+    public Game(int idGame, Timestamp gameDate, boolean finished, int idWinner, int idPlayerX, int idPlayerO) {
+        this.IDGame = idGame;
+        this.gameDate = gameDate;
+        this.gameOver = finished;
     }
 
     public void chooseFirstPlayer() {

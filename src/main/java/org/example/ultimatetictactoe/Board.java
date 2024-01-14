@@ -21,8 +21,6 @@ public class Board {
         this.currentGrid = currentGrid;
     }
 
-
-
     public Board() {
         // Initialize the board with empty Smallgrid objects
         for (int i = 0; i < grid.length; i++) {
