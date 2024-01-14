@@ -40,7 +40,7 @@ public class Board {
         System.out.println("Board was initialized");
     }
 
-    boolean validateMove(int BigGrid1, int BigGrid2, int SmallGrid1, int SmallGrid2) {
+    public boolean validateMove(int BigGrid1, int BigGrid2, int SmallGrid1, int SmallGrid2) {
         return (currentGrid[BigGrid1][BigGrid2] && grid[BigGrid1][BigGrid2].validateMove(SmallGrid1,SmallGrid2));
     }
 }

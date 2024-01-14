@@ -1,6 +1,8 @@
 package network;
 
-import org.example.ultimatetictactoe.Controller;
+import javafx.application.Platform;
+import javafx.scene.paint.Color;
+import org.example.ultimatetictactoe.Controller.GameController;
 import org.example.ultimatetictactoe.Symbol;
 
 import java.io.BufferedReader;
@@ -8,8 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.SocketException;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Client implements Listener {
@@ -17,30 +17,28 @@ public class Client implements Listener {
     private BufferedReader input;
     private PrintWriter output;
     private Connection connection;
-    private Controller controller;
+    private GameController gameController;
     private String IPAddress;
     private int port;
     private String name;
 
-    public Client(String IPAddress, int port, String name) {
+    public Client(String IPAddress, int port, String name, GameController gameController) {
         this.IPAddress = IPAddress;
         this.port = port;
         this.name = (name==null) ? "Client" : name;
+        this.gameController = gameController;
     }
 
+    public Connection getConnection() { return this.connection; }
+
     public void connectToServer() throws IOException {
-        try {
-            socket = new Socket(IPAddress, port);
-            System.out.println("Connected to the server.");
+        socket = new Socket(IPAddress, port);
+        System.out.println("Connected to the server.");
 
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            output = new PrintWriter(socket.getOutputStream(), true);
+        input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        output = new PrintWriter(socket.getOutputStream(), true);
 
-            connection = new Connection(socket, this);
-        } catch (IOException e) {
-            System.err.println("Error connecting to server: " + e.getMessage());
-            System.err.println("Try connecting to the server again.");
-        }
+        connection = new Connection(socket, this);
     }
 
     public void close() {
@@ -68,62 +66,74 @@ public class Client implements Listener {
             try (Scanner scanner = new Scanner(System.in)) {
                 while (true) {
                     String input = scanner.nextLine();
-                    connection.sendMessage(name + ": " + input);
-                    receiveMessage(input);
+                    connection.sendMessage(input);
                 }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
         }).start();
     }
 
     @Override
     public void onMessageReceived(String message) {
-        System.out.println(message);
-    }
+        System.out.println("onMessageReceived " + message);
 
-    public void receiveMessage(String message) throws IOException {
         switch (message) {
             // Client will play "X"
             case "X" -> {
-                controller.getCurrentGame().getPlayers()[0].setSymbol(Symbol.O);
-                controller.getCurrentGame().getPlayers()[1].setSymbol(Symbol.X);
-
-                controller.setPlayingLabel("You're playing X");
+                gameController.getCurrentGame().setCurrentPlayer(gameController.getCurrentGame().getPlayers()[1]);
+                gameController.getCurrentGame().getCurrentPlayer().setStarter(true);
+                gameController.getCurrentGame().getPlayers()[0].setSymbol(Symbol.O);
+                gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.X);
+                gameController.updatePlayingText("You're playing X");
+                gameController.setImagePlayer1(getClass().getResource("/O_icon.png"));
+                gameController.setImagePlayer2(getClass().getResource("/X_icon.png"));
             }
             // Client will play "O"
             case "O" -> {
-                controller.getCurrentGame().getPlayers()[0].setSymbol(Symbol.X);
-                controller.getCurrentGame().getPlayers()[1].setSymbol(Symbol.O);
-
-                controller.setPlayingLabel("You're playing O");
+                gameController.getCurrentGame().setCurrentPlayer(gameController.getCurrentGame().getPlayers()[0]);
+                gameController.getCurrentGame().getCurrentPlayer().setStarter(true);
+                gameController.getCurrentGame().getPlayers()[0].setSymbol(Symbol.X);
+                gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.O);
+                gameController.updatePlayingText("You're playing O");
+                gameController.setImagePlayer1(getClass().getResource("/X_icon.png"));
+                gameController.setImagePlayer2(getClass().getResource("/O_icon.png"));
             }
             // Server won
             case "OK" -> {
-                controller.getCurrentGame().setGameState(true);
-                controller.getCurrentGame().getPlayers()[0].setWinner(true);
+                gameController.getCurrentGame().setGameState(true);
+                gameController.getCurrentGame().getPlayers()[0].setWinner(true);
             }
             // Server forfeited
             case "KO" -> {
-                controller.getCurrentGame().setGameState(true);
-                controller.getCurrentGame().getPlayers()[1].setWinner(true);
+                gameController.getCurrentGame().setGameState(true);
+                gameController.getCurrentGame().getPlayers()[1].setWinner(true);
             }
             // Game is a tie
             case "XO" -> {
-                controller.getCurrentGame().setGameState(true);
-                controller.getCurrentGame().getPlayers()[0].setWinner(false);
-                controller.getCurrentGame().getPlayers()[1].setWinner(false);
-            }
-            // Server played A1
-            case "A1" -> {
-                if (controller.getCurrentGame().getCurrentPlayer() == controller.getCurrentGame().getPlayers()[0]) {
-                    controller.getCurrentGame().playMove(0,0,0,0);
-                } else {
-                    System.out.println("L'adversaire a envoyé un coup alors que ce n'est pas à son tour");
-                }
+                gameController.getCurrentGame().setGameState(true);
             }
             default -> {
+                // If the message is 4 characters long
+                if (message.length() == 4) {
+                    // Check if it is the opponent's turn
+                    if (gameController.getCurrentGame().getCurrentPlayer() == gameController.getCurrentGame().getPlayers()[0]) {
+                        int bigGridIndex1 = Integer.parseInt(String.valueOf(message.charAt(0)));
+                        int bigGridIndex2 = Integer.parseInt(String.valueOf(message.charAt(1)));
 
+                        int smallGridIndex1 = Integer.parseInt(String.valueOf(message.charAt(2)));
+                        int smallGridIndex2 = Integer.parseInt(String.valueOf(message.charAt(3)));
+
+                        Platform.runLater(() -> {
+                            gameController.changeImage(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2, true);
+                            gameController.changeText();
+                        });
+
+                        gameController.getCurrentGame().playMove(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2);
+                    } else {
+                        System.out.println("Server tried to play a move but it was not its time to shine");
+                    }
+                } else {
+                    System.out.println("The message must be 4 characters long");
+                }
             }
         }
     }

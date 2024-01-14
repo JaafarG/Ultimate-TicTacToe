@@ -4,7 +4,7 @@ public class Player {
     private String name;
     private boolean winner;
     private boolean starter;
-    private boolean serverPlayer;
+    private boolean me;
     public Symbol symbol;
 
     public String getName() {
@@ -31,12 +31,12 @@ public class Player {
         this.starter = starter;
     }
 
-    public boolean isServerPlayer() {
-        return serverPlayer;
+    public boolean isMe() {
+        return me;
     }
 
-    public void setServerPlayer(boolean serverPlayer) {
-        this.serverPlayer = serverPlayer;
+    public void setMe(boolean me) {
+        this.me = me;
     }
 
     public Symbol getSymbol() {
@@ -47,12 +47,12 @@ public class Player {
         this.symbol = symbol;
     }
 
-    public Player(String name, boolean serverPlayer) {
+    public Player(String name, boolean me) {
         this.name = name;
         this.winner = false;
-        this.serverPlayer = serverPlayer;
-        this.starter = true;
-        this.symbol = (serverPlayer) ? Symbol.X : Symbol.O;
+        this.starter = false;
+        this.me = me;
+        this.symbol = null;
     }
 
     public Player(String name) {

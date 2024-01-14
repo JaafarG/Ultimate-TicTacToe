@@ -12,6 +12,38 @@ public class Connection {
     private BufferedReader input;
     private Listener listener;
 
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    public PrintWriter getOutput() {
+        return output;
+    }
+
+    public void setOutput(PrintWriter output) {
+        this.output = output;
+    }
+
+    public BufferedReader getInput() {
+        return input;
+    }
+
+    public void setInput(BufferedReader input) {
+        this.input = input;
+    }
+
+    public Listener getListener() {
+        return listener;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
     public Connection(Socket socket, Listener listener) throws IOException {
         this.socket = socket;
         this.listener = listener;

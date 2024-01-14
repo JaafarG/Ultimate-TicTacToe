@@ -56,6 +56,14 @@ public class Game {
         }
     }
 
+    public void switchCurrentPlayer() {
+        if (currentPlayer == players[1]){
+            currentPlayer = players[0];
+        }else{
+            currentPlayer = players[1];
+        }
+    }
+
     public boolean checkGameWin(Player p1) {
         // Check all rows
         for (int i = 0; i < 3; i++) {
@@ -85,26 +93,33 @@ public class Game {
 
     public void playMove(int BigGrid1, int BigGrid2, int SmallGrid1, int SmallGrid2) {
         board.getGrid()[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, currentPlayer.symbol);
-
+        // If it's a winning move update gridview
+        if (board.getGrid()[BigGrid1][BigGrid2].checkSmallGridWin()){
+            board.getGridView().updateCell(BigGrid1, BigGrid2, currentPlayer.getSymbol());
+        }
         // If the current big grid is not full or won by a player
-        if (!board.getGrid()[SmallGrid1][SmallGrid2].isWin() && !board.getGrid()[SmallGrid1][SmallGrid2].isFull()) {
+        if (board.getGrid()[SmallGrid1][SmallGrid2].isWin() || board.getGrid()[SmallGrid1][SmallGrid2].isFull() ) {
+
             for (int i = 0; i < board.getGrid().length; i++) {
+
                 for (int j = 0; j < board.getGrid()[i].length; j++) {
-                    board.getCurrentGrid()[i][j] = false;
+                    System.out.println("Current grids will be : " + SmallGrid1 + SmallGrid2);
+                    if (!board.getGrid()[i][j].isWin() && !board.getGrid()[i][j].isFull() ) {
+                        board.getCurrentGrid()[i][j] = true;
+                        System.out.println("Current grids will be : " + i + j);
+                    }
                 }
             }
-            board.getCurrentGrid()[SmallGrid1][SmallGrid2] = true;
         }else{
             for (int i = 0; i < board.getGrid().length; i++) {
 
                 for (int j = 0; j < board.getGrid()[i].length; j++) {
 
-                    if(!board.getGrid()[SmallGrid1][SmallGrid2].isWin()){
-
-                        board.getCurrentGrid()[i][j] = true;
-                    }
+                    board.getCurrentGrid()[i][j] = false;
                 }
             }
+            board.getCurrentGrid()[SmallGrid1][SmallGrid2] = true;
+            System.out.println("Current grids will be : " + SmallGrid1 + SmallGrid2);
 
         }
         board.getGrid()[BigGrid1][BigGrid2].setWin(board.getGrid()[BigGrid1][BigGrid2].checkSmallGridWin());

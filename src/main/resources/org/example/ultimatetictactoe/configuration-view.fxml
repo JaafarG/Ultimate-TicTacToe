@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.ultimatetictactoe.Controller">
+            fx:controller="org.example.ultimatetictactoe.Controller.ConfigurationController">
    <Line endX="-100.0" endY="293.0" layoutX="400.0" layoutY="53.0" startX="-100.0"/>
    <Text layoutX="37.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Game"
          wrappingWidth="229.13671875">
@@ -23,9 +23,9 @@
          <Font size="40.0"/>
       </font>
    </Text>
-   <Text layoutX="24.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your IP adress : "
+   <Text fx:id="ip_address" layoutX="24.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your IP address : "
          wrappingWidth="229.13671875"/>
-   <Text layoutX="24.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your connection port : "
+   <Text fx:id="connection_port" layoutX="24.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your connection port : "
          wrappingWidth="229.13671875"/>
    <Text layoutX="332.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IP adress :"
          wrappingWidth="229.13671875">
@@ -44,6 +44,6 @@
            text="Create a game"/>
    <Button layoutX="450.0" layoutY="352.0" mnemonicParsing="false" onAction="#onJoinGameButtonClick"
            text="Join a game"/>
-   <TextField layoutX="332.0" layoutY="157.0"/>
-   <TextField layoutX="332.0" layoutY="212.0"/>
+   <TextField fx:id="ip_address_field" layoutX="332.0" layoutY="157.0"/>
+   <TextField fx:id="connection_port_field" layoutX="332.0" layoutY="212.0"/>
 </AnchorPane>
