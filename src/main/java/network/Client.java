@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.example.ultimatetictactoe.Controller.ConfigurationController;
 import org.example.ultimatetictactoe.Controller.GameController;
 import org.example.ultimatetictactoe.Symbol;
 
@@ -25,15 +26,20 @@ public class Client implements Listener {
     private PrintWriter output;
     private Connection connection;
     private GameController gameController;
+
+    private int symbolSkin;
+
+    private ConfigurationController configurationController;
     private String IPAddress;
     private int port;
     private String name;
 
-    public Client(String IPAddress, int port, String name, GameController gameController) {
+    public Client(String IPAddress, int port, String name, GameController gameController, int symbolSkin) {
         this.IPAddress = IPAddress;
         this.port = port;
         this.name = (name==null) ? "Client" : name;
         this.gameController = gameController;
+        this.symbolSkin = symbolSkin;
     }
 
     public Connection getConnection() { return this.connection; }
@@ -91,8 +97,22 @@ public class Client implements Listener {
                 gameController.getCurrentGame().getPlayers()[0].setSymbol(Symbol.O);
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.X);
                 gameController.updatePlayingText("You're playing X");
-                gameController.setImagePlayer1(getClass().getResource("/O_icon.png"));
-                gameController.setImagePlayer2(getClass().getResource("/X_icon.png"));
+                if(symbolSkin == 0 ){
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon.png"));
+                }
+                if(symbolSkin == 1 ){
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon1.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon1.png"));
+                }
+                if(symbolSkin == 2 ){
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon2.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon2.png"));
+                }
+                if(symbolSkin == 3 ){
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon3.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon3.png"));
+                }
             }
             // Client will play "O"
             case "O" -> {
@@ -101,8 +121,22 @@ public class Client implements Listener {
                 gameController.getCurrentGame().getPlayers()[0].setSymbol(Symbol.X);
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.O);
                 gameController.updatePlayingText("You're playing O");
-                gameController.setImagePlayer1(getClass().getResource("/X_icon.png"));
-                gameController.setImagePlayer2(getClass().getResource("/O_icon.png"));
+                if(symbolSkin == 0 ){
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon.png"));
+                }
+                if(symbolSkin == 1 ){
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon1.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon1.png"));
+                }
+                if(symbolSkin == 2 ){
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon2.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon2.png"));
+                }
+                if(symbolSkin == 3 ){
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon3.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon3.png"));
+                }
             }
             // Server won
             case "OK" -> {
@@ -132,6 +166,7 @@ public class Client implements Listener {
                         gameController.changeImage(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2, true);
                         gameController.changeText();
                         gameController.getCurrentGame().playMove(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2);
+                        gameController.changeGridImage(bigGridIndex1,bigGridIndex2);
                     } else {
                         System.out.println("Server tried to play a move but it was not its time to shine");
                     }

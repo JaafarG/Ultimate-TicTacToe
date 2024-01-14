@@ -7,6 +7,7 @@ public class Game {
     private Player currentPlayer;
     private boolean gameOver;
     private Smallgrid gridView = new Smallgrid();
+    private int SymbolSkin;
 
     public Board getBoard() {
         return board;
@@ -48,11 +49,20 @@ public class Game {
         this.gridView = gridView;
     }
 
-    public Game(Player p1, Player p2) {
+    public int getSymbolSkin() {
+        return SymbolSkin;
+    }
+
+    public void setSymbolSkin(int symbolSkin) {
+        this.SymbolSkin = symbolSkin;
+    }
+
+    public Game(Player p1, Player p2, int symbolSkin) {
         players[0] = p1;
         players[1] = p2;
         board = new Board();
         gameOver = false;
+        SymbolSkin = symbolSkin;
     }
 
     public void chooseFirstPlayer() {

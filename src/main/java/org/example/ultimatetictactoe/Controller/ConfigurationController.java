@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -20,6 +21,8 @@ import org.example.ultimatetictactoe.Symbol;
 import java.io.IOException;
 
 public class ConfigurationController {
+
+    private int symbolSkin ;
     private String IPAddress;
     private int connectionPort;
 
@@ -42,7 +45,7 @@ public class ConfigurationController {
             gameController.setServer(new Server(IPAddress, connectionPort, "Server", gameController));
 
             // Create a new Game instance
-            gameController.setCurrentGame(new Game(new Player("Server", true), new Player("Client", false)));
+            gameController.setCurrentGame(new Game(new Player("Server", true), new Player("Client", false), symbolSkin));
 
             // Choose the player who will start the game
             gameController.getCurrentGame().chooseFirstPlayer();
@@ -55,16 +58,45 @@ public class ConfigurationController {
             if (gameController.getCurrentGame().getPlayers()[0].isStarter()) {
                 gameController.getCurrentGame().getPlayers()[0].setSymbol(Symbol.X);
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.O);
-                gameController.setImagePlayer1(getClass().getResource("/X_icon.png"));
-                gameController.setImagePlayer2(getClass().getResource("/O_icon.png"));
+                if(symbolSkin == 0 ){
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon.png"));
+                }
+                if(symbolSkin == 1 ){
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon1.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon1.png"));
+                }
+                if(symbolSkin == 2 ){
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon2.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon2.png"));
+                }
+                if(symbolSkin == 3 ){
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon3.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon3.png"));
+                }
+
                 gameController.getServer().getConnection().sendMessage("O");
                 gameController.updatePlayingText("You're playing X");
             // If the server player is the second player
             } else {
                 gameController.getCurrentGame().getPlayers()[0].setSymbol(Symbol.O);
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.X);
-                gameController.setImagePlayer1(getClass().getResource("/O_icon.png"));
-                gameController.setImagePlayer2(getClass().getResource("/X_icon.png"));
+                if(symbolSkin == 0 ){
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon.png"));
+                }
+                if(symbolSkin == 1 ){
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon1.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon1.png"));
+                }
+                if(symbolSkin == 2 ){
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon2.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon2.png"));
+                }
+                if(symbolSkin == 3 ){
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon3.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon3.png"));
+                }
                 gameController.getServer().getConnection().sendMessage("X");
                 gameController.updatePlayingText("You're playing O");
             }
@@ -106,10 +138,10 @@ public class ConfigurationController {
             GameController gameController = loader.getController();
 
             // Create a new player
-            gameController.setClient(new Client(ip_address_field.getText(), Integer.parseInt(connection_port_field.getText()), "Client", gameController));
+            gameController.setClient(new Client(ip_address_field.getText(), Integer.parseInt(connection_port_field.getText()), "Client", gameController, symbolSkin));
 
             // Create a new Game instance
-            gameController.setCurrentGame(new Game(new Player("Server", false), new Player("Client", true)));
+            gameController.setCurrentGame(new Game(new Player("Server", false), new Player("Client", true), symbolSkin));
 
             // Connection to the server
             gameController.getClient().connectToServer();
@@ -148,4 +180,25 @@ public class ConfigurationController {
         IPAddress = ip;
         connectionPort = port;
     }
+
+    @FXML
+    public void onSkin0buttonClicked() {
+        symbolSkin = 0;
+
+    }
+    @FXML
+    public void onSkin1buttonClicked() {
+        symbolSkin = 1;
+    }
+    @FXML
+    public void onSkin2buttonClicked() {
+        symbolSkin = 2;
+    }
+    @FXML
+    public void onSkin3buttonClicked() {
+        symbolSkin = 3;
+    }
+
+
+
 }

@@ -35,6 +35,8 @@ public class GameController {
     @FXML private Text adviceText;
 
     private Button[][][][] buttons = new Button[3][3][3][3];
+    private GridPane[][] gridPanes = new GridPane[3][3];
+    private ImageView[][] images = new ImageView[3][3];
 
     @FXML private GridPane gridPane00;
     @FXML private GridPane gridPane01;
@@ -285,6 +287,31 @@ public class GameController {
         buttons[2][2][2][0] = button2220;
         buttons[2][2][2][1] = button2221;
         buttons[2][2][2][2] = button2222;
+
+        //GridPanes
+        gridPanes[0][0] = gridPane00;
+        gridPanes[0][1] = gridPane01;
+        gridPanes[0][2] = gridPane02;
+        gridPanes[1][0] = gridPane10;
+        gridPanes[1][1] = gridPane11;
+        gridPanes[1][2] = gridPane12;
+        gridPanes[2][0] = gridPane20;
+        gridPanes[2][1] = gridPane21;
+        gridPanes[2][2] = gridPane22;
+
+        //Images
+        images[0][0] = image00;
+        images[0][1] = image01;
+        images[0][2] = image02;
+        images[1][0] = image10;
+        images[1][1] = image11;
+        images[1][2] = image12;
+        images[2][0] = image20;
+        images[2][1] = image21;
+        images[2][2] = image22;
+
+
+
     }
 
     @FXML
@@ -353,15 +380,9 @@ public class GameController {
                 // Not Allowed text becomes invisible
                 adviceText.setOpacity(0.0);
 
-                // If the player won the small grid with them move
-                if (currentGame.getBoard().getGrid()[bigGridX][bigGridY].isWin()) {
-                    // The grid becomes invisible and it is replaced with the player's symbol
-                    gridPane.setOpacity(0.0);
-                    // Add an image on top of won grid
-                    String winningImageUrl;
-                    if (currentGame.getCurrentPlayer().symbol == Symbol.O){ winningImageUrl = "X_icon.png";}else{ winningImageUrl = "O_icon.png";}
-                    image.setImage(new Image(winningImageUrl));
-                }
+                // If the player won the small grid with their move
+                changeGridImage(bigGridX,bigGridY);
+
             // If the move is not valid
             }else{
                 // The Not Allowed text appears
@@ -375,6 +396,44 @@ public class GameController {
         } else {
             adviceText.setText("It is not your turn !");
             adviceText.setOpacity(1.0);
+        }
+    }
+
+    public void changeGridImage(int bigGridX, int bigGridY) {
+        if (currentGame.getBoard().getGrid()[bigGridX][bigGridY].isWin()) {
+            // The grid becomes invisible and it is replaced with the player's symbol
+            findGridPaneByCoordinates(bigGridX, bigGridY).setOpacity(0.0);
+            // Add an image on top of won grid
+            String winningImageUrl = null;
+            if (currentGame.getSymbolSkin() == 0) {
+                if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
+                    winningImageUrl = "X_icon.png";
+                } else {
+                    winningImageUrl = "O_icon.png";
+                }
+            }
+            if (currentGame.getSymbolSkin() == 1) {
+                if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
+                    winningImageUrl = "X_icon1.png";
+                } else {
+                    winningImageUrl = "O_icon1.png";
+                }
+            }
+            if (currentGame.getSymbolSkin() == 2) {
+                if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
+                    winningImageUrl = "X_icon2.png";
+                } else {
+                    winningImageUrl = "O_icon2.png";
+                }
+            }
+            if (currentGame.getSymbolSkin() == 3) {
+                if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
+                    winningImageUrl = "X_icon3.png";
+                } else {
+                    winningImageUrl = "O_icon3.png";
+                }
+            }
+            findImageByCoordinates(bigGridX, bigGridY).setImage(new Image(winningImageUrl));
         }
     }
 
@@ -588,11 +647,19 @@ public class GameController {
         });
     }
 
+
+
     public void updatePlayingText(String text) {
         playingText.setText(text);
     }
 
     private Button findButtonByCoordinates(int bigGridX, int bigGridY, int smallGridX, int smallGridY) {
         return buttons[bigGridX][bigGridY][smallGridX][smallGridY];
+    }
+    private GridPane findGridPaneByCoordinates(int bigGridX, int bigGridY) {
+        return gridPanes[bigGridX][bigGridY];
+    }
+    private ImageView findImageByCoordinates(int bigGridX, int bigGridY) {
+        return images[bigGridX][bigGridY];
     }
 }

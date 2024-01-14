@@ -3,6 +3,8 @@ package org.example.ultimatetictactoe;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+
+
 public class test {
 
    /*     @FXML
@@ -17,6 +19,15 @@ public class test {
         }
 
     }
+    gridPanes[0][0] = gridPane00;
+gridPanes[0][1] = gridPane01;
+gridPanes[0][2] = gridPane02;
+gridPanes[1][0] = gridPane10;
+gridPanes[1][1] = gridPane11;
+gridPanes[1][2] = gridPane12;
+gridPanes[2][0] = gridPane20;
+gridPanes[2][1] = gridPane21;
+gridPanes[2][2] = gridPane22;
 
 
 
