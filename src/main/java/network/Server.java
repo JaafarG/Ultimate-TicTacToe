@@ -100,6 +100,19 @@ public class Server implements Listener {
                     confirmationAlert.setHeaderText("Don't give up. But if you do, don't rate us 1 star on PlayStore. 🥹");
                     confirmationAlert.setContentText("Click on OK to return to the menu.");
 
+                    // If the user closes with the cross button
+                    confirmationAlert.setOnCloseRequest(event -> {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                            Scene scene = new Scene(loader.load());
+                            Stage stage = (Stage) gameController.getAdviceText().getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
                     Optional<ButtonType> result = confirmationAlert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
                         try {
@@ -120,10 +133,23 @@ public class Server implements Listener {
                 gameController.getCurrentGame().getPlayers()[1].setWinner(true);
 
                 Platform.runLater(() -> {
-                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    Alert confirmationAlert = new Alert(Alert.AlertType.INFORMATION);
                     confirmationAlert.setTitle("Your opponent resigned !");
                     confirmationAlert.setHeaderText("Lucky you ! Your opponent resigned, offering you victory.");
                     confirmationAlert.setContentText("Click on OK to return to the menu.");
+
+                    // If the user closes with the cross button
+                    confirmationAlert.setOnCloseRequest(event -> {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                            Scene scene = new Scene(loader.load());
+                            Stage stage = (Stage) gameController.getAdviceText().getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
 
                     Optional<ButtonType> result = confirmationAlert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -148,6 +174,19 @@ public class Server implements Listener {
                     confirmationAlert.setTitle("It's a tie !");
                     confirmationAlert.setHeaderText("Your opponent made the final possible move of the game and did not manage to win... What a loser !");
                     confirmationAlert.setContentText("Click on OK to return to the menu.");
+
+                    // If the user closes with the cross button
+                    confirmationAlert.setOnCloseRequest(event -> {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                            Scene scene = new Scene(loader.load());
+                            Stage stage = (Stage) gameController.getAdviceText().getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
 
                     Optional<ButtonType> result = confirmationAlert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {

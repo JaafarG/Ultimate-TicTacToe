@@ -190,7 +190,7 @@ public class GameController {
 
     @FXML
     private void initialize() {
-        // Première grande grille (0,0)
+        // First BigGrid (0,0)
         buttons[0][0][0][0] = button0000;
         buttons[0][0][0][1] = button0001;
         buttons[0][0][0][2] = button0002;
@@ -201,7 +201,7 @@ public class GameController {
         buttons[0][0][2][1] = button0021;
         buttons[0][0][2][2] = button0022;
 
-        // Deuxième grande grille (0,1)
+        // Second BigGrid (0,1)
         buttons[0][1][0][0] = button0100;
         buttons[0][1][0][1] = button0101;
         buttons[0][1][0][2] = button0102;
@@ -212,7 +212,7 @@ public class GameController {
         buttons[0][1][2][1] = button0121;
         buttons[0][1][2][2] = button0122;
 
-        // Troisième grande grille (0,2)
+        // Third BigGrid (0,2)
         buttons[0][2][0][0] = button0200;
         buttons[0][2][0][1] = button0201;
         buttons[0][2][0][2] = button0202;
@@ -223,7 +223,7 @@ public class GameController {
         buttons[0][2][2][1] = button0221;
         buttons[0][2][2][2] = button0222;
 
-        // Quatrième grande grille (1,0)
+        // Fourth BigGrid (1,0)
         buttons[1][0][0][0] = button1000;
         buttons[1][0][0][1] = button1001;
         buttons[1][0][0][2] = button1002;
@@ -234,7 +234,7 @@ public class GameController {
         buttons[1][0][2][1] = button1021;
         buttons[1][0][2][2] = button1022;
 
-        // Cinquième grande grille (1,1)
+        // Fifth BigGrid (1,1)
         buttons[1][1][0][0] = button1100;
         buttons[1][1][0][1] = button1101;
         buttons[1][1][0][2] = button1102;
@@ -245,7 +245,7 @@ public class GameController {
         buttons[1][1][2][1] = button1121;
         buttons[1][1][2][2] = button1122;
 
-        // Sixième grande grille (1,2)
+        // Sixth BigGrid (1,2)
         buttons[1][2][0][0] = button1200;
         buttons[1][2][0][1] = button1201;
         buttons[1][2][0][2] = button1202;
@@ -256,7 +256,7 @@ public class GameController {
         buttons[1][2][2][1] = button1221;
         buttons[1][2][2][2] = button1222;
 
-        // Septième grande grille (2,0)
+        // Seventh BigGrid (2,0)
         buttons[2][0][0][0] = button2000;
         buttons[2][0][0][1] = button2001;
         buttons[2][0][0][2] = button2002;
@@ -267,7 +267,7 @@ public class GameController {
         buttons[2][0][2][1] = button2021;
         buttons[2][0][2][2] = button2022;
 
-        // Huitième grande grille (2,1)
+        // Eighth BigGrid (2,1)
         buttons[2][1][0][0] = button2100;
         buttons[2][1][0][1] = button2101;
         buttons[2][1][0][2] = button2102;
@@ -278,7 +278,7 @@ public class GameController {
         buttons[2][1][2][1] = button2121;
         buttons[2][1][2][2] = button2122;
 
-        // Neuvième grande grille (2,2)
+        // Ninth BigGrid (2,2)
         buttons[2][2][0][0] = button2200;
         buttons[2][2][0][1] = button2201;
         buttons[2][2][0][2] = button2202;
@@ -310,9 +310,6 @@ public class GameController {
         images[2][0] = image20;
         images[2][1] = image21;
         images[2][2] = image22;
-
-
-
     }
 
     @FXML
@@ -411,30 +408,30 @@ public class GameController {
             String winningImageUrl = null;
             if (currentGame.getSymbolSkin() == 0) {
                 if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
-                    winningImageUrl = "X_icon.png";
+                    winningImageUrl = "Skins/X_icon.png";
                 } else {
-                    winningImageUrl = "O_icon.png";
+                    winningImageUrl = "Skins/O_icon.png";
                 }
             }
             if (currentGame.getSymbolSkin() == 1) {
                 if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
-                    winningImageUrl = "X_icon1.png";
+                    winningImageUrl = "Skins/X_icon1.png";
                 } else {
-                    winningImageUrl = "O_icon1.png";
+                    winningImageUrl = "Skins/O_icon1.png";
                 }
             }
             if (currentGame.getSymbolSkin() == 2) {
                 if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
-                    winningImageUrl = "X_icon2.png";
+                    winningImageUrl = "Skins/X_icon2.png";
                 } else {
-                    winningImageUrl = "O_icon2.png";
+                    winningImageUrl = "Skins/O_icon2.png";
                 }
             }
             if (currentGame.getSymbolSkin() == 3) {
                 if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
-                    winningImageUrl = "X_icon3.png";
+                    winningImageUrl = "Skins/X_icon3.png";
                 } else {
-                    winningImageUrl = "O_icon3.png";
+                    winningImageUrl = "Skins/O_icon3.png";
                 }
             }
             findImageByCoordinates(bigGridX, bigGridY).setImage(new Image(winningImageUrl));

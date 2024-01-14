@@ -2,11 +2,9 @@ package network;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.example.ultimatetictactoe.Controller.ConfigurationController;
 import org.example.ultimatetictactoe.Controller.GameController;
@@ -98,20 +96,20 @@ public class Client implements Listener {
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.X);
                 gameController.updatePlayingText("You're playing X");
                 if(symbolSkin == 0 ){
-                    gameController.setImagePlayer1(getClass().getResource("/O_icon.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/X_icon.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon.png"));
                 }
                 if(symbolSkin == 1 ){
-                    gameController.setImagePlayer1(getClass().getResource("/O_icon1.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/X_icon1.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon1.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon1.png"));
                 }
                 if(symbolSkin == 2 ){
-                    gameController.setImagePlayer1(getClass().getResource("/O_icon2.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/X_icon2.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon2.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon2.png"));
                 }
                 if(symbolSkin == 3 ){
-                    gameController.setImagePlayer1(getClass().getResource("/O_icon3.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/X_icon3.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon3.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon3.png"));
                 }
             }
             // Client will play "O"
@@ -122,20 +120,20 @@ public class Client implements Listener {
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.O);
                 gameController.updatePlayingText("You're playing O");
                 if(symbolSkin == 0 ){
-                    gameController.setImagePlayer1(getClass().getResource("/X_icon.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/O_icon.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon.png"));
                 }
                 if(symbolSkin == 1 ){
-                    gameController.setImagePlayer1(getClass().getResource("/X_icon1.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/O_icon1.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon1.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon1.png"));
                 }
                 if(symbolSkin == 2 ){
-                    gameController.setImagePlayer1(getClass().getResource("/X_icon2.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/O_icon2.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon2.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon2.png"));
                 }
                 if(symbolSkin == 3 ){
-                    gameController.setImagePlayer1(getClass().getResource("/X_icon3.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/O_icon3.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon3.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon3.png"));
                 }
             }
             // Server won
@@ -147,6 +145,19 @@ public class Client implements Listener {
                     confirmationAlert.setTitle("Your opponent won the game !");
                     confirmationAlert.setHeaderText("Don't give up. But if you do, don't rate us 1 star on PlayStore. 🥹");
                     confirmationAlert.setContentText("Click on OK to return to the menu.");
+
+                    // If the user closes with the cross button
+                    confirmationAlert.setOnCloseRequest(event -> {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                            Scene scene = new Scene(loader.load());
+                            Stage stage = (Stage) gameController.getAdviceText().getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
 
                     Optional<ButtonType> result = confirmationAlert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -169,10 +180,23 @@ public class Client implements Listener {
                 gameController.getCurrentGame().getPlayers()[1].setWinner(true);
 
                 Platform.runLater(() -> {
-                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    Alert confirmationAlert = new Alert(Alert.AlertType.INFORMATION);
                     confirmationAlert.setTitle("Your opponent resigned !");
                     confirmationAlert.setHeaderText("Lucky you ! Your opponent resigned, offering you victory.");
                     confirmationAlert.setContentText("Click on OK to return to the menu.");
+
+                    // If the user closes with the cross button
+                    confirmationAlert.setOnCloseRequest(event -> {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                            Scene scene = new Scene(loader.load());
+                            Stage stage = (Stage) gameController.getAdviceText().getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
 
                     Optional<ButtonType> result = confirmationAlert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -197,6 +221,19 @@ public class Client implements Listener {
                     confirmationAlert.setTitle("It's a tie !");
                     confirmationAlert.setHeaderText("Your opponent made the final possible move of the game and did not manage to win... What a loser !");
                     confirmationAlert.setContentText("Click on OK to return to the menu.");
+
+                    // If the user closes with the cross button
+                    confirmationAlert.setOnCloseRequest(event -> {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                            Scene scene = new Scene(loader.load());
+                            Stage stage = (Stage) gameController.getAdviceText().getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
 
                     Optional<ButtonType> result = confirmationAlert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {

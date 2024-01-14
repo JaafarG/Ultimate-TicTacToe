@@ -76,9 +76,9 @@
             <Font size="29.0" />
          </font>
       </Text>
-      <Button layoutX="103.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Create account" />
-      <Button layoutX="384.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Log in" />
-      <Text fill="RED" layoutX="43.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwords not identical !" wrappingWidth="227.0">
+      <Button fx:id="create_account" layoutX="103.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Create account" />
+      <Button fx:id="log_in" layoutX="384.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Log in" />
+      <Text fx:id="PasswordNotIdenticalText" fill="RED" layoutX="43.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwords not identical !" opacity="0.0" wrappingWidth="227.0">
          <font>
             <Font size="14.0" />
          </font>

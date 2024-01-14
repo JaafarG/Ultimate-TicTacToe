@@ -7,9 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import network.Client;
@@ -59,20 +57,20 @@ public class ConfigurationController {
                 gameController.getCurrentGame().getPlayers()[0].setSymbol(Symbol.X);
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.O);
                 if(symbolSkin == 0 ){
-                    gameController.setImagePlayer1(getClass().getResource("/X_icon.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/O_icon.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon.png"));
                 }
                 if(symbolSkin == 1 ){
-                    gameController.setImagePlayer1(getClass().getResource("/X_icon1.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/O_icon1.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon1.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon1.png"));
                 }
                 if(symbolSkin == 2 ){
-                    gameController.setImagePlayer1(getClass().getResource("/X_icon2.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/O_icon2.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon2.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon2.png"));
                 }
                 if(symbolSkin == 3 ){
-                    gameController.setImagePlayer1(getClass().getResource("/X_icon3.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/O_icon3.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon3.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon3.png"));
                 }
 
                 gameController.getServer().getConnection().sendMessage("O");
@@ -82,20 +80,20 @@ public class ConfigurationController {
                 gameController.getCurrentGame().getPlayers()[0].setSymbol(Symbol.O);
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.X);
                 if(symbolSkin == 0 ){
-                    gameController.setImagePlayer1(getClass().getResource("/O_icon.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/X_icon.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon.png"));
                 }
                 if(symbolSkin == 1 ){
-                    gameController.setImagePlayer1(getClass().getResource("/O_icon1.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/X_icon1.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon1.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon1.png"));
                 }
                 if(symbolSkin == 2 ){
-                    gameController.setImagePlayer1(getClass().getResource("/O_icon2.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/X_icon2.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon2.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon2.png"));
                 }
                 if(symbolSkin == 3 ){
-                    gameController.setImagePlayer1(getClass().getResource("/O_icon3.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/X_icon3.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon3.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon3.png"));
                 }
                 gameController.getServer().getConnection().sendMessage("X");
                 gameController.updatePlayingText("You're playing O");
