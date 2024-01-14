@@ -7,6 +7,8 @@ public class Player {
     private boolean me;
     public Symbol symbol;
 
+
+
     public String getName() {
         return name;
     }

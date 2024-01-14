@@ -3,7 +3,7 @@ package org.example.ultimatetictactoe;
 public class Board {
     private  Smallgrid[][] grid = new Smallgrid[3][3];
     private boolean[][] currentGrid = new boolean[3][3];
-    private Smallgrid gridView = new Smallgrid();
+
 
     public Smallgrid[][] getGrid() {
         return grid;
@@ -21,13 +21,7 @@ public class Board {
         this.currentGrid = currentGrid;
     }
 
-    public Smallgrid getGridView() {
-        return gridView;
-    }
 
-    public void setGridView(Smallgrid gridView) {
-        this.gridView = gridView;
-    }
 
     public Board() {
         // Initialize the board with empty Smallgrid objects

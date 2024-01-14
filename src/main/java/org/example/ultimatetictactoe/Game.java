@@ -6,6 +6,7 @@ public class Game {
     private Player[] players = new Player[2];
     private Player currentPlayer;
     private boolean gameOver;
+    private Smallgrid gridView = new Smallgrid();
 
     public Board getBoard() {
         return board;
@@ -39,6 +40,14 @@ public class Game {
         this.gameOver = gameOver;
     }
 
+    public Smallgrid getGridView() {
+        return gridView;
+    }
+
+    public void setGridView(Smallgrid gridView) {
+        this.gridView = gridView;
+    }
+
     public Game(Player p1, Player p2) {
         players[0] = p1;
         players[1] = p2;
@@ -67,23 +76,23 @@ public class Game {
     public boolean checkGameWin(Player p1) {
         // Check all rows
         for (int i = 0; i < 3; i++) {
-            if ((board.getGridView().getCells()[i][0] != p1.symbol) && (board.getGridView().getCells()[i][0] == board.getGridView().getCells()[i][1]) && (board.getGridView().getCells()[i][0] == board.getGridView().getCells()[i][2])) {
+            if ((gridView.getCells()[i][0] != p1.symbol) && (gridView.getCells()[i][0] == gridView.getCells()[i][1]) && (gridView.getCells()[i][0] == gridView.getCells()[i][2])) {
                 return true;
             }
         }
 
         // Check all columns
         for (int j = 0; j < 3; j++) {
-            if (board.getGridView().getCells()[0][j] != p1.symbol && board.getGridView().getCells()[0][j] == board.getGridView().getCells()[1][j] && board.getGridView().getCells()[0][j] == board.getGridView().getCells()[2][j]) {
+            if (gridView.getCells()[0][j] != p1.symbol && gridView.getCells()[0][j] == gridView.getCells()[1][j] && gridView.getCells()[0][j] == gridView.getCells()[2][j]) {
                 return true;
             }
         }
 
         // Check diagonals
-        if (board.getGridView().getCells()[0][0] != p1.symbol && board.getGridView().getCells()[0][0] == board.getGridView().getCells()[1][1] && board.getGridView().getCells()[0][0] == board.getGridView().getCells()[2][2]) {
+        if (gridView.getCells()[0][0] != p1.symbol && gridView.getCells()[0][0] == gridView.getCells()[1][1] && gridView.getCells()[0][0] == gridView.getCells()[2][2]) {
             return true;
         }
-        if (board.getGridView().getCells()[0][2] != p1.symbol && board.getGridView().getCells()[0][2] == board.getGridView().getCells()[1][1] && board.getGridView().getCells()[0][2] == board.getGridView().getCells()[2][0]) {
+        if (gridView.getCells()[0][2] != p1.symbol && gridView.getCells()[0][2] == gridView.getCells()[1][1] && gridView.getCells()[0][2] == gridView.getCells()[2][0]) {
             return true;
         }
 
@@ -95,7 +104,7 @@ public class Game {
         board.getGrid()[BigGrid1][BigGrid2].updateCell(SmallGrid1, SmallGrid2, currentPlayer.symbol);
         // If it's a winning move update gridview
         if (board.getGrid()[BigGrid1][BigGrid2].checkSmallGridWin()){
-            board.getGridView().updateCell(BigGrid1, BigGrid2, currentPlayer.getSymbol());
+            gridView.updateCell(BigGrid1, BigGrid2, currentPlayer.getSymbol());
         }
         // If the current big grid is not full or won by a player
         if (board.getGrid()[SmallGrid1][SmallGrid2].isWin() || board.getGrid()[SmallGrid1][SmallGrid2].isFull() ) {
