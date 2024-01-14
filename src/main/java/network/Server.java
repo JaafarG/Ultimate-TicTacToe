@@ -107,10 +107,8 @@ public class Server implements Listener {
                         int smallGridIndex1 = Integer.parseInt(String.valueOf(message.charAt(2)));
                         int smallGridIndex2 = Integer.parseInt(String.valueOf(message.charAt(3)));
 
-                        Platform.runLater(() -> {
-                            gameController.changeImage(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2, false);
-                            gameController.changeText();
-                        });
+                        gameController.changeImage(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2, false);
+                        gameController.changeText();
 
                         gameController.getCurrentGame().playMove(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2);
                     } else {

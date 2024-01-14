@@ -1,5 +1,6 @@
 package org.example.ultimatetictactoe.Controller;
 
+import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import network.*;
@@ -375,9 +376,6 @@ public class GameController {
             adviceText.setText("It is not your turn !");
             adviceText.setOpacity(1.0);
         }
-        if(currentGame.getGridView().checkSmallGridWin()){
-            onWin();
-        }
     }
 
     private void onWin() {
@@ -569,23 +567,25 @@ public class GameController {
 
     @FXML
     public void changeImage(int bigGridX, int bigGridY, int smallGridX, int smallGridY, boolean player1) {
-        Button button = findButtonByCoordinates(bigGridX, bigGridY, smallGridX, smallGridY);
+        Platform.runLater(() -> {
+            Button button = findButtonByCoordinates(bigGridX, bigGridY, smallGridX, smallGridY);
 
-        // Load the image using getResource
-        ImageView imageView;
+            // Load the image using getResource
+            ImageView imageView;
 
-        if (player1){
-            imageView = new ImageView(new Image(imagePlayer1.toString()));
-        } else {
-            imageView = new ImageView(new Image(imagePlayer2.toString()));
-        }
+            if (player1){
+                imageView = new ImageView(new Image(imagePlayer1.toString()));
+            } else {
+                imageView = new ImageView(new Image(imagePlayer2.toString()));
+            }
 
-        // Set the properties of the ImageView
-        imageView.setFitHeight(20); // Set the height of the image
-        imageView.setFitWidth(15);  // Set the width of the image
+            // Set the properties of the ImageView
+            imageView.setFitHeight(20); // Set the height of the image
+            imageView.setFitWidth(15);  // Set the width of the image
 
-        // Set the ImageView as the graphic of the button
-        button.setGraphic(imageView);
+            // Set the ImageView as the graphic of the button
+            button.setGraphic(imageView);
+        });
     }
 
     public void updatePlayingText(String text) {

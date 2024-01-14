@@ -1,7 +1,13 @@
 package network;
 
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import org.example.ultimatetictactoe.Controller.GameController;
 import org.example.ultimatetictactoe.Symbol;
 
@@ -10,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Client implements Listener {
@@ -122,11 +129,8 @@ public class Client implements Listener {
                         int smallGridIndex1 = Integer.parseInt(String.valueOf(message.charAt(2)));
                         int smallGridIndex2 = Integer.parseInt(String.valueOf(message.charAt(3)));
 
-                        Platform.runLater(() -> {
-                            gameController.changeImage(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2, true);
-                            gameController.changeText();
-                        });
-
+                        gameController.changeImage(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2, true);
+                        gameController.changeText();
                         gameController.getCurrentGame().playMove(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2);
                     } else {
                         System.out.println("Server tried to play a move but it was not its time to shine");

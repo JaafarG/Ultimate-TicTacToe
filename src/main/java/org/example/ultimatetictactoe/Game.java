@@ -133,11 +133,6 @@ public class Game {
         }
         board.getGrid()[BigGrid1][BigGrid2].setWin(board.getGrid()[BigGrid1][BigGrid2].checkSmallGridWin());
 
-        // Switch the current player
-        if (currentPlayer == players[1]){
-            currentPlayer = players[0];
-        }else{
-            currentPlayer = players[1];
-        }
+        switchCurrentPlayer();
     }
 }
