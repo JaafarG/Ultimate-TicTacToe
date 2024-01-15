@@ -378,6 +378,11 @@ public class GameController {
                 // Plays the move
                 currentGame.playMove(bigGridX,bigGridY,smallGridX,smallGridY);
 
+                // If the player wins the game
+                if(currentGame.checkGameWin(currentGame.getCurrentPlayer())){
+                    onWin();
+                }
+
                 // Not Allowed text becomes invisible
                 adviceText.setOpacity(0.0);
 
@@ -389,9 +394,6 @@ public class GameController {
                 // The Not Allowed text appears
                 adviceText.setText("Move not allowed !");
                 adviceText.setOpacity(1.0);
-            }
-            if(currentGame.checkGameWin(currentGame.getCurrentPlayer())){
-                onWin();
             }
         // If it is not your turn
         } else {
@@ -439,19 +441,33 @@ public class GameController {
     }
 
     private void onWin() {
+        // If the player is the server
+        if (currentGame.getPlayers()[0].isMe()) { // Server wins
+            server.getConnection().sendMessage("OK");
+            // If the player is the client
+        } else {
+            client.getConnection().sendMessage("OK");
+        }
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game Over");
+        alert.setHeaderText(null);
         alert.setContentText("Congratulations, " + currentGame.getCurrentPlayer().getUsername() + "! You have won the game!");
 
         alert.showAndWait();
 
-        if (currentGame.getCurrentPlayer() == currentGame.getPlayers()[0]) { // Server wins
-            server.getConnection().sendMessage("OK");
-        } else { // Client wins
-            client.getConnection().sendMessage("OK");
-        }
-
-
+        // If the user closes with the cross button
+        alert.setOnCloseRequest(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                Scene scene = new Scene(loader.load());
+                Stage stage = (Stage) this.adviceText.getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 

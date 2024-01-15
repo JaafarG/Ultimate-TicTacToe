@@ -16,7 +16,7 @@
             <Font size="52.0" />
          </font>
       </Text>
-      <Text layoutX="339.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name :" wrappingWidth="106.3603515625">
+      <Text layoutX="339.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :" wrappingWidth="106.3603515625">
          <font>
             <Font size="17.0" />
          </font>
@@ -37,7 +37,7 @@
          </font>
       </PasswordField>
       <Line endX="-100.0" endY="254.0" layoutX="400.0" layoutY="93.0" startX="-100.0" />
-      <Text layoutX="43.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name :" wrappingWidth="106.3603515625">
+      <Text layoutX="43.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :" wrappingWidth="106.3603515625">
          <font>
             <Font size="17.0" />
          </font>
