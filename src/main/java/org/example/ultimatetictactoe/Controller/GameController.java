@@ -379,8 +379,19 @@ public class GameController {
                 currentGame.playMove(bigGridX,bigGridY,smallGridX,smallGridY);
 
                 // If the player wins the game
-                if(currentGame.checkGameWin(currentGame.getCurrentPlayer())){
+                if (currentGame.checkGameWin(currentGame.getCurrentPlayer())){
                     onWin();
+                }
+
+                // If the game is a tie
+                boolean tie = true;
+                for (int i = 0; i <= 2; i++) {
+                    for (int j = 0; j <= 2; j++) {
+                        tie &= (currentGame.getBoard().getGrid()[i][j].isFull() || currentGame.getBoard().getGrid()[i][j].isWin());
+                    }
+                }
+                if (tie) {
+                    onTie();
                 }
 
                 // Not Allowed text becomes invisible
@@ -441,6 +452,14 @@ public class GameController {
     }
 
     private void onWin() {
+        currentGame.setGameState(true);
+
+        if (currentGame.getPlayers()[0].isMe()) {
+            currentGame.getPlayers()[0].setWinner(true);
+        } else {
+            currentGame.getPlayers()[1].setWinner(true);
+        }
+
         // If the player is the server
         if (currentGame.getPlayers()[0].isMe()) { // Server wins
             server.getConnection().sendMessage("OK");
@@ -461,15 +480,70 @@ public class GameController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
                 Scene scene = new Scene(loader.load());
-                Stage stage = (Stage) this.adviceText.getScene().getWindow();
+                Stage stage = (Stage) this.getAdviceText().getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                Scene scene = new Scene(loader.load());
+                Stage stage = (Stage) this.getAdviceText().getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
+    private void onTie() {
+        // If the player is the server
+        if (currentGame.getPlayers()[0].isMe()) {
+            server.getConnection().sendMessage("XO");
+            // If the player is the client
+        } else {
+            client.getConnection().sendMessage("XO");
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Over");
+        alert.setHeaderText(null);
+        alert.setContentText("Unfortunately, this game ended on a tie !");
+
+        alert.showAndWait();
+
+        // If the user closes with the cross button
+        alert.setOnCloseRequest(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                Scene scene = new Scene(loader.load());
+                Stage stage = (Stage) this.getAdviceText().getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                Scene scene = new Scene(loader.load());
+                Stage stage = (Stage) this.getAdviceText().getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @FXML
     public void onButtonClicked(ActionEvent event) {
