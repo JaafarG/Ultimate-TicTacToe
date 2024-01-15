@@ -77,6 +77,24 @@ public class Smallgrid {
     }
 
     /**
+     * Checks if this small grid is full.
+     *
+     * @return true if the small grid is full, false otherwise.
+     */
+    public boolean checkSmallGridFull() {
+        int full = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (cells[i][j] != null) {
+                    full++;
+                }
+            }
+        }
+        return (full == 9);
+
+    }
+
+    /**
      * Checks if this small grid is won by a player.
      *
      * @return true if the small grid is won, false otherwise.

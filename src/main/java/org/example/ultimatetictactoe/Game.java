@@ -251,6 +251,9 @@ public class Game {
         if (board.getGrid()[BigGrid1][BigGrid2].checkSmallGridWin()) {
             gridView.updateCell(BigGrid1, BigGrid2, currentPlayer.getSymbol());
         }
+        // Check if the move results in a full small grid, and update the board if needed
+        board.getGrid()[BigGrid1][BigGrid2].setFull(board.getGrid()[BigGrid1][BigGrid2].checkSmallGridFull());
+
 
         // Check if the current small grid is won by the current player and not full
         if (board.getGrid()[SmallGrid1][SmallGrid2].checkSmallGridWin() && SmallGrid2 == BigGrid2 && SmallGrid1 == BigGrid1) {
