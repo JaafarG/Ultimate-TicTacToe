@@ -251,6 +251,11 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Text>
+      <Text fx:id="moveText" layoutX="367.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
       <Button layoutX="398.0" layoutY="299.0" mnemonicParsing="false" onAction="#onForfeitButtonClick" prefHeight="38.0" prefWidth="128.0" text="Forfeit" textFill="RED">
          <font>
             <Font name="Arial Bold" size="17.0" />

@@ -31,6 +31,7 @@ public class GameController {
 
     @FXML private Text turnText;
     @FXML private Text playingText;
+    @FXML private Text moveText;
     @FXML private Text adviceText;
 
     private Button[][][][] buttons = new Button[3][3][3][3];
@@ -381,6 +382,7 @@ public class GameController {
                 // If the player wins the game
                 if (currentGame.checkGameWin(currentGame.getCurrentPlayer())){
                     onWin();
+                    return;
                 }
 
                 // If the game is a tie
@@ -392,7 +394,11 @@ public class GameController {
                 }
                 if (tie) {
                     onTie();
+                    return;
                 }
+
+                // Update the move text
+                updateMoveText(bigGridX, bigGridY, smallGridX, smallGridY);
 
                 // Not Allowed text becomes invisible
                 adviceText.setOpacity(0.0);
@@ -410,6 +416,20 @@ public class GameController {
         } else {
             adviceText.setText("It is not your turn !");
             adviceText.setOpacity(1.0);
+        }
+    }
+
+    public void updateMoveText(int bigGridX, int bigGridY, int smallGridX, int smallGridY) {
+        char bigGridLetter = (char) ('A' + bigGridX * 3 + bigGridY);
+        int smallGridPosition = smallGridX * 3 + smallGridY + 1;
+
+        // If the next move would have been in a full or already won big grid
+        if (currentGame.getBoard().getGrid()[smallGridX][smallGridY].isWin() || currentGame.getBoard().getGrid()[smallGridX][smallGridY].isFull()) {
+            moveText.setText(String.format("Last move was made in [%s%d]\nThe next move can be made in any non-full or non-won big grid", bigGridLetter, smallGridPosition));
+        } else {
+            char nextMoveLetter = (char) ('A' + smallGridX * 3 + smallGridY);
+
+            moveText.setText(String.format("Last move was made in [%s%d]\nThe next move has to be made in [%s]", bigGridLetter, smallGridPosition, nextMoveLetter));
         }
     }
 

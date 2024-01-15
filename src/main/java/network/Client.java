@@ -260,6 +260,8 @@ public class Client implements Listener {
                         int smallGridIndex1 = Integer.parseInt(String.valueOf(message.charAt(2)));
                         int smallGridIndex2 = Integer.parseInt(String.valueOf(message.charAt(3)));
 
+                        gameController.updateMoveText(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2);
+
                         gameController.changeImage(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2, true);
                         gameController.changeText();
                         gameController.getCurrentGame().playMove(bigGridIndex1, bigGridIndex2, smallGridIndex1, smallGridIndex2);
@@ -273,4 +275,19 @@ public class Client implements Listener {
             }
         }
     }
+
+    /*public void startListeningForChat() {
+        new Thread(() -> {
+            try (Scanner scanner = new Scanner(System.in)) {
+                while (true) {
+                    String input = scanner.nextLine();
+                    connection.sendChat(input);
+                }
+            }
+        }).start();
+    }
+
+    @Override
+    public void onChatReceived(String message) {
+    }*/
 }

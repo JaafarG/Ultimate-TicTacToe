@@ -52,6 +52,7 @@ public class Connection {
         input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         new Thread(this::listenMessage).start();
+        //new Thread(this::listenChat).start();
     }
 
     public void close() {
@@ -91,4 +92,24 @@ public class Connection {
     public void sendMessage(String message) {
         output.println(message);
     }
+
+    /*
+    private void listenChat() {
+        try {
+            String chat;
+
+            while ((chat = input.readLine()) != null) {
+                // Notifier le listener lorsqu'un chat est reçu
+                if (listener != null) {
+                    listener.onChatReceived(chat);
+                }
+            }
+        } catch (IOException e) {
+            close();
+        }
+    }
+
+    public void sendChat(String chat) {
+        output.println(chat);
+    }*/
 }
