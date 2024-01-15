@@ -8,7 +8,8 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.PasswordField?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ultimatetictactoe.Controller.LogController">
    <children>
       <Text layoutX="78.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ultimate TicTacToe" wrappingWidth="445.13671875">
          <font>
@@ -25,16 +26,16 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <TextField layoutX="339.0" layoutY="196.0" prefHeight="32.0" prefWidth="227.0">
+      <TextField fx:id="login_username_textfield" layoutX="339.0" layoutY="196.0" prefHeight="32.0" prefWidth="227.0">
          <font>
             <Font size="17.0" />
          </font>
       </TextField>
-      <TextField layoutX="339.0" layoutY="259.0" prefHeight="26.0" prefWidth="227.0">
+      <PasswordField fx:id="login_password_textfield" layoutX="339.0" layoutY="259.0" prefHeight="26.0" prefWidth="227.0">
          <font>
             <Font size="17.0" />
          </font>
-      </TextField>
+      </PasswordField>
       <Line endX="-100.0" endY="254.0" layoutX="400.0" layoutY="93.0" startX="-100.0" />
       <Text layoutX="43.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name :" wrappingWidth="106.3603515625">
          <font>
@@ -46,26 +47,26 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <TextField layoutX="43.0" layoutY="164.0" prefHeight="32.0" prefWidth="227.0">
+      <TextField fx:id="signin_username_textfield" layoutX="43.0" layoutY="164.0" prefHeight="32.0" prefWidth="227.0">
          <font>
             <Font size="17.0" />
          </font>
       </TextField>
-      <TextField layoutX="43.0" layoutY="227.0" prefHeight="26.0" prefWidth="227.0">
+      <PasswordField fx:id="signin_password_textfield" layoutX="43.0" layoutY="227.0" prefHeight="26.0" prefWidth="227.0">
          <font>
             <Font size="17.0" />
          </font>
-      </TextField>
+      </PasswordField>
       <Text layoutX="43.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retype Password :" wrappingWidth="227.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <TextField layoutX="43.0" layoutY="291.0" prefHeight="26.0" prefWidth="227.0">
+      <PasswordField fx:id="signin_password_confirmation_textfield" layoutX="43.0" layoutY="291.0" prefHeight="26.0" prefWidth="227.0">
          <font>
             <Font size="17.0" />
          </font>
-      </TextField>
+      </PasswordField>
       <Text layoutX="103.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in" wrappingWidth="106.3603515625">
          <font>
             <Font size="29.0" />
@@ -76,12 +77,7 @@
             <Font size="29.0" />
          </font>
       </Text>
-      <Button fx:id="create_account" layoutX="103.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Create account" />
-      <Button fx:id="log_in" layoutX="384.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Log in" />
-      <Text fx:id="PasswordNotIdenticalText" fill="RED" layoutX="43.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwords not identical !" opacity="0.0" wrappingWidth="227.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
+      <Button fx:id="create_account" layoutX="103.0" layoutY="355.0" mnemonicParsing="false" onAction="#onCreateAccountButtonClick" prefHeight="25.0" prefWidth="106.0" text="Create account" />
+      <Button fx:id="log_in" layoutX="384.0" layoutY="355.0" mnemonicParsing="false" onAction="#onLogInButtonClick" prefHeight="25.0" prefWidth="106.0" text="Log in" />
    </children>
 </AnchorPane>

@@ -3,7 +3,7 @@ package org.example.ultimatetictactoe;
 import java.sql.Date;
 
 public class Player {
-    private String name;
+    private String username;
     private int IDPlayer;
     private String passwordHash;
     private java.sql.Date profileCreationDate;
@@ -12,12 +12,12 @@ public class Player {
     private boolean me;
     public Symbol symbol;
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getIDPlayer() {
@@ -76,8 +76,8 @@ public class Player {
         this.symbol = symbol;
     }
 
-    public Player(String name, boolean me) {
-        this.name = name;
+    public Player(String username, boolean me) {
+        this.username = username;
         this.winner = false;
         this.starter = false;
         this.me = me;
@@ -86,7 +86,7 @@ public class Player {
 
     public Player(int idPlayer, String name, String passwordHash, Date profileCreationDate) {
         this.IDPlayer = idPlayer;
-        this.name = name;
+        this.username = username;
         this.passwordHash = passwordHash;
         this.profileCreationDate = profileCreationDate;
     }

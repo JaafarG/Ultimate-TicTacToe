@@ -1,6 +1,8 @@
 package BDD;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import org.example.ultimatetictactoe.Player;
 import org.example.ultimatetictactoe.Game;
 
 public class UtilBDD {
-    private static final String URL = "jdbc:mysql://localhost:3306/ultimate-tic-tac-toe";
+    private static final String URL = "jdbc:mysql://localhost:3306/ultimate_tic_tac_toe";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
 
@@ -28,7 +30,7 @@ public class UtilBDD {
                 """
                 CREATE TABLE IF NOT EXISTS Player(
                    IDPlayer INT AUTO_INCREMENT,
-                   Name VARCHAR(15) NOT NULL UNIQUE,
+                   Username VARCHAR(15) NOT NULL UNIQUE,
                    Password VARCHAR(100),
                    ProfileCreationDate DATE,
                    PRIMARY KEY(IDPlayer)
@@ -96,6 +98,21 @@ public class UtilBDD {
             return false;
         }
     }
+    public static boolean playerExist(String username) {
+        String sql = "SELECT COUNT(IDPlayer) FROM Player WHERE Username = ?";
+
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public static boolean gameExist(int IDGame) {
         String sql = "SELECT COUNT(IDGame) FROM Game WHERE IDGame = ?";
 
@@ -130,59 +147,72 @@ public class UtilBDD {
 
 
     /* ~~~~~~~~~~~~ Create ~~~~~~~~~~~~ */
-    public static void insertPlayer(Player p) {
-        if (playerExist(p.getIDPlayer())) {
-            System.out.println("This player's ID already exists.");
+    public static boolean insertPlayer(String username, String password) {
+        if (playerExist(username)) {
+            System.out.println("This player's username already exists.");
         } else {
             try {
                 Connection c = getConnection();
-                String sql = "INSERT INTO Player (IDPlayer, Name, Password, ProfileCreationDate) VALUES (?, ?, ?, ?)";
+                String sql = "INSERT INTO Player (IDPlayer, Username, Password, ProfileCreationDate) VALUES (NULL, ?, ?, ?)";
                 PreparedStatement ps = c.prepareStatement(sql);
-                ps.setInt(1, p.getIDPlayer());
-                ps.setString(2, p.getName());
-                ps.setString(3, p.getPasswordHash());
-                ps.setDate(4, p.getProfileCreationDate());
+                ps.setString(1, username);
+                ps.setString(2, password);
+                ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
                 ps.executeUpdate();
                 System.out.println("Player successfully inserted in the database !");
+                return true;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        return false;
     }
-    public static void insertGame(Game game) {
-        try {
-            Connection c = getConnection();
-            String sql = "INSERT INTO Game (IDGame, GameDate, Finished, IDWinner, IDPlayerX, IDPlayerO) VALUES (?, ?, ?, NULL, ?, ?)";
-            PreparedStatement ps = c.prepareStatement(sql);
-            ps.setInt(1, game.getIDGame());
-            ps.setTimestamp(2, game.getGameDate()); // Assurez-vous que getGameDate() renvoie un Timestamp
-            ps.setBoolean(3, false);
-            if (game.getPlayers()[0].isStarter()) {
-                ps.setInt(4, game.getPlayers()[0].getIDPlayer());
-                ps.setInt(5, game.getPlayers()[1].getIDPlayer());
-            } else {
-                ps.setInt(4, game.getPlayers()[1].getIDPlayer());
-                ps.setInt(5, game.getPlayers()[0].getIDPlayer());
-            }
+    public static boolean insertGame(Game game) {
+        if (gameExist(game.getIDGame())) {
+            System.out.println("This game's ID already exists.");
+        } else {
+            try {
+                Connection c = getConnection();
+                String sql = "INSERT INTO Game (IDGame, GameDate, Finished, IDWinner, IDPlayerX, IDPlayerO) VALUES (?, ?, ?, NULL, ?, ?)";
+                PreparedStatement ps = c.prepareStatement(sql);
+                ps.setInt(1, game.getIDGame());
+                ps.setTimestamp(2, game.getGameDate()); // Assurez-vous que getGameDate() renvoie un Timestamp
+                ps.setBoolean(3, false);
+                if (game.getPlayers()[0].isStarter()) {
+                    ps.setInt(4, game.getPlayers()[0].getIDPlayer());
+                    ps.setInt(5, game.getPlayers()[1].getIDPlayer());
+                } else {
+                    ps.setInt(4, game.getPlayers()[1].getIDPlayer());
+                    ps.setInt(5, game.getPlayers()[0].getIDPlayer());
+                }
 
-            ps.executeUpdate();
-            System.out.println("Game successfully inserted in the database !");
-        } catch (SQLException e) {
-            e.printStackTrace();
+                ps.executeUpdate();
+                System.out.println("Game successfully inserted in the database !");
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return false;
     }
-    public static void insertScore(int IDPlayer, int IDOpponent) {
-        try {
-            Connection c = getConnection();
-            String sql = "INSERT INTO Score (IDPlayer, IDOpponent, NumberGames, NumberWins, NumberLosses) VALUES (?, ?, 0, 0, 0)";
-            PreparedStatement ps = c.prepareStatement(sql);
-            ps.setInt(1, IDPlayer);
-            ps.setInt(2, IDOpponent);
-            ps.executeUpdate();
-            System.out.println("Score successfully inserted in the database !");
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static boolean insertScore(int IDPlayer, int IDOpponent) {
+        if (scoreExist(IDPlayer, IDOpponent)) {
+            System.out.println("A relation between these two players already exists.");
+        } else {
+            try {
+                Connection c = getConnection();
+                String sql = "INSERT INTO Score (IDPlayer, IDOpponent, NumberGames, NumberWins, NumberLosses) VALUES (?, ?, 0, 0, 0)";
+                PreparedStatement ps = c.prepareStatement(sql);
+                ps.setInt(1, IDPlayer);
+                ps.setInt(2, IDOpponent);
+                ps.executeUpdate();
+                System.out.println("Score successfully inserted in the database !");
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return false;
     }
 
 
@@ -201,11 +231,11 @@ public class UtilBDD {
 
             while (rs.next()) {
                 int idPlayer = rs.getInt("IDPlayer");
-                String name = rs.getString("Name");
+                String username = rs.getString("Username");
                 String passwordHash = rs.getString("Password");
                 java.sql.Date profileCreationDate = rs.getDate("ProfileCreationDate");
 
-                Player p = new Player(idPlayer, name, passwordHash, profileCreationDate);
+                Player p = new Player(idPlayer, username, passwordHash, profileCreationDate);
                 players.add(p);
             }
         } catch (SQLException e) {
@@ -255,11 +285,11 @@ public class UtilBDD {
             rs.next();
 
             int idPlayer = rs.getInt("IDPlayer");
-            String name = rs.getString("Name");
+            String username = rs.getString("Username");
             String passwordHash = rs.getString("Password");
             java.sql.Date profileCreationDate = rs.getDate("ProfileCreationDate");
 
-            return(new Player(idPlayer, name, passwordHash, profileCreationDate));
+            return(new Player(idPlayer, username, passwordHash, profileCreationDate));
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -324,13 +354,13 @@ public class UtilBDD {
         } else {
             try {
                 String sql = switch (indiceAttribut) {
-                    case 1 -> sql = "UPDATE Player SET name = ? WHERE IDPlayer = ?";
+                    case 1 -> sql = "UPDATE Player SET username = ? WHERE IDPlayer = ?";
                     case 2 -> sql = "UPDATE Player SET passwordHash = ? WHERE IDPlayer = ?";
                     case 3 -> sql = "UPDATE Player SET profileCreationDate = ? WHERE IDPlayer = ?";
                     default -> throw new IllegalStateException("""
                             Modification not possible !
                             Choice for the index :
-                            1 : Name
+                            1 : Userame
                             2 : PasswordHash
                             3 : Profile Creation Date""");
                 };
@@ -529,6 +559,28 @@ public class UtilBDD {
     }
 
 
-
     /* ================ Autres méthodes ================= */
+    public static boolean verifyPassword(String username, String password) {
+        if (!playerExist(username)) {
+            System.out.println("This player's username does not exist.");
+        } else {
+            try {
+                String sql = "SELECT password FROM Player WHERE username = ?";
+
+                Connection c = getConnection();
+                PreparedStatement ps = c.prepareStatement(sql);
+                ps.setString(1, username);
+
+                ResultSet rs = ps.executeQuery();
+
+                rs.next();
+                String password_database = rs.getString("password");
+
+                return (password.equals(password_database));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }

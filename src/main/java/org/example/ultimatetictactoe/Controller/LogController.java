@@ -1,78 +1,119 @@
 package org.example.ultimatetictactoe.Controller;
 
+import BDD.UtilBDD;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LogController {
-    @FXML
-    private TextField signInUsernameField;
-    @FXML private PasswordField signInPasswordField;
-    @FXML private TextField logInUsernameField;
-    @FXML private PasswordField logInPasswordField;
-    @FXML private Text passwordNotIdenticalText;
+    @FXML private Button create_account;
+    @FXML private Button log_in;
+    @FXML private TextField signin_username_textfield;
+    @FXML private PasswordField signin_password_textfield;
+    @FXML private PasswordField signin_password_confirmation_textfield;
+    @FXML private TextField login_username_textfield;
+    @FXML private PasswordField login_password_textfield;
 
     @FXML
     protected void onCreateAccountButtonClick() {
-        String username = signInUsernameField.getText();
-        String password = signInPasswordField.getText();
+        String username = signin_username_textfield.getText();
+        String password = String.valueOf(signin_password_textfield.getText().hashCode());
+        String password_confirmation = String.valueOf(signin_password_confirmation_textfield.getText().hashCode());
 
-        // Vérifier que le nom d'utilisateur n'existe pas déjà et que la confirmation du mot de passe correspond
         // Check that the username does not already exist
-        if (userExists(username)) {
-            showAlert("User already exists", "Please choose a different username.", Alert.AlertType.ERROR);
+        if (UtilBDD.playerExist(username)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("User already exists. Please choose a different username.");
+            alert.showAndWait();
+
+            signin_username_textfield.setText("");
+            signin_password_textfield.setText("");
+            signin_password_confirmation_textfield.setText("");
+
             return;
         }
 
-        if (!passwordsMatch()) {
-            // Afficher un message d'erreur si les mots de passe ne correspondent pas
-            passwordNotIdenticalText.setOpacity(1.0); // Rendre le texte d'erreur visible
+        // Check that the password confirmation matches the password
+        if (!password.equals(password_confirmation)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("The password confirmation does not match the initial password. Please choose a different username.");
+            alert.showAndWait();
+
+            signin_username_textfield.setText("");
+            signin_password_textfield.setText("");
+            signin_password_confirmation_textfield.setText("");
+
             return;
         }
 
-        createUser(username, password);
+        if (UtilBDD.insertPlayer(username, password)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+            alert.setTitle("Account Information");
+            alert.setHeaderText(null);
+            alert.setContentText("Your account has been successfully created !");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("Account Information");
+            alert.setHeaderText(null);
+            alert.setContentText("We did not achieve to create your account ! Please, try later !");
+            alert.showAndWait();
+        }
+
+        signin_username_textfield.setText("");
+        signin_password_textfield.setText("");
+        signin_password_confirmation_textfield.setText("");
     }
 
     @FXML
-    protected void onLogInButtonClick() {
-        String username = logInUsernameField.getText();
-        String password = logInPasswordField.getText();
+    protected void onLogInButtonClick(ActionEvent event) {
+        String username = login_username_textfield.getText();
+        String password = String.valueOf(login_password_textfield.getText().hashCode());
 
-        if (authenticate(username, password)) {
-            // L'utilisateur est authentifié, vous pouvez maintenant changer de scène ou mettre à jour l'interface utilisateur
+        if (UtilBDD.verifyPassword(username, password)) {
+            try {
+                // Load the configuration-view FXML file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/ultimatetictactoe/menu-view.fxml"));
+                Parent gameViewRoot = loader.load();
+
+                // Create the configurationController
+                MenuController menuController = loader.getController();
+
+                // Get the current stage using the event source
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+                // Set the new scene
+                stage.setScene(new Scene(gameViewRoot));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
-            // Afficher un message d'erreur
-            showAlert("Login Failed", "Incorrect username or password.", Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("Login Failed");
+            alert.setHeaderText(null);
+            alert.setContentText("Incorrect username or password.");
+            alert.showAndWait();
         }
-    }
-
-    private boolean userExists(String username) {
-        // Implémentez la logique pour vérifier si un utilisateur existe déjà dans la base de données
-        return true;
-    }
-
-    private boolean passwordsMatch() {
-        // Implémentez la logique pour vérifier si les mots de passe correspondent
-        return true;
-    }
-
-    private void createUser(String username, String password) {
-        // Implémentez la logique pour créer un nouvel utilisateur dans la base de données
-    }
-
-    private boolean authenticate(String username, String password) {
-        // Implémentez la logique pour authentifier un utilisateur
-        return true;
-    }
-
-    private void showAlert(String title, String content, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-
-        alert.setTitle(title);
-        alert.setContentText(content);
-        alert.setHeaderText(null);
-        alert.showAndWait();
     }
 }
