@@ -6,7 +6,7 @@ import java.sql.Date;
  * Represents a player in the Ultimate Tic Tac Toe game.
  */
 public class Player {
-    private String name; // The player's name
+    private String username; // The player's name
     private int IDPlayer; // The player's ID
     private String passwordHash; // The hashed password for the player (for authentication)
     private java.sql.Date profileCreationDate; // The date when the player's profile was created
@@ -20,17 +20,17 @@ public class Player {
      *
      * @return The player's name.
      */
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
     /**
      * Sets the player's name.
      *
-     * @param name The player's name to set.
+     * @param username The player's name to set.
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -162,11 +162,11 @@ public class Player {
     /**
      * Constructs a new Player object with a name and whether it represents the local player.
      *
-     * @param name The player's name.
+     * @param username The player's name.
      * @param me   true if the player represents the local player, false otherwise.
      */
-    public Player(String name, boolean me) {
-        this.name = name;
+    public Player(String username, boolean me) {
+        this.username = username;
         this.winner = false;
         this.starter = false;
         this.me = me;
@@ -177,13 +177,13 @@ public class Player {
      * Constructs a Player object with an ID, name, password hash, and profile creation date.
      *
      * @param idPlayer           The player's ID.
-     * @param name               The player's name.
+     * @param username               The player's name.
      * @param passwordHash       The hashed password for the player.
      * @param profileCreationDate The date when the player's profile was created.
      */
-    public Player(int idPlayer, String name, String passwordHash, Date profileCreationDate) {
+    public Player(int idPlayer, String username, String passwordHash, Date profileCreationDate) {
         this.IDPlayer = idPlayer;
-        this.name = name;
+        this.username = username;
         this.passwordHash = passwordHash;
         this.profileCreationDate = profileCreationDate;
     }
@@ -191,9 +191,9 @@ public class Player {
     /**
      * Constructs a Player object with a name.
      *
-     * @param name The player's name.
+     * @param username The player's name.
      */
-    public Player(String name) {
-        new Player(name, true);
+    public Player(String username) {
+        new Player(username, true);
     }
 }

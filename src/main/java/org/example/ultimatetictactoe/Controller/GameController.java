@@ -441,7 +441,7 @@ public class GameController {
     private void onWin() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game Over");
-        alert.setContentText("Congratulations, " + currentGame.getCurrentPlayer().getName() + "! You have won the game!");
+        alert.setContentText("Congratulations, " + currentGame.getCurrentPlayer().getUsername() + "! You have won the game!");
 
         alert.showAndWait();
 
