@@ -38,22 +38,22 @@
    <TextField fx:id="connection_port_field" layoutX="343.0" layoutY="223.0" />
    <ImageView fitHeight="40.0" fitWidth="80.0" layoutX="40.0" layoutY="216.0">
       <image>
-         <Image url="@../../../Skins/Skin_icon3.png" />
+         <Image url="@../../../Skin_icon3.png" />
       </image>
    </ImageView>
    <ImageView fitHeight="40.0" fitWidth="80.0" layoutX="173.0" layoutY="216.0">
       <image>
-         <Image url="@../../../Skins/Skin_icon2.png" />
+         <Image url="@../../../Skin_icon2.png" />
       </image>
    </ImageView>
    <ImageView fitHeight="40.0" fitWidth="80.0" layoutX="173.0" layoutY="141.0">
       <image>
-         <Image url="@../../../Skins/Skin_icon1.png" />
+         <Image url="@../../../Skin_icon1.png" />
       </image>
    </ImageView>
    <ImageView fitHeight="40.0" fitWidth="80.0" layoutX="40.0" layoutY="141.0">
       <image>
-         <Image url="@../../../Skins/Skin_icon.png" />
+         <Image url="@../../../Skin_icon.png" />
       </image>
    </ImageView>
    <Button layoutX="53.0" layoutY="188.0" mnemonicParsing="false" onAction="#onSkin0buttonClicked" text="X VS O" />

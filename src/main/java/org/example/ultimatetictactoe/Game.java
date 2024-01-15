@@ -10,7 +10,9 @@ import java.sql.Timestamp;
  */
 public class Game {
     private int IDGame; //Game ID
+
     private java.sql.Timestamp gameDate; //Date of the game
+
     private Board board; //Game board
     private Player[] players = new Player[2]; //The game's players
     private Player currentPlayer;  //The current player

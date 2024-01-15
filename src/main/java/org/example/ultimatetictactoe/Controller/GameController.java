@@ -408,30 +408,30 @@ public class GameController {
             String winningImageUrl = null;
             if (currentGame.getSymbolSkin() == 0) {
                 if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
-                    winningImageUrl = "Skins/X_icon.png";
+                    winningImageUrl = "X_icon.png";
                 } else {
-                    winningImageUrl = "Skins/O_icon.png";
+                    winningImageUrl = "O_icon.png";
                 }
             }
             if (currentGame.getSymbolSkin() == 1) {
                 if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
-                    winningImageUrl = "Skins/X_icon1.png";
+                    winningImageUrl = "X_icon1.png";
                 } else {
-                    winningImageUrl = "Skins/O_icon1.png";
+                    winningImageUrl = "O_icon1.png";
                 }
             }
             if (currentGame.getSymbolSkin() == 2) {
                 if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
-                    winningImageUrl = "Skins/X_icon2.png";
+                    winningImageUrl = "X_icon2.png";
                 } else {
-                    winningImageUrl = "Skins/O_icon2.png";
+                    winningImageUrl = "O_icon2.png";
                 }
             }
             if (currentGame.getSymbolSkin() == 3) {
                 if (currentGame.getCurrentPlayer().symbol == Symbol.O) {
-                    winningImageUrl = "Skins/X_icon3.png";
+                    winningImageUrl = "X_icon3.png";
                 } else {
-                    winningImageUrl = "Skins/O_icon3.png";
+                    winningImageUrl = "O_icon3.png";
                 }
             }
             findImageByCoordinates(bigGridX, bigGridY).setImage(new Image(winningImageUrl));

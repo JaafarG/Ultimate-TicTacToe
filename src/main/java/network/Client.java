@@ -96,20 +96,20 @@ public class Client implements Listener {
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.X);
                 gameController.updatePlayingText("You're playing X");
                 if(symbolSkin == 0 ){
-                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon.png"));
                 }
                 if(symbolSkin == 1 ){
-                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon1.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon1.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon1.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon1.png"));
                 }
                 if(symbolSkin == 2 ){
-                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon2.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon2.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon2.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon2.png"));
                 }
                 if(symbolSkin == 3 ){
-                    gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon3.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon3.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/O_icon3.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/X_icon3.png"));
                 }
             }
             // Client will play "O"
@@ -120,20 +120,20 @@ public class Client implements Listener {
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.O);
                 gameController.updatePlayingText("You're playing O");
                 if(symbolSkin == 0 ){
-                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon.png"));
                 }
                 if(symbolSkin == 1 ){
-                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon1.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon1.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon1.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon1.png"));
                 }
                 if(symbolSkin == 2 ){
-                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon2.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon2.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon2.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon2.png"));
                 }
                 if(symbolSkin == 3 ){
-                    gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon3.png"));
-                    gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon3.png"));
+                    gameController.setImagePlayer1(getClass().getResource("/X_icon3.png"));
+                    gameController.setImagePlayer2(getClass().getResource("/O_icon3.png"));
                 }
             }
             // Server won
