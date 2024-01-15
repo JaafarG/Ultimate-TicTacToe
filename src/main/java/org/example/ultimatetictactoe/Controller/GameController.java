@@ -390,7 +390,7 @@ public class GameController {
                 adviceText.setText("Move not allowed !");
                 adviceText.setOpacity(1.0);
             }
-            if(currentGame.getGridView().checkSmallGridWin()){
+            if(currentGame.checkGameWin(currentGame.getCurrentPlayer())){
                 onWin();
             }
         // If it is not your turn
@@ -439,6 +439,17 @@ public class GameController {
     }
 
     private void onWin() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Over");
+        alert.setContentText("Congratulations, " + currentGame.getCurrentPlayer().getName() + "! You have won the game!");
+
+        alert.showAndWait();
+
+        if (currentGame.getCurrentPlayer() == currentGame.getPlayers()[0]) { // Server wins
+            server.getConnection().sendMessage("OK");
+        } else { // Client wins
+            client.getConnection().sendMessage("OK");
+        }
 
 
     }

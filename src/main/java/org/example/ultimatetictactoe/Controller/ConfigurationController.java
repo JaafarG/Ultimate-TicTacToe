@@ -56,6 +56,7 @@ public class ConfigurationController {
             if (gameController.getCurrentGame().getPlayers()[0].isStarter()) {
                 gameController.getCurrentGame().getPlayers()[0].setSymbol(Symbol.X);
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.O);
+                //Picks the image based on the chosen skin
                 if(symbolSkin == 0 ){
                     gameController.setImagePlayer1(getClass().getResource("/Skins/X_icon.png"));
                     gameController.setImagePlayer2(getClass().getResource("/Skins/O_icon.png"));
@@ -79,6 +80,7 @@ public class ConfigurationController {
             } else {
                 gameController.getCurrentGame().getPlayers()[0].setSymbol(Symbol.O);
                 gameController.getCurrentGame().getPlayers()[1].setSymbol(Symbol.X);
+                //Picks the image based on the chosen skin
                 if(symbolSkin == 0 ){
                     gameController.setImagePlayer1(getClass().getResource("/Skins/O_icon.png"));
                     gameController.setImagePlayer2(getClass().getResource("/Skins/X_icon.png"));
@@ -178,7 +180,7 @@ public class ConfigurationController {
         IPAddress = ip;
         connectionPort = port;
     }
-
+    //Functions for the
     @FXML
     public void onSkin0buttonClicked() {
         symbolSkin = 0;
