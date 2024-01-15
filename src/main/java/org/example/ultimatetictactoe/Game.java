@@ -255,20 +255,6 @@ public class Game {
         board.getGrid()[BigGrid1][BigGrid2].setFull(board.getGrid()[BigGrid1][BigGrid2].checkSmallGridFull());
 
 
-        // Check if the current small grid is won by the current player and not full
-        if (board.getGrid()[SmallGrid1][SmallGrid2].checkSmallGridWin() && SmallGrid2 == BigGrid2 && SmallGrid1 == BigGrid1) {
-            // Iterate through all small grids and mark them as playable if not won or full
-            for (int i = 0; i < board.getGrid().length; i++) {
-                for (int j = 0; j < board.getGrid()[i].length; j++) {
-                    System.out.println("Current grids will be : " + SmallGrid1 + SmallGrid2);
-                    if (!board.getGrid()[i][j].isWin() && !board.getGrid()[i][j].isFull()) {
-                        board.getCurrentGrid()[i][j] = true;
-                        System.out.println("Current grids will be : " + i + j);
-                    }
-                }
-            }
-            board.getCurrentGrid()[SmallGrid1][SmallGrid2] = true;
-        }
 
         // Check if the current big grid is full or won by a player
         if (board.getGrid()[SmallGrid1][SmallGrid2].isWin() || board.getGrid()[SmallGrid1][SmallGrid2].isFull()) {
@@ -291,6 +277,22 @@ public class Game {
             }
             board.getCurrentGrid()[SmallGrid1][SmallGrid2] = true;
             System.out.println("Current grids will be : " + SmallGrid1 + SmallGrid2);
+        }
+
+        // Check if the current small grid is won by the current player and not full
+        if ((SmallGrid2 == BigGrid2 && SmallGrid1 == BigGrid1) && (board.getGrid()[BigGrid1][BigGrid2].checkSmallGridWin() || board.getGrid()[BigGrid1][BigGrid2].checkSmallGridFull()))
+        {
+            // Iterate through all small grids and mark them as playable if not won or full
+            for (int i = 0; i < board.getGrid().length; i++) {
+                for (int j = 0; j < board.getGrid()[i].length; j++) {
+                    System.out.println("Current grids will be : " + SmallGrid1 + SmallGrid2);
+                    if (!board.getGrid()[i][j].isWin() && !board.getGrid()[i][j].isFull()) {
+                        board.getCurrentGrid()[i][j] = true;
+                        System.out.println("Current grids will be : " + i + j);
+                    }
+                }
+            }
+            board.getCurrentGrid()[SmallGrid1][SmallGrid2] = false;
         }
 
         // Set the win status of the big grid based on the small grid's win status
