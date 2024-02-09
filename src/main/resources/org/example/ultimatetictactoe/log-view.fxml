@@ -1,83 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<?import javafx.scene.control.PasswordField?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ultimatetictactoe.Controller.LogController">
    <children>
-      <Text layoutX="78.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ultimate TicTacToe" wrappingWidth="445.13671875">
+      <Text layoutX="78.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Play against a bot :" wrappingWidth="445.13671875">
          <font>
             <Font size="52.0" />
          </font>
       </Text>
-      <Text layoutX="339.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :" wrappingWidth="106.3603515625">
+      <ImageView fitHeight="40.0" fitWidth="80.0" layoutX="322.0" layoutY="248.0">
+         <image>
+            <Image url="@../../../Skin_icon3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="80.0" layoutX="455.0" layoutY="248.0">
+         <image>
+            <Image url="@../../../Skin_icon2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="80.0" layoutX="179.0" layoutY="248.0">
+         <image>
+            <Image url="@../../../Skin_icon1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="80.0" layoutX="46.0" layoutY="248.0">
+         <image>
+            <Image url="@../../../Skin_icon.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="59.0" layoutY="295.0" mnemonicParsing="false" text="X VS O" />
+      <Button layoutX="159.0" layoutY="295.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Jaafar VS Theo" />
+      <Button layoutX="435.0" layoutY="295.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Soukhal VS Vendé" />
+      <Button layoutX="296.0" layoutY="295.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="131.0" text="Néron VS Martineau" />
+      <Button layoutX="147.0" layoutY="336.0" mnemonicParsing="false" text="Start Game">
          <font>
-            <Font size="17.0" />
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Text layoutX="224.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose skin :" wrappingWidth="144.0">
+         <font>
+            <Font size="22.0" />
          </font>
       </Text>
-      <Text layoutX="339.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password :" wrappingWidth="106.3603515625">
+      <Button layoutX="318.0" layoutY="336.0" mnemonicParsing="false" text="Menu">
          <font>
-            <Font size="17.0" />
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Text layoutX="185.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose bot difficulty :" wrappingWidth="222.0">
+         <font>
+            <Font size="22.0" />
          </font>
       </Text>
-      <TextField fx:id="login_username_textfield" layoutX="339.0" layoutY="196.0" prefHeight="32.0" prefWidth="227.0">
+      <Button layoutX="121.0" layoutY="166.0" mnemonicParsing="false" text="Choose" />
+      <Text layoutX="109.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level 1" wrappingWidth="80.0">
          <font>
-            <Font size="17.0" />
-         </font>
-      </TextField>
-      <PasswordField fx:id="login_password_textfield" layoutX="339.0" layoutY="259.0" prefHeight="26.0" prefWidth="227.0">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </PasswordField>
-      <Line endX="-100.0" endY="254.0" layoutX="400.0" layoutY="93.0" startX="-100.0" />
-      <Text layoutX="43.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :" wrappingWidth="106.3603515625">
-         <font>
-            <Font size="17.0" />
+            <Font size="22.0" />
          </font>
       </Text>
-      <Text layoutX="43.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password :" wrappingWidth="106.3603515625">
+      <Button layoutX="268.0" layoutY="170.0" mnemonicParsing="false" text="Choose" />
+      <Text layoutX="261.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level 2" wrappingWidth="80.0">
          <font>
-            <Font size="17.0" />
+            <Font size="22.0" />
          </font>
       </Text>
-      <TextField fx:id="signin_username_textfield" layoutX="43.0" layoutY="164.0" prefHeight="32.0" prefWidth="227.0">
+      <Button layoutX="419.0" layoutY="170.0" mnemonicParsing="false" text="Choose" />
+      <Text layoutX="415.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level 3" wrappingWidth="80.0">
          <font>
-            <Font size="17.0" />
-         </font>
-      </TextField>
-      <PasswordField fx:id="signin_password_textfield" layoutX="43.0" layoutY="227.0" prefHeight="26.0" prefWidth="227.0">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </PasswordField>
-      <Text layoutX="43.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retype Password :" wrappingWidth="227.0">
-         <font>
-            <Font size="17.0" />
+            <Font size="22.0" />
          </font>
       </Text>
-      <PasswordField fx:id="signin_password_confirmation_textfield" layoutX="43.0" layoutY="291.0" prefHeight="26.0" prefWidth="227.0">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </PasswordField>
-      <Text layoutX="103.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in" wrappingWidth="106.3603515625">
-         <font>
-            <Font size="29.0" />
-         </font>
-      </Text>
-      <Text layoutX="399.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in" wrappingWidth="106.3603515625">
-         <font>
-            <Font size="29.0" />
-         </font>
-      </Text>
-      <Button fx:id="create_account" layoutX="103.0" layoutY="355.0" mnemonicParsing="false" onAction="#onCreateAccountButtonClick" prefHeight="25.0" prefWidth="106.0" text="Create account" />
-      <Button fx:id="log_in" layoutX="384.0" layoutY="355.0" mnemonicParsing="false" onAction="#onLogInButtonClick" prefHeight="25.0" prefWidth="106.0" text="Log in" />
    </children>
 </AnchorPane>
